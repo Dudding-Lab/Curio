@@ -2,7 +2,8 @@
 
 Sauberes Projektfundament für die Curio-App (Flutter + Supabase).
 
-**Repository:** https://github.com/Dudding-Lab/Curio
+**Repository:** https://github.com/Dudding-Lab/Curio  
+**Supabase-Projekt:** https://tgawxheqrcqhcvxaexvd.supabase.co
 
 ## Kernkonzept
 - **Haushalte (Households)**: Gemeinsame Arbeitsräume für Sammlungen
@@ -43,19 +44,24 @@ git clone https://github.com/Dudding-Lab/Curio.git
 cd Curio
 ```
 
-### 2. Supabase lokal starten
+### 2. Supabase-Migrationen anwenden
+Im Supabase-Dashboard (SQL Editor) die Dateien aus `supabase/migrations/` ausführen  
+oder lokal mit der Supabase CLI:
 ```bash
-supabase init   # falls noch nicht geschehen
-supabase start
-supabase db reset
+supabase link --project-ref tgawxheqrcqhcvxaexvd
+supabase db push
 ```
 
-### 3. Flutter-App
+### 3. Flutter-App starten
 ```bash
 cd flutter_app
 flutter pub get
-flutter run --dart-define=SUPABASE_URL=your_url --dart-define=SUPABASE_ANON_KEY=your_anon_key
+flutter run \
+  --dart-define=SUPABASE_URL=https://tgawxheqrcqhcvxaexvd.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=IHR_ANON_KEY
 ```
+
+> **Sicherheit:** Den Anon-Key niemals in Git committen. Verwenden Sie `--dart-define` oder eine lokale `.env`-Datei (bereits in `.gitignore`).
 
 ## Wichtige Sicherheitsregeln
 - Service-Role-Key niemals im Flutter-Client
