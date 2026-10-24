@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final householdsProvider = StreamProvider.autoDispose<List<Map<String, dynamic>>>((ref) {
+final householdsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {
   final supabase = Supabase.instance.client;
-  return supabase
+  final data = await supabase
       .from('households')
-      .stream(primaryKey: ['id'])
-      .order('created_at', ascending: false)
-      .map((data) => data);
+      .select()
+      .order('created_at', ascending: false);
+  return List<Map<String, dynamic>>.from(data);
 });
 
 class HouseholdListScreen extends ConsumerWidget {
   const HouseholdListScreen({super.key});
 
-  Future<void> _createHousehold(BuildContext context) async {
+  Future<void> _createHousehold(BuildContext context, WidgetRef ref) async {
     final nameController = TextEditingController();
     final result = await showDialog<String>(
       context: context,
@@ -44,6 +44,7 @@ class HouseholdListScreen extends ConsumerWidget {
           'name': result,
           'created_by': Supabase.instance.client.auth.currentUser!.id,
         });
+        ref.invalidate(householdsProvider);
       } catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -66,6 +67,10 @@ class HouseholdListScreen extends ConsumerWidget {
             icon: const Icon(Icons.logout),
             onPressed: () => Supabase.instance.client.auth.signOut(),
           ),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(householdsProvider),
+          ),
         ],
       ),
       body: householdsAsync.when(
@@ -83,7 +88,6 @@ class HouseholdListScreen extends ConsumerWidget {
                 title: Text(household['name'] as String? ?? 'Unbenannt'),
                 subtitle: Text('Erstellt: ${household['created_at'] ?? ''}'),
                 onTap: () {
-                  // TODO: Navigation zu Collections/Items des Haushalts
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Haushalt ${household['name']} ausgewählt')),
                   );
@@ -93,10 +97,22 @@ class HouseholdListScreen extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Fehler: $error')),
+        error: (error, stack) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Fehler: $error'),
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: () => ref.invalidate(householdsProvider),
+                child: const Text('Erneut versuchen'),
+              ),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _createHousehold(context),
+        onPressed: () => _createHousehold(context, ref),
         child: const Icon(Icons.add),
       ),
     );
