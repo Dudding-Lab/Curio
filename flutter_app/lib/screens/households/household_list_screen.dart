@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 final householdsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {
   final supabase = Supabase.instance.client;
@@ -88,9 +89,8 @@ class HouseholdListScreen extends ConsumerWidget {
                 title: Text(household['name'] as String? ?? 'Unbenannt'),
                 subtitle: Text('Erstellt: ${household['created_at'] ?? ''}'),
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Haushalt ${household['name']} ausgewählt')),
-                  );
+                  final name = household['name'] as String? ?? 'Haushalt';
+                  context.push('/households/${household['id']}/collections?name=${Uri.encodeComponent(name)}');
                 },
               );
             },
