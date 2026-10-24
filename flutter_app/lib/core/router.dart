@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:curio/screens/auth/login_screen.dart';
 import 'package:curio/screens/households/household_list_screen.dart';
+import 'package:curio/screens/collections/collections_list_screen.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -32,6 +33,19 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/households',
         builder: (context, state) => const HouseholdListScreen(),
+        routes: [
+          GoRoute(
+            path: ':householdId/collections',
+            builder: (context, state) {
+              final householdId = state.pathParameters['householdId']!;
+              final householdName = state.uri.queryParameters['name'];
+              return CollectionsListScreen(
+                householdId: householdId,
+                householdName: householdName,
+              );
+            },
+          ),
+        ],
       ),
     ],
   );
