@@ -2,11 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+final householdsProvider = StreamProvider.autoDispose<List<Map<String, dynamic>>>((ref) {
+  final supabase = Supabase.instance.client;
+  return supabase
+      .from('households')
+      .stream(primaryKey: ['id'])
+      .order('created_at', ascending: false)
+      .map((data) => data);
+});
+
 class HouseholdListScreen extends ConsumerWidget {
   const HouseholdListScreen({super.key});
 
+  Future<void> _createHousehold(BuildContext context) async {
+    final nameController = TextEditingController();
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Neuen Haushalt anlegen'),
+        content: TextField(
+          controller: nameController,
+          decoration: const InputDecoration(labelText: 'Name des Haushalts'),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Abbrechen'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, nameController.text.trim()),
+            child: const Text('Anlegen'),
+          ),
+        ],
+      ),
+    );
+
+    if (result != null && result.isNotEmpty) {
+      try {
+        await Supabase.instance.client.from('households').insert({
+          'name': result,
+          'created_by': Supabase.instance.client.auth.currentUser!.id,
+        });
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Fehler: $e')),
+          );
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final householdsAsync = ref.watch(householdsProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Haushalte'),
@@ -17,13 +68,35 @@ class HouseholdListScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('Haushaltsliste – Implementierung folgt'),
+      body: householdsAsync.when(
+        data: (households) {
+          if (households.isEmpty) {
+            return const Center(
+              child: Text('Noch keine Haushalte vorhanden.\nLegen Sie den ersten an.'),
+            );
+          }
+          return ListView.builder(
+            itemCount: households.length,
+            itemBuilder: (context, index) {
+              final household = households[index];
+              return ListTile(
+                title: Text(household['name'] as String? ?? 'Unbenannt'),
+                subtitle: Text('Erstellt: ${household['created_at'] ?? ''}'),
+                onTap: () {
+                  // TODO: Navigation zu Collections/Items des Haushalts
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Haushalt ${household['name']} ausgewählt')),
+                  );
+                },
+              );
+            },
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Fehler: $error')),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Create household dialog
-        },
+        onPressed: () => _createHousehold(context),
         child: const Icon(Icons.add),
       ),
     );
