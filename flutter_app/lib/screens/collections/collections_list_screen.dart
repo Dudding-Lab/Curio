@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:curio/l10n/app_localizations.dart';
+import 'package:curio/core/language_menu.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -24,24 +26,25 @@ class CollectionsListScreen extends ConsumerWidget {
   });
 
   Future<void> _createCollection(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
     final nameController = TextEditingController();
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Neue Sammlung anlegen'),
+        title: Text(l10n.newCollection),
         content: TextField(
           controller: nameController,
-          decoration: const InputDecoration(labelText: 'Name der Sammlung'),
+          decoration: InputDecoration(labelText: l10n.collectionName),
           autofocus: true,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Abbrechen'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, nameController.text.trim()),
-            child: const Text('Anlegen'),
+            child: Text(l10n.create),
           ),
         ],
       ),
@@ -58,7 +61,7 @@ class CollectionsListScreen extends ConsumerWidget {
       } catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Fehler: $e')),
+            SnackBar(content: Text(l10n.errorOccurred)),
           );
         }
       }
@@ -67,11 +70,12 @@ class CollectionsListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final collectionsAsync = ref.watch(collectionsProvider(householdId));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(householdName ?? 'Sammlungen'),
+        title: Text(householdName ?? l10n.collections),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.pop(),
@@ -80,8 +84,8 @@ class CollectionsListScreen extends ConsumerWidget {
       body: collectionsAsync.when(
         data: (collections) {
           if (collections.isEmpty) {
-            return const Center(
-              child: Text('Noch keine Sammlungen vorhanden.\nLegen Sie die erste an.'),
+            return Center(
+              child: Text(l10n.noCollections),
             );
           }
           return ListView.builder(
@@ -89,11 +93,11 @@ class CollectionsListScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final collection = collections[index];
               return ListTile(
-                title: Text(collection['name'] as String? ?? 'Unbenannt'),
+                title: Text(collection['name'] as String? ?? l10n.untitled),
                 subtitle: Text(collection['description'] as String? ?? ''),
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Sammlung ${collection['name']} ausgewählt')),
+                    SnackBar(content: Text(l10n.collectionSelected)),
                   );
                   // TODO: Navigation zu Items der Sammlung
                 },
@@ -106,11 +110,11 @@ class CollectionsListScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Fehler: $error'),
+              Text(l10n.errorOccurred),
               const SizedBox(height: 16),
               FilledButton(
                 onPressed: () => ref.invalidate(collectionsProvider(householdId)),
-                child: const Text('Erneut versuchen'),
+                child: Text(l10n.retry),
               ),
             ],
           ),
