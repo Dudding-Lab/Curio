@@ -9,8 +9,8 @@ final selectedLocaleProvider =
 });
 
 class LocaleController extends StateNotifier<Locale?> {
-  LocaleController() : super(null) {
-    _restore();
+  LocaleController({bool restore = true}) : super(null) {
+    if (restore) _restore();
   }
 
   static const _key = 'kovunela.language';
