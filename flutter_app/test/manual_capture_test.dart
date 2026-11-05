@@ -16,7 +16,7 @@ void main() {
     expect(draft.normalized().description, 'On the shelf');
     expect(const ManualItemDraft(title: '   ').validate(), 'title');
     expect(
-      ManualItemDraft(title: 'x' * 201).validate(),
+      ManualItemDraft(title: List.filled(201, 'x').join()).validate(),
       'title',
     );
   });
