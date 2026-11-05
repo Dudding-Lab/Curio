@@ -49,5 +49,18 @@
   "featureNotReady": "Cette fonction n'est pas encore disponible.",
   "yourCollections": "Vos collections",
   "openHouseholds": "Ouvrir les foyers",
-  "captureIntro": "Retrouvez les objets qui comptent pour vous au même endroit."
+  "captureIntro": "Retrouvez les objets qui comptent pour vous au même endroit.",
+  "itemTitle": "Nom de l'objet",
+  "itemDescription": "Description (facultatif)",
+  "continueToReview": "Vérifier les détails",
+  "reviewManualItem": "Vérifier l'objet",
+  "editDetails": "Modifier les détails",
+  "nameRequired": "Saisissez le nom de l'objet.",
+  "saveUnavailable": "L'enregistrement n'est pas encore activé. La nouvelle base de données sécurisée doit être configurée.",
+  "saveRequiresWorkspace": "Votre espace personnel doit être configuré avant l'enregistrement.",
+  "manualCapture": "Ajouter un objet manuellement",
+  "manualCaptureHint": "Commencez par un nom. Vous pourrez organiser l'objet plus tard.",
+  "optionalCollectionHint": "Une collection est facultative.",
+  "saveNotReady": "Enregistrement indisponible",
+  "descriptionPlaceholder": "Informations complémentaires sur l'objet"
 }
