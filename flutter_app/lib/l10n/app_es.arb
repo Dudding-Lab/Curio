@@ -49,5 +49,18 @@
   "featureNotReady": "Esta función aún no está disponible.",
   "yourCollections": "Tus colecciones",
   "openHouseholds": "Abrir hogares",
-  "captureIntro": "Guarda lo que te importa en un solo lugar."
+  "captureIntro": "Guarda lo que te importa en un solo lugar.",
+  "itemTitle": "Nombre del objeto",
+  "itemDescription": "Descripción (opcional)",
+  "continueToReview": "Revisar detalles",
+  "reviewManualItem": "Revisar objeto",
+  "editDetails": "Editar detalles",
+  "nameRequired": "Introduce el nombre del objeto.",
+  "saveUnavailable": "Todavía no se puede guardar. Primero hay que configurar la nueva base de datos segura.",
+  "saveRequiresWorkspace": "Debes configurar tu espacio personal antes de guardar.",
+  "manualCapture": "Añadir objeto manualmente",
+  "manualCaptureHint": "Empieza con un nombre. Podrás organizar el objeto más adelante.",
+  "optionalCollectionHint": "La colección es opcional.",
+  "saveNotReady": "Guardado no disponible",
+  "descriptionPlaceholder": "Información adicional sobre el objeto"
 }
