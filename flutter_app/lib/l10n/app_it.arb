@@ -49,5 +49,18 @@
   "featureNotReady": "Questa funzione non è ancora disponibile.",
   "yourCollections": "Le tue collezioni",
   "openHouseholds": "Apri nuclei familiari",
-  "captureIntro": "Riunisci ciò che ami in un unico posto."
+  "captureIntro": "Riunisci ciò che ami in un unico posto.",
+  "itemTitle": "Nome dell'oggetto",
+  "itemDescription": "Descrizione (facoltativa)",
+  "continueToReview": "Controlla i dettagli",
+  "reviewManualItem": "Controlla l'oggetto",
+  "editDetails": "Modifica i dettagli",
+  "nameRequired": "Inserisci il nome dell'oggetto.",
+  "saveUnavailable": "Il salvataggio non è ancora abilitato. Prima è necessario configurare il nuovo database sicuro.",
+  "saveRequiresWorkspace": "Configura lo spazio personale prima di salvare.",
+  "manualCapture": "Aggiungi oggetto manualmente",
+  "manualCaptureHint": "Inizia con un nome. Potrai organizzare l'oggetto in seguito.",
+  "optionalCollectionHint": "La collezione è facoltativa.",
+  "saveNotReady": "Salvataggio non disponibile",
+  "descriptionPlaceholder": "Ulteriori informazioni sull'oggetto"
 }
