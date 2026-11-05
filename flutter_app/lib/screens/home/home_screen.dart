@@ -4,8 +4,8 @@ import 'package:curio/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// First responsive landing screen. Capture cards are intentionally disabled
-/// until an end-to-end capture/review/save flow exists.
+/// First responsive landing screen. Manual capture opens a review-only form.
+/// Photo and barcode capture are not implemented yet.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         context.go('/households');
         return;
       case 2:
-        _unavailable(context, l10n.captureNotReady);
+        context.push('/capture/manual');
         return;
       default:
         _unavailable(context, l10n.featureNotReady);
@@ -91,10 +91,7 @@ class HomeScreen extends StatelessWidget {
                             _Action(
                               icon: Icons.edit_note_outlined,
                               label: l10n.enterManually,
-                              onPressed: () => _unavailable(
-                                context,
-                                l10n.captureNotReady,
-                              ),
+                              onPressed: () => context.push('/capture/manual'),
                             ),
                           ],
                         ),
