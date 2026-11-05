@@ -19,3 +19,12 @@ Decision: ship core flows in **German (de), English (en), French (fr), Spanish (
 3. Test locale switching and platform locale changes, especially en/de, with pt-BR fallback behavior.
 4. Verify long labels, dynamic text scale, screen readers and browser/mobile form factor layouts.
 5. Professional language review before public release; machine-generated strings are drafts only.
+
+## Implementation checkpoint (2026-11-05)
+- Generated ARB catalog now includes a `pt` fallback in addition to `pt_BR` (required by gen-l10n).
+- `selectedLocaleProvider` and `KovunelaLanguageMenu` support system language or six explicit languages; selection persists on the local device via `shared_preferences`.
+- Login, household list and collection list now use generated localization strings for principal static messages and controls.
+- Legacy Supabase AuthException messages may still be supplied by the backend in English; translate known error codes safely later rather than matching arbitrary error text.
+- Locale preference is **not yet synchronized across devices**. Add a user profile preference and conflict policy in a reviewed future database migration; do not change production schema implicitly.
+- These translations are initial drafts and require native-language QA before public release.
+- CI must pass localization generation, Dart formatting, static analysis and tests before merging. Current status must be checked in GitHub Actions.
