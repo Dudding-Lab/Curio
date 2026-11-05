@@ -2,6 +2,7 @@ import 'package:curio/core/theme.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:curio/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
@@ -25,7 +26,8 @@ void main() {
     addTearDown(router.dispose);
 
     await tester.pumpWidget(
-      MaterialApp.router(
+      ProviderScope(
+        child: MaterialApp.router(
         locale: const Locale('de'),
         theme: AppTheme.light,
         localizationsDelegates: const [
@@ -36,6 +38,7 @@ void main() {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         routerConfig: router,
+        ),
       ),
     );
     await tester.pumpAndSettle();
