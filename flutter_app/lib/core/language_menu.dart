@@ -14,7 +14,7 @@ class KovunelaLanguageMenu extends ConsumerWidget {
     final selected = ref.watch(selectedLocaleProvider);
     final currentCode = selected == null
         ? 'system'
-        : (selected!.countryCode == null
+        : (selected.countryCode == null
             ? selected.languageCode
             : '${selected.languageCode}_${selected.countryCode}');
 
