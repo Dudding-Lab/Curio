@@ -1,4 +1,5 @@
 import 'package:curio/core/theme.dart';
+import 'package:curio/core/locale_controller.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:curio/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,9 @@ void main() {
 
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [
+          selectedLocaleProvider.overrideWith((ref) => LocaleController(restore: false)),
+        ],
         child: MaterialApp.router(
         locale: const Locale('de'),
         theme: AppTheme.light,
