@@ -42,5 +42,12 @@
   "errorOccurred": "Ein Fehler ist aufgetreten.",
   "collectionSelected": "Sammlung ausgewählt",
   "logout": "Abmelden",
-  "refresh": "Aktualisieren"
+  "refresh": "Aktualisieren",
+  "mySpaces": "Meine Bereiche",
+  "manageHouseholds": "Haushalte verwalten",
+  "captureNotReady": "Die Objekterfassung ist noch in Vorbereitung.",
+  "featureNotReady": "Diese Funktion ist noch nicht verfügbar.",
+  "yourCollections": "Deine Sammlungen",
+  "openHouseholds": "Haushalte öffnen",
+  "captureIntro": "Erfasse, was dir wichtig ist – an einem Ort."
 }
