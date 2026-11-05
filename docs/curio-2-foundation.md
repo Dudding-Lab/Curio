@@ -1,6 +1,6 @@
 # Curio 2.0 — Foundation Specification
 
-Status: Draft v0.2 — product choices B (AI-assisted confirmation) and C (extensible intelligent templates) accepted
+Status: Domain decisions confirmed v0.3; deployment pending migration audit — product choices B (AI-assisted confirmation) and C (extensible intelligent templates) accepted
 Date: 2026-11-05
 Branch: `planning/curio-2-foundation`
 Owner: Product decisions by project owner; technical design subject to review.
@@ -246,3 +246,13 @@ Further principle: a separate owner_user_id field does not override permissions.
 - Explicitly choose whether members may delete items they did not create; above matrix currently allows editors under normal item rules.
 - Clarify GDPR deletion/export retention, shared-object owner semantics, invitation email behavior, and storage limits.
 - Keep catalog entity normalization, smart collections, object-level share grants and complex offline synchronization out of first release unless validated.
+
+## 16. Confirmed decisions — 2026-11-05 (supersede prior proposals)
+
+1. **Directed sharing without ownership transfer**: keep canonical items/collections in the source workspace. Share grants may target an individual user or a household workspace. Grant scope is item or collection; collection grants expose current and subsequently added member items, explicitly explained in the UI. No implicit ownership change or copying. Initial external grants are **read-only**; editing another person's shared item is deferred pending an explicit policy.
+2. **Recoverable editor deletion**: an editor may mark an item deleted (soft delete) and restore it, but cannot hard-delete records. Keep `deleted_at` and `deleted_by`; the trash view is separately permissioned. Only the owner (or an audited retention job) may permanently remove data. Define retention and recovery rules before enabling purge.
+3. **Individual and quantity-managed objects**: `items.tracking_mode` is `individual` or `quantity`; `quantity_amount` and `quantity_unit` record bulk stock. Individual records require quantity=1 and unit='piece'. Each quantity row represents a homogeneous lot with a single condition, owner and location; split into separate lots if those diverge. A barcode is not a unique owned-instance identifier.
+4. **Templates**: confirmed intelligent, versioned, user-extensible typed field schemas.
+5. **Collection membership**: canonical item lives in a single source workspace, may be in zero or many manual collections in that workspace.
+
+The final relational model is described in `docs/curio-2-relational-model.md`. A SQL reference implementation is kept under `docs/sql/` (not `supabase/migrations/`) until all legacy migrations and the target development environment have been audited. Neither file authorizes production deployment.
