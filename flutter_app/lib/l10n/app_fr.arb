@@ -42,5 +42,12 @@
   "errorOccurred": "Une erreur s’est produite.",
   "collectionSelected": "Collection sélectionnée",
   "logout": "Se déconnecter",
-  "refresh": "Actualiser"
+  "refresh": "Actualiser",
+  "mySpaces": "Mes espaces",
+  "manageHouseholds": "Gérer les foyers",
+  "captureNotReady": "L'ajout d'objets sera bientôt disponible.",
+  "featureNotReady": "Cette fonction n'est pas encore disponible.",
+  "yourCollections": "Vos collections",
+  "openHouseholds": "Ouvrir les foyers",
+  "captureIntro": "Retrouvez les objets qui comptent pour vous au même endroit."
 }
