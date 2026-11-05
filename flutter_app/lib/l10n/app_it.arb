@@ -42,5 +42,12 @@
   "errorOccurred": "Si è verificato un errore.",
   "collectionSelected": "Collezione selezionata",
   "logout": "Esci",
-  "refresh": "Aggiorna"
+  "refresh": "Aggiorna",
+  "mySpaces": "I miei spazi",
+  "manageHouseholds": "Gestisci nuclei familiari",
+  "captureNotReady": "L'aggiunta degli oggetti sarà disponibile presto.",
+  "featureNotReady": "Questa funzione non è ancora disponibile.",
+  "yourCollections": "Le tue collezioni",
+  "openHouseholds": "Apri nuclei familiari",
+  "captureIntro": "Riunisci ciò che ami in un unico posto."
 }
