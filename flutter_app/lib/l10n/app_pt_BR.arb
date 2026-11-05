@@ -42,5 +42,12 @@
   "errorOccurred": "Ocorreu um erro.",
   "collectionSelected": "Coleção selecionada",
   "logout": "Sair",
-  "refresh": "Atualizar"
+  "refresh": "Atualizar",
+  "mySpaces": "Meus espaços",
+  "manageHouseholds": "Gerenciar casas",
+  "captureNotReady": "O cadastro de itens estará disponível em breve.",
+  "featureNotReady": "Este recurso ainda não está disponível.",
+  "yourCollections": "Suas coleções",
+  "openHouseholds": "Abrir casas",
+  "captureIntro": "Organize tudo o que importa para você em um só lugar."
 }
