@@ -49,5 +49,18 @@
   "featureNotReady": "Diese Funktion ist noch nicht verfügbar.",
   "yourCollections": "Deine Sammlungen",
   "openHouseholds": "Haushalte öffnen",
-  "captureIntro": "Erfasse, was dir wichtig ist – an einem Ort."
+  "captureIntro": "Erfasse, was dir wichtig ist – an einem Ort.",
+  "itemTitle": "Name des Gegenstands",
+  "itemDescription": "Beschreibung (optional)",
+  "continueToReview": "Angaben prüfen",
+  "reviewManualItem": "Gegenstand prüfen",
+  "editDetails": "Angaben bearbeiten",
+  "nameRequired": "Bitte einen Namen für den Gegenstand eingeben.",
+  "saveUnavailable": "Speichern ist noch nicht aktiviert. Zuerst muss die neue sichere Datenbank eingerichtet werden.",
+  "saveRequiresWorkspace": "Vor dem Speichern muss dein privater Bereich eingerichtet werden.",
+  "manualCapture": "Gegenstand manuell erfassen",
+  "manualCaptureHint": "Beginne mit einem Namen. Du kannst den Gegenstand später organisieren.",
+  "optionalCollectionHint": "Eine Sammlung ist optional.",
+  "saveNotReady": "Speichern noch nicht verfügbar",
+  "descriptionPlaceholder": "Weitere Informationen zum Gegenstand"
 }
