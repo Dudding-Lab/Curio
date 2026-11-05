@@ -49,5 +49,18 @@
   "featureNotReady": "Este recurso ainda não está disponível.",
   "yourCollections": "Suas coleções",
   "openHouseholds": "Abrir casas",
-  "captureIntro": "Organize tudo o que importa para você em um só lugar."
+  "captureIntro": "Organize tudo o que importa para você em um só lugar.",
+  "itemTitle": "Nome do item",
+  "itemDescription": "Descrição (opcional)",
+  "continueToReview": "Revisar informações",
+  "reviewManualItem": "Revisar item",
+  "editDetails": "Editar informações",
+  "nameRequired": "Digite o nome do item.",
+  "saveUnavailable": "O salvamento ainda não está habilitado. Primeiro é preciso configurar o novo banco de dados seguro.",
+  "saveRequiresWorkspace": "É necessário configurar seu espaço pessoal antes de salvar.",
+  "manualCapture": "Adicionar item manualmente",
+  "manualCaptureHint": "Comece pelo nome. Você poderá organizar o item depois.",
+  "optionalCollectionHint": "Uma coleção é opcional.",
+  "saveNotReady": "Salvamento indisponível",
+  "descriptionPlaceholder": "Informações adicionais sobre o item"
 }
