@@ -256,3 +256,32 @@ Further principle: a separate owner_user_id field does not override permissions.
 5. **Collection membership**: canonical item lives in a single source workspace, may be in zero or many manual collections in that workspace.
 
 The final relational model is described in `docs/curio-2-relational-model.md`. A SQL reference implementation is kept under `docs/sql/` (not `supabase/migrations/`) until all legacy migrations and the target development environment have been audited. Neither file authorizes production deployment.
+
+## 17. Target platforms — confirmed 2026-11-05
+
+### Release commitment
+- **MVP and first public release: Android, iOS and Web are REQUIRED**, with functional parity for the essential capture → AI proposal → review → save, search, collections, household permissions and export workflows.
+- **Later optional targets: Windows and macOS native desktop apps.** Their feasibility should be preserved by platform-neutral domain and data layers; do not commit to native desktop release dates.
+- A responsive Flutter web application is a first-class client, not a mobile-sized website. Support wide desktop layouts, keyboard/pointer interactions, tables, multi-item selection and bulk workflows in later stages. Consider PWA installation only after manifest, caching, security and browser compatibility reviews.
+- The mobile apps prioritize camera capture, barcode/ISBN scanning, rapid retrieval and touch navigation. Web must allow photo upload and manual input when camera access or scanner integrations are unavailable.
+- Tablet sizes are included in adaptive UI testing, not treated as a separate product.
+
+### Engineering constraints
+1. One Flutter codebase; share domain, repository, auth, model serialization and UI design system.
+2. Responsive breakpoints and adaptive navigation, not separate unrelated implementations. Mobile bottom navigation; wide-screen navigation rail/sidebar and multi-column views.
+3. Platform differences isolated behind capability interfaces: camera, gallery/file picking, barcode scan, local file storage, deep links, sharing; avoid assuming NFC and camera APIs are uniformly available.
+4. Supabase Auth redirect/callback handling for iOS, Android and HTTPS web origins; authorized origin allowlist, no open redirects. Same backend permissions independent of client platform.
+5. AI stays server-side with no embedded privileged credentials or model-provider secrets in mobile/web bundles.
+6. Web security: HTTPS, restrictive CSP where compatible, no long-lived public Storage URLs for private media, controlled CORS/origins and sensible session handling.
+7. Browser-backed offline/persistence differs from native devices. Offline-first is not an MVP requirement; a failed network operation must preserve a local in-session draft and give explicit retry options.
+8. CI release gates: flutter format/analyze/test; web build & browser smoke test; Android build & integration tests; iOS build/signing and smoke tests on macOS runners. Validate key flows on Chrome, Firefox, Safari and Edge within a documented browser support matrix.
+9. Accessibility and internationalization: keyboard navigation, focus states, screen readers, touch target sizing, localization-ready formatting from the start.
+10. iOS builds/signing require macOS runners and developer account; publishing to Google Play, App Store and public hosting requires separate approvals/accounts and release operations.
+
+### Target-specific acceptance criteria
+- Android: login, capture via camera/scan/manual, review-save, search, household sharing, media access and data export validated on representative devices.
+- iOS: same workflows and permission prompts, deep-link handling and verified release build on a macOS runner.
+- Web: same core workflows on narrow and wide viewports, keyboard accessible, image/file upload fallback, secure auth redirects, stable refresh/bookmark behavior and responsive collection tables.
+- Cross-platform consistency: authenticated users see the same authorized server-side data, and role/RLS decisions are identical across platforms.
+
+This platform decision supersedes earlier descriptions of Windows as a primary frontend launch target.
