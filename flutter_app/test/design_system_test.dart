@@ -1,6 +1,8 @@
 import 'package:curio/core/adaptive_navigation.dart';
 import 'package:curio/core/design_tokens.dart';
 import 'package:curio/core/theme.dart';
+import 'package:curio/l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,7 +22,7 @@ void main() {
     expect(AppTheme.light.colorScheme.primary, KovunelaColors.primary);
   });
 
-  Future<void> pumpNavigation(WidgetTester tester, double width) async {
+  Future<void> pumpNavigation(WidgetTester tester, double width, {Locale locale = const Locale('de')}) async {
     tester.view.physicalSize = Size(width, 800);
     tester.view.devicePixelRatio = 1;
     addTearDown(() {
@@ -29,6 +31,14 @@ void main() {
     });
     await tester.pumpWidget(
       MaterialApp(
+        locale: locale,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: AppTheme.light,
         home: KovunelaAdaptiveScaffold(
           title: 'Kovunela',
@@ -52,5 +62,11 @@ void main() {
     expect(find.byType(NavigationRail), findsOneWidget);
     expect(find.byType(NavigationBar), findsNothing);
     expect(find.text('Empty state'), findsOneWidget);
+  });
+
+  testWidgets('navigation labels follow selected language', (tester) async {
+    await pumpNavigation(tester, 390, locale: const Locale('fr'));
+    expect(find.text('Collections'), findsOneWidget);
+    expect(find.text('Accueil'), findsOneWidget);
   });
 }
