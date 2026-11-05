@@ -49,5 +49,18 @@
   "featureNotReady": "This feature is not available yet.",
   "yourCollections": "Your collections",
   "openHouseholds": "Open households",
-  "captureIntro": "Add things you care about — in one place."
+  "captureIntro": "Add things you care about — in one place.",
+  "itemTitle": "Item name",
+  "itemDescription": "Description (optional)",
+  "continueToReview": "Review details",
+  "reviewManualItem": "Review item",
+  "editDetails": "Edit details",
+  "nameRequired": "Enter an item name.",
+  "saveUnavailable": "Saving is not enabled yet. The new secure database must be set up first.",
+  "saveRequiresWorkspace": "Personal workspace setup is required before saving.",
+  "manualCapture": "Add an item manually",
+  "manualCaptureHint": "Start with a name. You can organize the item later.",
+  "optionalCollectionHint": "A collection is optional.",
+  "saveNotReady": "Save is not available yet",
+  "descriptionPlaceholder": "Additional information about the item"
 }
