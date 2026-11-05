@@ -42,5 +42,12 @@
   "errorOccurred": "Something went wrong.",
   "collectionSelected": "Collection selected",
   "logout": "Sign out",
-  "refresh": "Refresh"
+  "refresh": "Refresh",
+  "mySpaces": "My spaces",
+  "manageHouseholds": "Manage households",
+  "captureNotReady": "Item capture is coming soon.",
+  "featureNotReady": "This feature is not available yet.",
+  "yourCollections": "Your collections",
+  "openHouseholds": "Open households",
+  "captureIntro": "Add things you care about — in one place."
 }
