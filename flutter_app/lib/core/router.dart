@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:curio/screens/auth/login_screen.dart';
+import 'package:curio/screens/home/home_screen.dart';
 import 'package:curio/screens/households/household_list_screen.dart';
 import 'package:curio/screens/collections/collections_list_screen.dart';
 
@@ -22,13 +23,17 @@ final routerProvider = Provider<GoRouter>((ref) {
       final isLoginRoute = state.matchedLocation == '/login';
 
       if (!isLoggedIn && !isLoginRoute) return '/login';
-      if (isLoggedIn && isLoginRoute) return '/households';
+      if (isLoggedIn && isLoginRoute) return '/home';
       return null;
     },
     routes: [
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/home',
+        builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
         path: '/households',
