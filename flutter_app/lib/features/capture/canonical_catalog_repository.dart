@@ -95,7 +95,70 @@ class CatalogIdentifier {
   static bool valid(String type, String value) {
     final code = normalize(value);
     if (type == 'isbn10') {
-      if (!RegExp(r'^[0-9]{9}[0-9X]$').hasMatch(code)) return false;
+      if (!RegExp(r'^[0-9]{9}[0-9X]
+      var total = 0;
+      for (var i = 0; i < 10; i++) {
+        final digit = code[i] == 'X' ? 10 : int.parse(code[i]);
+        total += (10 - i) * digit;
+      }
+      return total % 11 == 0;
+    }
+    final size = switch (type) {
+      'isbn13' || 'ean13' => 13,
+      'gtin14' => 14,
+      _ => 0,
+    };
+    if (size == 0 ||
+        code.length != size ||
+        !RegExp(r'^[0-9]+
+    var total = 0;
+    for (var i = 0; i < code.length; i++) {
+      final digit = int.parse(code[i]);
+      total += digit * ((code.length - i).isEven ? 3 : 1);
+    }
+    return total % 10 == 0;
+  }
+}
+).hasMatch(code)) {
+        return false;
+      }
+      var total = 0;
+      for (var i = 0; i < 10; i++) {
+        final digit = code[i] == 'X' ? 10 : int.parse(code[i]);
+        total += (10 - i) * digit;
+      }
+      return total % 11 == 0;
+    }
+    final size = switch (type) {
+      'isbn13' || 'ean13' => 13,
+      'gtin14' => 14,
+      _ => 0,
+    };
+    if (size == 0 ||
+        code.length != size ||
+        !RegExp(r'^[0-9]+$').hasMatch(code)) return false;
+    var total = 0;
+    for (var i = 0; i < code.length; i++) {
+      final digit = int.parse(code[i]);
+      total += digit * ((code.length - i).isEven ? 3 : 1);
+    }
+    return total % 10 == 0;
+  }
+}
+).hasMatch(code)) {
+      return false;
+    }
+    var total = 0;
+    for (var i = 0; i < code.length; i++) {
+      final digit = int.parse(code[i]);
+      total += digit * ((code.length - i).isEven ? 3 : 1);
+    }
+    return total % 10 == 0;
+  }
+}
+).hasMatch(code)) {
+        return false;
+      }
       var total = 0;
       for (var i = 0; i < 10; i++) {
         final digit = code[i] == 'X' ? 10 : int.parse(code[i]);
