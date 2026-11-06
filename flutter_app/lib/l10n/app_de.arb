@@ -68,5 +68,8 @@
   "itemListLoadError": "Deine Gegenstände konnten nicht geladen werden.",
   "saveInProgress": "Gegenstand wird gespeichert …",
   "saveFailed": "Der Gegenstand konnte nicht gespeichert werden. Deine Eingaben bleiben erhalten.",
-  "saveCompleted": "Gegenstand erfolgreich gespeichert."
+  "saveCompleted": "Gegenstand erfolgreich gespeichert.",
+  "personalCollections": "Meine Sammlungen",
+  "noPersonalCollectionsYet": "Noch keine persönlichen Sammlungen vorhanden.",
+  "personalCollectionsLoadError": "Deine Sammlungen konnten nicht geladen werden."
 }
