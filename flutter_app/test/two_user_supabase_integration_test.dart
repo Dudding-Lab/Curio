@@ -111,6 +111,59 @@ void main() {
         throwsA(isA<PostgrestException>()),
       );
 
+      final categoryA = await a.rpc('kv_create_personal_category', params: {
+        'p_code': 'camera_$marker',
+        'p_label': 'Cameras',
+      });
+      expect(categoryA, isA<String>());
+      final typeA = await a.rpc('kv_create_personal_object_type', params: {
+        'p_title': 'Camera $marker',
+        'p_fields': {'manufacturer': 'text', 'year': 'number'},
+      });
+      expect(typeA, isA<String>());
+      final typesA =
+          await a.rpc('kv_list_personal_object_types') as List<dynamic>;
+      final versionA = (typesA.cast<Map>().firstWhere(
+        (row) => row['id'] == typeA,
+      ))['template_version_id'] as String;
+      final typedItem = await a.rpc('kv_create_typed_personal_item', params: {
+        'p_title': 'Camera with metadata',
+        'p_description': '',
+        'p_category_id': categoryA,
+        'p_template_version_id': versionA,
+        'p_attributes': {'manufacturer': 'Example', 'year': 2001},
+      });
+      expect(typedItem, isA<String>());
+      expect(
+        (await b.rpc('kv_list_personal_categories') as List<dynamic>)
+            .any((row) => (row as Map)['id'] == categoryA),
+        isFalse,
+      );
+      await expectLater(
+        b.rpc('kv_create_typed_personal_item', params: {
+          'p_title': 'Cross-workspace injection',
+          'p_description': '',
+          'p_category_id': categoryA,
+          'p_template_version_id': versionA,
+          'p_attributes': <String, dynamic>{},
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        a.rpc('kv_create_typed_personal_item', params: {
+          'p_title': 'Wrong attribute type',
+          'p_description': '',
+          'p_category_id': categoryA,
+          'p_template_version_id': versionA,
+          'p_attributes': {'year': 'not a number'},
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        anonymous.rpc('kv_list_personal_object_types'),
+        throwsA(isA<PostgrestException>()),
+      );
+
       await expectLater(
         anonymous.rpc('kv_create_personal_item', params: {
           'p_title': 'Unauthorized',
