@@ -62,5 +62,8 @@
   "manualCaptureHint": "Inizia con un nome. Potrai organizzare l'oggetto in seguito.",
   "optionalCollectionHint": "La collezione è facoltativa.",
   "saveNotReady": "Salvataggio non disponibile",
-  "descriptionPlaceholder": "Ulteriori informazioni sull'oggetto"
+  "descriptionPlaceholder": "Ulteriori informazioni sull'oggetto",
+  "myItems": "I miei oggetti",
+  "noItemsYet": "Nessun oggetto salvato.",
+  "itemListLoadError": "Impossibile caricare i tuoi oggetti."
 }
