@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:curio/core/router.dart';
+import 'package:curio/features/offline/secure_session_storage.dart';
 import 'package:curio/core/theme.dart';
 import 'package:curio/core/locale_controller.dart';
 import 'package:curio/l10n/app_localizations.dart';
@@ -22,6 +23,11 @@ Future<void> main() async {
   await Supabase.initialize(
     url: supabaseUrl,
     publishableKey: clientKey,
+    authOptions: FlutterAuthClientOptions(
+      localStorage: SecureSupabaseSessionStorage(),
+      persistSession: true,
+      autoRefreshToken: true,
+    ),
   );
 
   runApp(const ProviderScope(child: CurioApp()));
