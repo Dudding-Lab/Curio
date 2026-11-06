@@ -68,5 +68,8 @@
   "itemListLoadError": "Impossible de charger vos objets.",
   "saveInProgress": "Enregistrement de l'objet…",
   "saveFailed": "Impossible d'enregistrer l'objet. Vos données sont conservées.",
-  "saveCompleted": "Objet enregistré."
+  "saveCompleted": "Objet enregistré.",
+  "personalCollections": "Mes collections",
+  "noPersonalCollectionsYet": "Aucune collection personnelle pour le moment.",
+  "personalCollectionsLoadError": "Impossible de charger vos collections."
 }
