@@ -122,6 +122,51 @@ void main() {
     expect(changed.display(language: 'en', translate: true), 'Ein neues Haus');
   });
 
+  test('required field and choice validation preserve the draft', () {
+    final draft = TemplateDraft(
+      standardCode: 'book',
+      standardFields: {'title': 'text', 'binding': 'text', 'pages': 'number'},
+    );
+    draft.requiredFields.add('title');
+    draft.setChoices('binding', ['Hardcover', 'Paperback']);
+    expect(() => draft.validatedAttributes(), throwsFormatException);
+    draft.values['title'] = 'Original title';
+    draft.values['binding'] = 'Unknown';
+    expect(() => draft.validatedAttributes(), throwsFormatException);
+    draft.values['binding'] = 'Hardcover';
+    expect(draft.validatedAttributes(), {
+      'title': 'Original title',
+      'binding': 'Hardcover',
+    });
+    expect(() => draft.setChoices('pages', ['100', '200']), throwsArgumentError);
+    expect(() => draft.setChoices('binding', ['Same', 'Same']),
+        throwsArgumentError);
+    expect(draft.fieldPresentation['binding']!['choices'],
+        ['Hardcover', 'Paperback']);
+    expect(draft.fieldPresentation['title']!['required'], true);
+  });
+
+  test('localized labels do not change original content or field keys', () {
+    final draft = TemplateDraft(
+      standardCode: 'book',
+      standardFields: {'title': 'text'},
+    );
+    draft.fieldLabels['title'] = 'Titel';
+    draft.setLocalizedLabel('title', 'en', 'Book title');
+    draft.setLocalizedLabel('title', 'de', 'Buchtitel');
+    draft.values['title'] = 'Die unendliche Geschichte';
+    expect(draft.labelFor('title', language: 'en-GB'), 'Book title');
+    expect(draft.labelFor('title', language: 'de'), 'Buchtitel');
+    expect(draft.labelFor('title', language: 'it'), 'Titel');
+    expect(draft.validatedAttributes()['title'], 'Die unendliche Geschichte');
+    expect(draft.fieldPresentation['title']!['labels'], {
+      'en': 'Book title',
+      'de': 'Buchtitel',
+    });
+    expect(() => draft.setLocalizedLabel('title', 'invalid locale!', 'X'),
+        throwsArgumentError);
+  });
+
   testWidgets('template draft edits and previews typed fields without saving',
       (tester) async {
     await tester.pumpWidget(
