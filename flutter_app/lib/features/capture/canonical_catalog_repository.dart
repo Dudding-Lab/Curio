@@ -90,95 +90,35 @@ class SupabaseCanonicalCatalogRepository implements CanonicalCatalogRepository {
 /// Never allow OCR garbage to trigger a paid external lookup.
 class CatalogIdentifier {
   static String normalize(String value) =>
-      value.replaceAll(RegExp(r'[\s-]'), '').toUpperCase();
+      value.replaceAll(RegExp(r'[\\s-]'), '').toUpperCase();
 
   static bool valid(String type, String value) {
     final code = normalize(value);
     if (type == 'isbn10') {
-      if (!RegExp(r'^[0-9]{9}[0-9X]
-      var total = 0;
+      if (code.length != 10) return false;
+      var sum = 0;
       for (var i = 0; i < 10; i++) {
-        final digit = code[i] == 'X' ? 10 : int.parse(code[i]);
-        total += (10 - i) * digit;
+        final unit = code.codeUnitAt(i);
+        final digit = unit == 88 && i == 9 ? 10 : unit - 48;
+        if (digit < 0 || digit > 9 && !(i == 9 && digit == 10)) {
+          return false;
+        }
+        sum += (10 - i) * digit;
       }
-      return total % 11 == 0;
+      return sum % 11 == 0;
     }
     final size = switch (type) {
       'isbn13' || 'ean13' => 13,
       'gtin14' => 14,
       _ => 0,
     };
-    if (size == 0 ||
-        code.length != size ||
-        !RegExp(r'^[0-9]+
-    var total = 0;
+    if (size == 0 || code.length != size) return false;
+    var sum = 0;
     for (var i = 0; i < code.length; i++) {
-      final digit = int.parse(code[i]);
-      total += digit * ((code.length - i).isEven ? 3 : 1);
+      final digit = code.codeUnitAt(i) - 48;
+      if (digit < 0 || digit > 9) return false;
+      sum += digit * ((code.length - i).isEven ? 3 : 1);
     }
-    return total % 10 == 0;
-  }
-}
-).hasMatch(code)) {
-        return false;
-      }
-      var total = 0;
-      for (var i = 0; i < 10; i++) {
-        final digit = code[i] == 'X' ? 10 : int.parse(code[i]);
-        total += (10 - i) * digit;
-      }
-      return total % 11 == 0;
-    }
-    final size = switch (type) {
-      'isbn13' || 'ean13' => 13,
-      'gtin14' => 14,
-      _ => 0,
-    };
-    if (size == 0 ||
-        code.length != size ||
-        !RegExp(r'^[0-9]+$').hasMatch(code)) return false;
-    var total = 0;
-    for (var i = 0; i < code.length; i++) {
-      final digit = int.parse(code[i]);
-      total += digit * ((code.length - i).isEven ? 3 : 1);
-    }
-    return total % 10 == 0;
-  }
-}
-).hasMatch(code)) {
-      return false;
-    }
-    var total = 0;
-    for (var i = 0; i < code.length; i++) {
-      final digit = int.parse(code[i]);
-      total += digit * ((code.length - i).isEven ? 3 : 1);
-    }
-    return total % 10 == 0;
-  }
-}
-).hasMatch(code)) {
-        return false;
-      }
-      var total = 0;
-      for (var i = 0; i < 10; i++) {
-        final digit = code[i] == 'X' ? 10 : int.parse(code[i]);
-        total += (10 - i) * digit;
-      }
-      return total % 11 == 0;
-    }
-    final size = switch (type) {
-      'isbn13' || 'ean13' => 13,
-      'gtin14' => 14,
-      _ => 0,
-    };
-    if (size == 0 ||
-        code.length != size ||
-        !RegExp(r'^[0-9]+$').hasMatch(code)) return false;
-    var total = 0;
-    for (var i = 0; i < code.length; i++) {
-      final digit = int.parse(code[i]);
-      total += digit * ((code.length - i).isEven ? 3 : 1);
-    }
-    return total % 10 == 0;
+    return sum % 10 == 0;
   }
 }
