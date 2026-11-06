@@ -108,5 +108,9 @@
         "type": "int"
       }
     }
-  }
+  },
+  "templateContentLanguagePolicy": "Field content language",
+  "templateContentLanguageHint": "The original is always preserved. Translations will be stored separately.",
+  "keepOriginalText": "Always show original text",
+  "translateTextByAppLanguage": "Show in app language (when translated)"
 }
