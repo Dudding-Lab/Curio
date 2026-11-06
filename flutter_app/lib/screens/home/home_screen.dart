@@ -89,6 +89,11 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             _Action(
+                              icon: Icons.auto_awesome_outlined,
+                              label: l10n.aiCaptureDemoAction,
+                              onPressed: () => context.push('/capture/suggestion-demo'),
+                            ),
+                            _Action(
                               icon: Icons.edit_note_outlined,
                               label: l10n.enterManually,
                               onPressed: () => context.push('/capture/manual'),
