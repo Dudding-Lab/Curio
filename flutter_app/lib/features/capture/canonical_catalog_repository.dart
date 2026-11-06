@@ -95,7 +95,9 @@ class CatalogIdentifier {
   static bool valid(String type, String value) {
     final code = normalize(value);
     if (type == 'isbn10') {
-      if (code.length != 10) return false;
+      if (code.length != 10) {
+        return false;
+      }
       var sum = 0;
       for (var i = 0; i < 10; i++) {
         final unit = code.codeUnitAt(i);
@@ -112,7 +114,9 @@ class CatalogIdentifier {
       'gtin14' => 14,
       _ => 0,
     };
-    if (size == 0 || code.length != size) return false;
+    if (size == 0 || code.length != size) {
+      return false;
+    }
     var sum = 0;
     for (var i = 0; i < code.length; i++) {
       final digit = code.codeUnitAt(i) - 48;
