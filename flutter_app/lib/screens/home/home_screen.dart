@@ -94,6 +94,11 @@ class HomeScreen extends StatelessWidget {
                               onPressed: () => context.push('/capture/suggestion-demo'),
                             ),
                             _Action(
+                              icon: Icons.menu_book_outlined,
+                              label: l10n.isbnLookupHome,
+                              onPressed: () => context.push('/capture/isbn'),
+                            ),
+                            _Action(
                               icon: Icons.edit_note_outlined,
                               label: l10n.enterManually,
                               onPressed: () => context.push('/capture/manual'),
