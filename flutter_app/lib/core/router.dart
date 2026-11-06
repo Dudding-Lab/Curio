@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:curio/screens/auth/login_screen.dart';
 import 'package:curio/screens/home/home_screen.dart';
 import 'package:curio/screens/items/personal_items_screen.dart';
+import 'package:curio/screens/taxonomy/personal_object_types_screen.dart';
 import 'package:curio/screens/collections/personal_collections_screen.dart';
 import 'package:curio/screens/capture/manual_capture_screen.dart';
 import 'package:curio/screens/households/household_list_screen.dart';
@@ -44,6 +45,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/collections/personal',
         builder: (context, state) => const PersonalCollectionsScreen(),
+      ),
+      GoRoute(
+        path: '/object-types',
+        builder: (context, state) => const PersonalObjectTypesScreen(),
       ),
       GoRoute(
         path: '/capture/manual',
