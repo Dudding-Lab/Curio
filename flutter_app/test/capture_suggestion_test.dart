@@ -174,8 +174,15 @@ void main() {
     expect(find.text('Buchvorschlag prüfen'), findsOneWidget);
     await tester.tap(find.text('Buchvorschlag prüfen'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('Pflichtangaben fehlen:'), findsOneWidget);
     expect(find.byKey(const ValueKey('suggestion-author')), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.textContaining('Pflichtangaben fehlen:'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.textContaining('Pflichtangaben fehlen:'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Pflichtangaben fehlen:'), findsOneWidget);
     expect(find.textContaining('ungeprüfte Felder verworfen'), findsOneWidget);
     expect(find.text('Gegenstand speichern'), findsNothing);
   });
