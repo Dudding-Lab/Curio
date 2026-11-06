@@ -188,5 +188,7 @@
   "offlineUnlockUnavailable": "Offline access unavailable. Sign in online once and enable a device passcode or biometrics.",
   "offlineUnlockedNotice": "Device verified. This is not a new online sign-in.",
   "offlineStoragePending": "The encrypted local collection viewer is still under development. Supabase lists are not yet available offline.",
-  "offlineSignInOnline": "Sign in online"
+  "offlineSignInOnline": "Sign in online",
+  "catalogSourceKovunela": "Kovunela catalog",
+  "catalogSourceGoogle": "Google Books"
 }
