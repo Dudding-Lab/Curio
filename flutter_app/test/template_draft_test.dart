@@ -96,7 +96,11 @@ void main() {
         findsOneWidget);
     expect(find.text('maker · text'), findsOneWidget);
     expect(find.text('working · boolean'), findsOneWidget);
-    await tester.ensureVisible(find.text('Formular testen'));
+    await tester.scrollUntilVisible(
+      find.text('Formular testen'),
+      250,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Formular testen'));
     await tester.pumpAndSettle();
     expect(find.byType(SwitchListTile), findsOneWidget);
