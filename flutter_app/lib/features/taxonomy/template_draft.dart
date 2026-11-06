@@ -117,61 +117,10 @@ class TemplateDraft {
     return key.replaceAll('_', ' ');
   }
 
+
   void setLocalizedLabel(String key, String locale, String label) {
     if (!fields.containsKey(key) ||
-        !RegExp(r'^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*
-
-  /// Returns typed JSON suitable for review, never for unreviewed persistence.
-  /// Blank optional entries are omitted. Errors retain the user's draft.
-  Map<String, dynamic> validatedAttributes() {
-    final result = <String, dynamic>{};
-    for (final entry in fields.entries) {
-      final value = values[entry.key];
-      if (value == null || (value is String && value.trim().isEmpty)) {
-        if (requiredFields.contains(entry.key)) {
-          throw FormatException('Required field: ${entry.key}');
-        }
-        continue;
-      }
-      switch (entry.value) {
-        case 'text':
-          if (value is! String) throw const FormatException('Invalid text');
-          if (fieldChoices.containsKey(entry.key) &&
-              !fieldChoices[entry.key]!.contains(value.trim())) {
-            throw FormatException('Invalid choice: ${entry.key}');
-          }
-          result[entry.key] = value.trim();
-        case 'number':
-          final number = value is num ? value : num.tryParse(value.toString());
-          if (number == null || !number.isFinite) {
-            throw FormatException('Invalid number: ${entry.key}');
-          }
-          result[entry.key] = number;
-        case 'boolean':
-          if (value is! bool) throw const FormatException('Invalid boolean');
-          result[entry.key] = value;
-        case 'date':
-          if (value is! String ||
-              !RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(value)) {
-            throw FormatException('Invalid date: ${entry.key}');
-          }
-          final date = DateTime.tryParse(value);
-          if (date == null ||
-              '${date.year.toString().padLeft(4, '0')}-'
-                      '${date.month.toString().padLeft(2, '0')}-'
-                      '${date.day.toString().padLeft(2, '0')}' !=
-                  value) {
-            throw FormatException('Invalid date: ${entry.key}');
-          }
-          result[entry.key] = value;
-        default:
-          throw const FormatException('Unsupported field type');
-      }
-    }
-    return result;
-  }
-}
-).hasMatch(locale) ||
+        !RegExp(r'^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$').hasMatch(locale) ||
         label.trim().length > 120) {
       throw ArgumentError('Invalid localized label');
     }
@@ -204,10 +153,19 @@ class TemplateDraft {
     final result = <String, dynamic>{};
     for (final entry in fields.entries) {
       final value = values[entry.key];
-      if (value == null || (value is String && value.trim().isEmpty)) continue;
+      if (value == null || (value is String && value.trim().isEmpty)) {
+        if (requiredFields.contains(entry.key)) {
+          throw FormatException('Required field: ${entry.key}');
+        }
+        continue;
+      }
       switch (entry.value) {
         case 'text':
           if (value is! String) throw const FormatException('Invalid text');
+          if (fieldChoices.containsKey(entry.key) &&
+              !fieldChoices[entry.key]!.contains(value.trim())) {
+            throw FormatException('Invalid choice: ${entry.key}');
+          }
           result[entry.key] = value.trim();
         case 'number':
           final number = value is num ? value : num.tryParse(value.toString());
