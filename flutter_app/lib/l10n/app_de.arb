@@ -71,5 +71,16 @@
   "saveCompleted": "Gegenstand erfolgreich gespeichert.",
   "personalCollections": "Meine Sammlungen",
   "noPersonalCollectionsYet": "Noch keine persönlichen Sammlungen vorhanden.",
-  "personalCollectionsLoadError": "Deine Sammlungen konnten nicht geladen werden."
+  "personalCollectionsLoadError": "Deine Sammlungen konnten nicht geladen werden.",
+  "myObjectTypes": "Meine Objekttypen",
+  "noObjectTypesYet": "Noch keine eigenen Objekttypen angelegt.",
+  "objectTypesLoadError": "Objekttypen konnten nicht geladen werden.",
+  "objectTypeFieldCount": "{count} Eigenschaften",
+  "@objectTypeFieldCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
