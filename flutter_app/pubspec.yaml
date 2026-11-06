@@ -25,6 +25,8 @@ dependencies:
   uuid: 4.5.2
   flutter_secure_storage: 10.3.4
   local_auth: 2.3.0
+  sqlite3: ^3.0.0
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -38,3 +40,8 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+
+hooks:
+  user_defines:
+    sqlite3:
+      source: sqlite3mc
