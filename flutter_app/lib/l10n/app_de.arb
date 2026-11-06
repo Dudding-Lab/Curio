@@ -82,5 +82,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "standardTemplates": "Standardvorlagen",
+  "noStandardTemplates": "Keine Standardvorlagen verfügbar.",
+  "standardTemplatesLoadError": "Standardvorlagen konnten nicht geladen werden."
 }
