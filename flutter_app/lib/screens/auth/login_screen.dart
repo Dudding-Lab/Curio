@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:curio/core/language_menu.dart';
+import 'package:curio/features/offline/offline_access_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -43,10 +44,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           setState(() => _isSignUp = false);
         }
       } else {
-        await Supabase.instance.client.auth.signInWithPassword(
+        final response = await Supabase.instance.client.auth.signInWithPassword(
           email: email,
           password: password,
         );
+        final session = response.session;
+        // Enrollment only follows an online-verified login. This marker
+        // contains just the account ID, never credentials or JWTs.
+        if (session != null && !session.isExpired) {
+          await OfflineAccessController(
+            knownDevices: SecureKnownDeviceStore(),
+            deviceUnlock: PlatformDeviceUnlock(),
+          ).recordOnlineLogin(session.user.id);
+        }
       }
     } on AuthException catch (e) {
       if (mounted) {
