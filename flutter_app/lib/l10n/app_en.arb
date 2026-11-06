@@ -71,5 +71,16 @@
   "saveCompleted": "Item saved successfully.",
   "personalCollections": "My collections",
   "noPersonalCollectionsYet": "No personal collections yet.",
-  "personalCollectionsLoadError": "Couldn't load your collections."
+  "personalCollectionsLoadError": "Couldn't load your collections.",
+  "myObjectTypes": "My object types",
+  "noObjectTypesYet": "No custom object types yet.",
+  "objectTypesLoadError": "Couldn't load object types.",
+  "objectTypeFieldCount": "{count} attributes",
+  "@objectTypeFieldCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
