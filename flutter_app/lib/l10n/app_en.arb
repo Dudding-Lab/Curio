@@ -65,5 +65,8 @@
   "descriptionPlaceholder": "Additional information about the item",
   "myItems": "My items",
   "noItemsYet": "No items saved yet.",
-  "itemListLoadError": "Couldn't load your items."
+  "itemListLoadError": "Couldn't load your items.",
+  "saveInProgress": "Saving item…",
+  "saveFailed": "Couldn't save the item. Your entries are unchanged.",
+  "saveCompleted": "Item saved successfully."
 }
