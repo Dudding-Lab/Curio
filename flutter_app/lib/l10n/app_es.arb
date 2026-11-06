@@ -188,5 +188,7 @@
   "offlineUnlockUnavailable": "Acceso sin conexión no disponible. Inicia sesión en línea y configura PIN o biometría.",
   "offlineUnlockedNotice": "Dispositivo verificado. No es una nueva sesión en línea.",
   "offlineStoragePending": "La vista cifrada de colecciones locales está en desarrollo. Las listas de Supabase aún no funcionan sin conexión.",
-  "offlineSignInOnline": "Iniciar sesión en línea"
+  "offlineSignInOnline": "Iniciar sesión en línea",
+  "catalogSourceKovunela": "Catálogo Kovunela",
+  "catalogSourceGoogle": "Google Books"
 }
