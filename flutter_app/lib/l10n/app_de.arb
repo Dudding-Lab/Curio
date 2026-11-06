@@ -62,5 +62,8 @@
   "manualCaptureHint": "Beginne mit einem Namen. Du kannst den Gegenstand später organisieren.",
   "optionalCollectionHint": "Eine Sammlung ist optional.",
   "saveNotReady": "Speichern noch nicht verfügbar",
-  "descriptionPlaceholder": "Weitere Informationen zum Gegenstand"
+  "descriptionPlaceholder": "Weitere Informationen zum Gegenstand",
+  "myItems": "Meine Gegenstände",
+  "noItemsYet": "Noch keine Gegenstände gespeichert.",
+  "itemListLoadError": "Deine Gegenstände konnten nicht geladen werden."
 }
