@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:curio/core/router.dart';
 import 'package:curio/features/offline/secure_session_storage.dart';
+import 'package:curio/features/offline/offline_access_controller.dart';
 import 'package:curio/core/theme.dart';
 import 'package:curio/core/locale_controller.dart';
 import 'package:curio/l10n/app_localizations.dart';
@@ -28,6 +29,23 @@ Future<void> main() async {
       persistSession: true,
       autoRefreshToken: true,
     ),
+  );
+
+  // Explicit sign-out removes offline enrollment as well. Network refresh
+  // failures must not be mistaken for a user-requested sign-out.
+  Supabase.instance.client.auth.onAuthStateChange.listen(
+    (event) async {
+      if (event.event == AuthChangeEvent.signedOut) {
+        try {
+          await SecureKnownDeviceStore().clear();
+        } catch (_) {
+          // The absence of storage does not grant access; unlock fails closed.
+        }
+      }
+    },
+    onError: (Object error, StackTrace stack) {
+      // Offline refresh errors are expected and must not crash the app.
+    },
   );
 
   runApp(const ProviderScope(child: CurioApp()));
