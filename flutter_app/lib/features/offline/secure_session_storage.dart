@@ -8,10 +8,13 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 /// a session proves server identity only while the token remains valid;
 /// the device marker proves only that an account previously logged in.
 class SecureSupabaseSessionStorage extends LocalStorage {
-  SecureSupabaseSessionStorage([FlutterSecureStorage? storage])
-      : _storage = storage ?? const FlutterSecureStorage();
+  SecureSupabaseSessionStorage({
+    required String projectUrl,
+    FlutterSecureStorage? storage,
+  })  : _storage = storage ?? const FlutterSecureStorage(),
+        _sessionKey = 'kovunela_auth_v1_${Uri.parse(projectUrl).host}';
 
-  static const _sessionKey = 'kovunela_secure_supabase_session_v1';
+  final String _sessionKey;
   final FlutterSecureStorage _storage;
 
   @override
