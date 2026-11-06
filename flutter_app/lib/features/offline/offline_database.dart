@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:drift/drift.dart';
-import 'package:drift_flutter/drift_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 /// Persisted locally; each row is strictly scoped to one account and space.
@@ -54,8 +53,9 @@ class QueuedChange {
 /// A future sync worker must apply mutations through authorized, idempotent
 /// server RPCs, and must not merely replay arbitrary client-side SQL.
 class OfflineDatabase extends GeneratedDatabase {
-  OfflineDatabase([QueryExecutor? executor])
-      : super(executor ?? driftDatabase(name: 'kovunela_offline_v1'));
+  /// Production callers must supply an encrypted executor. This prevents
+  /// accidentally creating an unencrypted on-device database.
+  OfflineDatabase(QueryExecutor executor) : super(executor);
 
   @override
   int get schemaVersion => 1;
