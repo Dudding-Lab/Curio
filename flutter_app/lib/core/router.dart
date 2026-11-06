@@ -25,6 +25,21 @@ final authStateProvider = StreamProvider<AuthState>((ref) {
   });
 });
 
+/// Pure routing policy: expired JWTs never open cloud-only screens.
+String? authRedirect({
+  required bool hasSession,
+  required bool sessionExpired,
+  required String route,
+}) {
+  final isLogin = route == '/login';
+  final isOffline = route == '/offline';
+  if (!hasSession) return isLogin ? null : '/login';
+  if (sessionExpired) {
+    return isOffline || isLogin ? null : '/offline';
+  }
+  return isOffline || isLogin ? '/home' : null;
+}
+
 final routerProvider = Provider<GoRouter>((ref) {
   ref.watch(authStateProvider);
 
@@ -32,15 +47,11 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: '/login',
     redirect: (context, state) {
       final session = supabase.auth.currentSession;
-      final isLoginRoute = state.matchedLocation == '/login';
-      final isOfflineRoute = state.matchedLocation == '/offline';
-      if (session == null) return isLoginRoute ? null : '/login';
-      if (session.isExpired) {
-        // Never expose online-only screens behind an expired JWT.
-        return isOfflineRoute || isLoginRoute ? null : '/offline';
-      }
-      if (isLoginRoute || isOfflineRoute) return '/home';
-      return null;
+      return authRedirect(
+        hasSession: session != null,
+        sessionExpired: session?.isExpired ?? true,
+        route: state.matchedLocation,
+      );
     },
     routes: [
       GoRoute(
