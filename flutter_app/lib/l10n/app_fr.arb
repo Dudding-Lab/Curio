@@ -188,5 +188,7 @@
   "offlineUnlockUnavailable": "Accès hors ligne impossible. Connectez-vous en ligne et configurez le code ou la biométrie.",
   "offlineUnlockedNotice": "Appareil vérifié. Ce n'est pas une nouvelle connexion en ligne.",
   "offlineStoragePending": "La consultation chiffrée des collections locales est en cours de développement. Les listes Supabase sont indisponibles hors ligne.",
-  "offlineSignInOnline": "Se connecter en ligne"
+  "offlineSignInOnline": "Se connecter en ligne",
+  "catalogSourceKovunela": "Catalogue Kovunela",
+  "catalogSourceGoogle": "Google Books"
 }
