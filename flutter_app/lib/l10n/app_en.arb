@@ -149,5 +149,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "isbnLookupTitle": "Find book by ISBN",
+  "isbnLookupNotice": "This search queries Google Books. Check the results; nothing is saved.",
+  "isbnInputLabel": "ISBN-10 or ISBN-13",
+  "isbnSearchAction": "Search books",
+  "isbnLookupError": "Search failed. Check ISBN and connection.",
+  "isbnNoResults": "No matching books found.",
+  "isbnUnknownAuthor": "Unknown author",
+  "isbnReviewHeading": "Review book metadata",
+  "isbnReviewOnly": "Preview only: nothing saved.",
+  "isbnLookupHome": "ISBN lookup (Google Books)"
 }
