@@ -120,7 +120,9 @@ class CatalogIdentifier {
     var sum = 0;
     for (var i = 0; i < code.length; i++) {
       final digit = code.codeUnitAt(i) - 48;
-      if (digit < 0 || digit > 9) return false;
+      if (digit < 0 || digit > 9) {
+        return false;
+      }
       sum += digit * ((code.length - i).isEven ? 3 : 1);
     }
     return sum % 10 == 0;
