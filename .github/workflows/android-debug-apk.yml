@@ -36,6 +36,8 @@ jobs:
           flutter build apk --debug
           --dart-define=KOVUNELA_ENABLE_VISION_UPLOAD=false
           --dart-define=KOVUNELA_ENABLE_PERSONAL_ITEM_SAVE=false
+          --dart-define=SUPABASE_URL=https://tgawxheqrcqhcvxaexvd.supabase.co
+          --dart-define=SUPABASE_PUBLISHABLE_KEY=sb_publishable_0oJ24C29mwoyxSC7KIiMIA_Piurr6VV
       - name: Upload installable debug build
         uses: actions/upload-artifact@v4
         with:
