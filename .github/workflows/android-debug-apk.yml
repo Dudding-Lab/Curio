@@ -1,0 +1,45 @@
+name: Android debug device build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/kovunela-ui-foundation
+    paths:
+      - 'flutter_app/**'
+      - '.github/workflows/android-debug-apk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: flutter_app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Generate Android shell from Flutter official template
+        run: flutter create --platforms=android --project-name=curio --org=de.kovunela .
+      - name: Resolve packages
+        run: flutter pub get
+      - name: Generate localizations
+        run: flutter gen-l10n
+      - name: Build Android debug APK with AI and item saving disabled
+        run: >
+          flutter build apk --debug
+          --dart-define=KOVUNELA_ENABLE_VISION_UPLOAD=false
+          --dart-define=KOVUNELA_ENABLE_PERSONAL_ITEM_SAVE=false
+      - name: Upload installable debug build
+        uses: actions/upload-artifact@v4
+        with:
+          name: kovunela-android-debug-apk
+          path: flutter_app/build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
+          retention-days: 7
