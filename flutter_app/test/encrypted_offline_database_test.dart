@@ -54,7 +54,7 @@ void main() {
     await db.close();
 
     final file = File(
-      '${temp.path}/kovunela_test.supabase.co_${accountA}.sqlite',
+      '${temp.path}/kovunela_test.supabase.co_$accountA.sqlite',
     );
     expect(await file.exists(), isTrue);
     final data = await file.readAsBytes();
@@ -125,7 +125,7 @@ void main() {
   test('refuses plaintext legacy database instead of silently reading it',
       () async {
     final filename =
-        '${temp.path}/kovunela_test.supabase.co_${accountA}.sqlite';
+        '${temp.path}/kovunela_test.supabase.co_$accountA.sqlite';
     await File(filename).writeAsBytes([
       ...'SQLite format 3'.codeUnits,
       0,
