@@ -18,12 +18,14 @@ class PhotoCaptureScreen extends StatefulWidget {
   const PhotoCaptureScreen({
     super.key,
     this.photoService,
+    this.recoveryService,
     this.visionRepository,
     this.templateRepository,
     this.enableVision = kVisionUploadEnabled,
   });
 
   final PhotoSelectionService? photoService;
+  final PhotoRecoveryService? recoveryService;
   final VisionSuggestionRepository? visionRepository;
   final TemplateCatalogRepository? templateRepository;
   final bool enableVision;
@@ -39,6 +41,38 @@ class _PhotoCaptureScreenState extends State<PhotoCaptureScreen> {
   bool _busy = false;
   bool _validated = false;
   String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    // Only request recovery when the real device picker or an injected
+    // recovery service is present. No image leaves the device.
+    if (widget.recoveryService != null || widget.photoService == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _recoverLostPhoto();
+      });
+    }
+  }
+
+  Future<void> _recoverLostPhoto() async {
+    if (_busy || _photo != null) return;
+    try {
+      final service = widget.recoveryService ??
+          ImagePickerPhotoSelectionService();
+      final result = await service.recoverLostPhoto();
+      if (!mounted || result == null || _photo != null) return;
+      setState(() {
+        _photo = result;
+        _review = null;
+        _consented = false;
+        _validated = false;
+        _error = null;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _error = AppLocalizations.of(context)!.photoSelectionError);
+    }
+  }
 
   Future<void> _choose(PhotoSource source) async {
     if (_busy) return;
