@@ -57,11 +57,15 @@ class TemplateDraft {
       if (localizedLabels[key]?.isNotEmpty == true) {
         settings['labels'] = localizedLabels[key];
       }
-      if (fieldOrder.containsKey(key)) settings['order'] = fieldOrder[key];
+      if (fieldOrder.containsKey(key)) {
+        settings['order'] = fieldOrder[key];
+      }
       if (fields[key] == 'text') {
         settings['translation_mode'] = translationModeFor(key);
       }
-      if (settings.isNotEmpty) result[key] = settings;
+      if (settings.isNotEmpty) {
+        result[key] = settings;
+      }
     }
     return result;
   }
@@ -138,7 +142,9 @@ class TemplateDraft {
   }
 
   void setChoices(String key, List<String> choices) {
-    if (fields[key] != 'text') throw ArgumentError('Choices require text');
+    if (fields[key] != 'text') {
+      throw ArgumentError('Choices require text');
+    }
     if (choices.isEmpty) {
       fieldChoices.remove(key);
       return;
@@ -150,7 +156,9 @@ class TemplateDraft {
       throw ArgumentError('Invalid options');
     }
     fieldChoices[key] = choices.map((value) => value.trim()).toList();
-    if (!fieldChoices[key]!.contains(values[key])) values.remove(key);
+    if (!fieldChoices[key]!.contains(values[key])) {
+      values.remove(key);
+    }
   }
 
   /// Returns typed JSON suitable for review, never for unreviewed persistence.
