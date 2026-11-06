@@ -55,7 +55,7 @@ class QueuedChange {
 class OfflineDatabase extends GeneratedDatabase {
   /// Production callers must supply an encrypted executor. This prevents
   /// accidentally creating an unencrypted on-device database.
-  OfflineDatabase(QueryExecutor executor) : super(executor);
+  OfflineDatabase(super.executor);
 
   @override
   int get schemaVersion => 1;
