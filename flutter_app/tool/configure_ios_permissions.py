@@ -15,7 +15,7 @@ with path.open("rb") as file:
 info["NSCameraUsageDescription"] = (
     "Kovunela benötigt die Kamera nur, wenn du ein Sammlungsobjekt fotografieren möchtest."
 )
-info["NSPhotoLibraryUsageDescription"] = (
+info["NSFaceIDUsageDescription"] = "Unlock your local Kovunela collection using Face ID."\ninfo["NSPhotoLibraryUsageDescription"] = (
     "Kovunela benötigt Zugriff auf ausgewählte Fotos, damit du Sammlungsobjekte erfassen kannst."
 )
 # No microphone permission: image_picker in Kovunela selects photos only.
