@@ -116,6 +116,15 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 Card(
                   child: ListTile(
+                    leading: const Icon(Icons.collections_bookmark_outlined),
+                    title: Text(l10n.personalCollections),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => context.push('/collections/personal'),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Card(
+                  child: ListTile(
                     leading: const Icon(Icons.group_outlined),
                     title: Text(l10n.manageHouseholds),
                     subtitle: Text(l10n.yourCollections),
