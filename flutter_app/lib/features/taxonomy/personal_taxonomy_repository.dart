@@ -106,7 +106,9 @@ class SupabasePersonalTaxonomyRepository implements PersonalTaxonomyRepository {
       'p_template_version_id': templateVersionId,
       'p_attributes': attributes,
     });
-    if (id is! String || id.isEmpty) throw StateError('Item not confirmed');
+    if (id is! String || id.isEmpty) {
+      throw StateError('Item not confirmed');
+    }
     return id;
   }
 
@@ -123,7 +125,9 @@ class SupabasePersonalTaxonomyRepository implements PersonalTaxonomyRepository {
       'p_code': code,
       'p_label': label.trim(),
     });
-    if (id is! String || id.isEmpty) throw StateError('Category not confirmed');
+    if (id is! String || id.isEmpty) {
+      throw StateError('Category not confirmed');
+    }
     return id;
   }
 
@@ -143,7 +147,9 @@ class SupabasePersonalTaxonomyRepository implements PersonalTaxonomyRepository {
       'p_title': title.trim(),
       'p_fields': fields,
     });
-    if (id is! String || id.isEmpty) throw StateError('Object type not confirmed');
+    if (id is! String || id.isEmpty) {
+      throw StateError('Object type not confirmed');
+    }
     return id;
   }
 }
