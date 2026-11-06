@@ -65,5 +65,8 @@
   "descriptionPlaceholder": "Informações adicionais sobre o item",
   "myItems": "Meus itens",
   "noItemsYet": "Nenhum item salvo ainda.",
-  "itemListLoadError": "Não foi possível carregar seus itens."
+  "itemListLoadError": "Não foi possível carregar seus itens.",
+  "saveInProgress": "Salvando item…",
+  "saveFailed": "Não foi possível salvar o item. Seus dados foram preservados.",
+  "saveCompleted": "Item salvo com sucesso."
 }
