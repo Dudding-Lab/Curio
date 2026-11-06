@@ -85,5 +85,28 @@
   },
   "standardTemplates": "Standard templates",
   "noStandardTemplates": "No standard templates available.",
-  "standardTemplatesLoadError": "Couldn't load standard templates."
+  "standardTemplatesLoadError": "Couldn't load standard templates.",
+  "templateDraftOnly": "Preview only: Changes are not saved yet.",
+  "templateVariantTitle": "Template variant name",
+  "templateFields": "Attributes",
+  "templateFieldLabel": "Field label",
+  "templateFieldHidden": "Hide field",
+  "templateFieldOrder": "Order",
+  "addTemplateField": "Add attribute",
+  "templateFieldKey": "Field key",
+  "templateFieldKeyHint": "Lowercase letters, numbers, underscores",
+  "templateFieldType": "Field type",
+  "previewTemplateForm": "Preview form",
+  "invalidTemplateField": "Invalid or duplicate field.",
+  "templatePreviewValid": "{count} attributes validated.",
+  "templatePreviewInvalid": "Please check your entries.",
+  "validateTemplatePreview": "Validate form",
+  "removeTemplateField": "Remove field",
+  "@templatePreviewValid": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
