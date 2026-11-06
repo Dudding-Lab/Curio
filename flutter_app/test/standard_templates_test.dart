@@ -34,6 +34,20 @@ class _FakeCatalog implements TemplateCatalogRepository {
     String workspaceId,
   ) => throw UnimplementedError();
   @override
+  Future<Map<String, dynamic>?> getPersonalTemplatePresentation(
+    String templateId,
+  ) => throw UnimplementedError();
+  @override
+  Future<void> configurePersonalTemplate({
+    required String templateId,
+    required Map<String, Map<String, dynamic>> fieldPresentation,
+  }) => throw UnimplementedError();
+  @override
+  Future<bool> revokePersonalShare({
+    required String templateId,
+    required String householdWorkspaceId,
+  }) => throw UnimplementedError();
+  @override
   Future<String> copyOwnedToWorkspace({
     required String templateId,
     required String targetWorkspaceId,
