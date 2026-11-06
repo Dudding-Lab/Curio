@@ -1,13 +1,9 @@
 name: Android debug device build
 
+# Android APK builds are resource-intensive. Run them on demand;
+# Flutter analysis and widget tests still run automatically on each push.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/kovunela-ui-foundation
-    paths:
-      - 'flutter_app/**'
-      - '.github/workflows/android-debug-apk.yml'
 
 permissions:
   contents: read
