@@ -108,5 +108,9 @@
         "type": "int"
       }
     }
-  }
+  },
+  "templateContentLanguagePolicy": "Langue du contenu",
+  "templateContentLanguageHint": "Le texte original est toujours conservé. Les traductions seront séparées.",
+  "keepOriginalText": "Toujours afficher l'original",
+  "translateTextByAppLanguage": "Afficher dans la langue de l'application si disponible"
 }
