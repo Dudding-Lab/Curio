@@ -13,7 +13,7 @@ void main() {
   const passwordA = String.fromEnvironment('KOVUNELA_TEST_PASSWORD_A');
   const passwordB = String.fromEnvironment('KOVUNELA_TEST_PASSWORD_B');
 
-  const configured = url.isNotEmpty &&
+  final configured = url.isNotEmpty &&
       key.isNotEmpty &&
       emailA.isNotEmpty &&
       emailB.isNotEmpty &&
