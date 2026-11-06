@@ -26,7 +26,7 @@ class SecureOfflineEncryptionKeyStore implements OfflineEncryptionKeyStore {
   final FlutterSecureStorage _storage;
 
   String _keyName(String accountId) =>
-      'kovunela_offline_db_v1_' + projectHost + '_$accountId';
+      'kovunela_offline_db_v1_${projectHost}_$accountId';
 
   @override
   Future<String?> readKey(String accountId) =>
@@ -72,7 +72,7 @@ class EncryptedOfflineDatabaseFactory {
     }
     final base = directory ?? await getApplicationSupportDirectory();
     if (!await base.exists()) await base.create(recursive: true);
-    final file = File('${base.path}/kovunela_' + projectHost + '_$accountId.sqlite');
+    final file = File('${base.path}/kovunela_${projectHost}_$accountId.sqlite');
     final exists = await file.exists();
     var key = await _keyStore.readKey(accountId);
     if (key == null) {
