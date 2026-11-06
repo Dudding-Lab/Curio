@@ -13,6 +13,44 @@ class TemplateDraft {
   final Set<String> hiddenFields = {};
   final Map<String, int> fieldOrder = {};
   final Map<String, dynamic> values = {};
+  final Map<String, String> translationModes = {};
+
+  /// Only textual content can be translated; machine-readable values stay fixed.
+  /// A translated display value never replaces the captured original.
+  String translationModeFor(String key) {
+    if (fields[key] != 'text') return 'original';
+    return translationModes[key] ??
+        (const {'description', 'summary', 'notes', 'review', 'synopsis'}
+                .contains(key)
+            ? 'translate'
+            : 'original');
+  }
+
+  void setTranslationMode(String key, String mode) {
+    if (!fields.containsKey(key) ||
+        !const {'original', 'translate'}.contains(mode) ||
+        (mode == 'translate' && fields[key] != 'text')) {
+      throw ArgumentError('Invalid translation policy');
+    }
+    translationModes[key] = mode;
+  }
+
+  Map<String, Map<String, dynamic>> get fieldPresentation {
+    final result = <String, Map<String, dynamic>>{};
+    for (final key in fields.keys) {
+      final settings = <String, dynamic>{};
+      if (fieldLabels[key]?.trim().isNotEmpty == true) {
+        settings['label'] = fieldLabels[key]!.trim();
+      }
+      if (hiddenFields.contains(key)) settings['hidden'] = true;
+      if (fieldOrder.containsKey(key)) settings['order'] = fieldOrder[key];
+      if (fields[key] == 'text') {
+        settings['translation_mode'] = translationModeFor(key);
+      }
+      if (settings.isNotEmpty) result[key] = settings;
+    }
+    return result;
+  }
 
   static final _keyPattern = RegExp(r'^[a-z][a-z0-9_]{0,63}$');
   static const supportedTypes = {'text', 'number', 'boolean', 'date'};
@@ -42,6 +80,7 @@ class TemplateDraft {
     hiddenFields.remove(key);
     fieldOrder.remove(key);
     values.remove(key);
+    translationModes.remove(key);
   }
 
   List<String> get visibleFieldKeys {
