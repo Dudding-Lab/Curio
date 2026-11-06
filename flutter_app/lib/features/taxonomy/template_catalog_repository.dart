@@ -69,6 +69,14 @@ abstract interface class TemplateCatalogRepository {
     required String templateId,
     required String householdWorkspaceId,
   });
+  Future<String> copyOwnedToWorkspace({
+    required String templateId,
+    required String targetWorkspaceId,
+  });
+  Future<String> moveOwnedToWorkspace({
+    required String templateId,
+    required String targetWorkspaceId,
+  });
 }
 
 /// Reads are safe to use in the UI. Writes remain unexposed until verified
@@ -140,6 +148,36 @@ class SupabaseTemplateCatalogRepository implements TemplateCatalogRepository {
               Map<String, dynamic>.from(row as Map),
             ))
         .toList(growable: false);
+  }
+
+  @override
+  Future<String> copyOwnedToWorkspace({
+    required String templateId,
+    required String targetWorkspaceId,
+  }) async {
+    final id = await _client.rpc('kv_copy_owned_template', params: {
+      'p_template_id': templateId,
+      'p_target_workspace_id': targetWorkspaceId,
+    });
+    if (id is! String || id.isEmpty) {
+      throw StateError('Template copy not confirmed');
+    }
+    return id;
+  }
+
+  @override
+  Future<String> moveOwnedToWorkspace({
+    required String templateId,
+    required String targetWorkspaceId,
+  }) async {
+    final id = await _client.rpc('kv_move_owned_template', params: {
+      'p_template_id': templateId,
+      'p_target_workspace_id': targetWorkspaceId,
+    });
+    if (id is! String || id.isEmpty) {
+      throw StateError('Template move not confirmed');
+    }
+    return id;
   }
 
   @override
