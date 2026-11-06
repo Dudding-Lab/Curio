@@ -181,5 +181,12 @@
         "type": "int"
       }
     }
-  }
+  },
+  "offlineModeTitle": "Modo offline",
+  "offlineModeExplanation": "A sessão guardada permite apenas acesso local sem internet. As permissões cloud devem ser verificadas novamente online.",
+  "offlineUnlockAction": "Desbloquear com segurança do dispositivo",
+  "offlineUnlockUnavailable": "Acesso offline indisponível. Inicie sessão online e configure PIN ou biometria.",
+  "offlineUnlockedNotice": "Dispositivo verificado. Isto não é uma nova sessão online.",
+  "offlineStoragePending": "A vista encriptada das coleções locais está em desenvolvimento. As listas Supabase ainda não funcionam offline.",
+  "offlineSignInOnline": "Iniciar sessão online"
 }
