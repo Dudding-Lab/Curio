@@ -199,8 +199,13 @@ void main() {
     expect(find.text('Nur Vorschau: Diese Änderungen werden noch nicht gespeichert.'),
         findsOneWidget);
     expect(find.text('maker · text'), findsOneWidget);
-    expect(find.text('working · boolean'), findsOneWidget);
     expect(find.byKey(const ValueKey('translation-maker')), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('working · boolean'),
+      180,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.text('working · boolean'), findsOneWidget);
     expect(find.byKey(const ValueKey('translation-working')), findsNothing);
     await tester.scrollUntilVisible(
       find.text('Formular testen'),
