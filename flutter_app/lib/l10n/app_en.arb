@@ -62,5 +62,8 @@
   "manualCaptureHint": "Start with a name. You can organize the item later.",
   "optionalCollectionHint": "A collection is optional.",
   "saveNotReady": "Save is not available yet",
-  "descriptionPlaceholder": "Additional information about the item"
+  "descriptionPlaceholder": "Additional information about the item",
+  "myItems": "My items",
+  "noItemsYet": "No items saved yet.",
+  "itemListLoadError": "Couldn't load your items."
 }
