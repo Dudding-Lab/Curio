@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 /// First responsive landing screen. Manual capture opens a review-only form.
-/// Photo and barcode capture are not implemented yet.
+/// Local photo selection is available; barcode capture is not yet implemented.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -75,10 +75,7 @@ class HomeScreen extends StatelessWidget {
                             _Action(
                               icon: Icons.camera_alt_outlined,
                               label: l10n.takePhoto,
-                              onPressed: () => _unavailable(
-                                context,
-                                l10n.captureNotReady,
-                              ),
+                              onPressed: () => context.push('/capture/photo'),
                             ),
                             _Action(
                               icon: Icons.qr_code_scanner,
