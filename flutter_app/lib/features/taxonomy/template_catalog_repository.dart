@@ -77,6 +77,15 @@ abstract interface class TemplateCatalogRepository {
     required String templateId,
     required String targetWorkspaceId,
   });
+  Future<void> configurePersonalTemplate({
+    required String templateId,
+    required Map<String, Map<String, dynamic>> fieldPresentation,
+  });
+  Future<Map<String, dynamic>?> getPersonalTemplatePresentation(String templateId);
+  Future<bool> revokePersonalShare({
+    required String templateId,
+    required String householdWorkspaceId,
+  });
 }
 
 /// Reads are safe to use in the UI. Writes remain unexposed until verified
@@ -148,6 +157,43 @@ class SupabaseTemplateCatalogRepository implements TemplateCatalogRepository {
               Map<String, dynamic>.from(row as Map),
             ))
         .toList(growable: false);
+  }
+
+  @override
+  Future<Map<String, dynamic>?> getPersonalTemplatePresentation(
+    String templateId,
+  ) async {
+    final result = await _client.rpc('kv_get_personal_template_presentation',
+        params: {'p_template_id': templateId});
+    if (result == null) return null;
+    if (result is! Map) throw StateError('Invalid field presentation');
+    return Map<String, dynamic>.from(result);
+  }
+
+  @override
+  Future<void> configurePersonalTemplate({
+    required String templateId,
+    required Map<String, Map<String, dynamic>> fieldPresentation,
+  }) async {
+    final result = await _client.rpc('kv_configure_personal_template', params: {
+      'p_template_id': templateId,
+      'p_presentation': fieldPresentation,
+    });
+    if (result != true) throw StateError('Field presentation not confirmed');
+  }
+
+  @override
+  Future<bool> revokePersonalShare({
+    required String templateId,
+    required String householdWorkspaceId,
+  }) async {
+    final result = await _client.rpc('kv_revoke_personal_template_share',
+        params: {
+          'p_template_id': templateId,
+          'p_target_workspace_id': householdWorkspaceId,
+        });
+    if (result is! bool) throw StateError('Share revocation not confirmed');
+    return result;
   }
 
   @override
