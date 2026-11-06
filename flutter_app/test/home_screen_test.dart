@@ -19,6 +19,10 @@ void main() {
           builder: (context, state) => const HomeScreen(),
         ),
         GoRoute(
+          path: '/capture/photo',
+          builder: (context, state) => const Scaffold(body: Text('Photo capture')),
+        ),
+        GoRoute(
           path: '/households',
           builder: (context, state) => const Scaffold(body: Text('Households')),
         ),
@@ -50,11 +54,10 @@ void main() {
     expect(find.text('Willkommen bei Kovunela'), findsOneWidget);
     expect(find.text('Foto aufnehmen'), findsOneWidget);
     await tester.tap(find.text('Foto aufnehmen'));
-    await tester.pump();
-    expect(
-      find.text('Die Objekterfassung ist noch in Vorbereitung.'),
-      findsOneWidget,
-    );
+    await tester.pumpAndSettle();
+    expect(find.text('Photo capture'), findsOneWidget);
+    router.go('/home');
+    await tester.pumpAndSettle();
 
     await tester.ensureVisible(find.text('Haushalte verwalten'));
     await tester.pumpAndSettle();
