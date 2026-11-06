@@ -14,6 +14,13 @@ class _FakePhotoService implements PhotoSelectionService {
   Future<CapturedPhoto?> select(PhotoSource source) async => photo;
 }
 
+class _FakeRecoveryService implements PhotoRecoveryService {
+  _FakeRecoveryService(this.photo);
+  final CapturedPhoto? photo;
+  @override
+  Future<CapturedPhoto?> recoverLostPhoto() async => photo;
+}
+
 void main() {
   final fakeJpeg = Uint8List.fromList([
     0xff, 0xd8, 0xff, 0xe0, 0, 0, 0, 0,
@@ -82,6 +89,44 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('photo-preview')), findsNothing);
     expect(find.byKey(const ValueKey('photo-consent')), findsNothing);
+  });
+
+  testWidgets('recovered Android photo requires fresh consent and cannot upload',
+      (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('de'),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: PhotoCaptureScreen(
+          photoService: _FakePhotoService(null),
+          recoveryService: _FakeRecoveryService(CapturedPhoto(
+            bytes: fakeJpeg,
+            mimeType: 'image/jpeg',
+            source: PhotoSource.recovered,
+          )),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('photo-preview')), findsOneWidget);
+    expect(
+      tester.widget<CheckboxListTile>(
+        find.byKey(const ValueKey('photo-consent')),
+      ).value,
+      false,
+    );
+    expect(
+      tester.widget<FilledButton>(
+        find.byKey(const ValueKey('analyze-photo')),
+      ).onPressed,
+      isNull,
+    );
   });
 
   testWidgets('picker errors do not imply a photo was uploaded',
