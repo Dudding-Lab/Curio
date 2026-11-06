@@ -71,5 +71,16 @@
   "saveCompleted": "Objet enregistré.",
   "personalCollections": "Mes collections",
   "noPersonalCollectionsYet": "Aucune collection personnelle pour le moment.",
-  "personalCollectionsLoadError": "Impossible de charger vos collections."
+  "personalCollectionsLoadError": "Impossible de charger vos collections.",
+  "myObjectTypes": "Mes types d’objets",
+  "noObjectTypesYet": "Aucun type d’objet personnalisé.",
+  "objectTypesLoadError": "Impossible de charger les types d’objets.",
+  "objectTypeFieldCount": "{count} propriétés",
+  "@objectTypeFieldCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
