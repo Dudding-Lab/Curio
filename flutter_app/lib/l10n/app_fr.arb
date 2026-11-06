@@ -117,5 +117,37 @@
   "templateLabelLanguage": "Langue",
   "templateLocalizedLabel": "Nom du champ dans cette langue",
   "templateChoices": "Choix",
-  "templateChoicesHint": "Séparez les options par des virgules (au moins 2)"
+  "templateChoicesHint": "Séparez les options par des virgules (au moins 2)",
+  "suggestionReviewDemo": "Vérifier la suggestion IA (démo)",
+  "aiDemoNotice": "Exemple simulé : aucune analyse d'image IA ni sauvegarde. Champs inconnus exclus.",
+  "aiMatchedTemplate": "Modèle suggéré",
+  "aiMatchedFields": "{count} champs correspondants",
+  "aiReviewBookProposal": "Vérifier le livre",
+  "aiReviewFields": "Vérifier les informations",
+  "aiRejectedFields": "{count} champs exclus",
+  "aiMissingRequired": "Champs obligatoires manquants : {fields}",
+  "aiReviewComplete": "Informations validées. Rien n'a été enregistré.",
+  "aiNeedsReview": "Vérifiez les données ou complétez les champs obligatoires.",
+  "aiCaptureDemoAction": "Tester la saisie IA (démo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  }
 }
