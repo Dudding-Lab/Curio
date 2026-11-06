@@ -85,5 +85,28 @@
   },
   "standardTemplates": "Standardvorlagen",
   "noStandardTemplates": "Keine Standardvorlagen verfügbar.",
-  "standardTemplatesLoadError": "Standardvorlagen konnten nicht geladen werden."
+  "standardTemplatesLoadError": "Standardvorlagen konnten nicht geladen werden.",
+  "templateDraftOnly": "Nur Vorschau: Diese Änderungen werden noch nicht gespeichert.",
+  "templateVariantTitle": "Name der Vorlagenvariante",
+  "templateFields": "Eigenschaften",
+  "templateFieldLabel": "Feldbezeichnung",
+  "templateFieldHidden": "Ausblenden",
+  "templateFieldOrder": "Reihenfolge",
+  "addTemplateField": "Eigenschaft hinzufügen",
+  "templateFieldKey": "Technischer Feldname",
+  "templateFieldKeyHint": "Kleinbuchstaben, Zahlen und Unterstriche",
+  "templateFieldType": "Feldtyp",
+  "previewTemplateForm": "Formular testen",
+  "invalidTemplateField": "Ungültiges oder bereits vorhandenes Feld.",
+  "templatePreviewValid": "{count} Eigenschaften erfolgreich geprüft.",
+  "templatePreviewInvalid": "Bitte die Eingaben überprüfen.",
+  "validateTemplatePreview": "Formular prüfen",
+  "removeTemplateField": "Feld entfernen",
+  "@templatePreviewValid": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
