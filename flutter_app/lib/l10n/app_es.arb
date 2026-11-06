@@ -68,5 +68,8 @@
   "itemListLoadError": "No se pudieron cargar tus objetos.",
   "saveInProgress": "Guardando objeto…",
   "saveFailed": "No se pudo guardar el objeto. Tus datos se han conservado.",
-  "saveCompleted": "Objeto guardado correctamente."
+  "saveCompleted": "Objeto guardado correctamente.",
+  "personalCollections": "Mis colecciones",
+  "noPersonalCollectionsYet": "Todavía no hay colecciones personales.",
+  "personalCollectionsLoadError": "No se pudieron cargar tus colecciones."
 }
