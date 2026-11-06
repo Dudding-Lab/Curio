@@ -181,5 +181,12 @@
         "type": "int"
       }
     }
-  }
+  },
+  "offlineModeTitle": "Offline-Modus",
+  "offlineModeExplanation": "Die zuletzt gespeicherte Sitzung kann ohne Internet nur für den lokalen Gerätezugriff verwendet werden. Cloud-Daten und Haushaltsrechte müssen später online erneut überprüft werden.",
+  "offlineUnlockAction": "Mit Gerätesperre entsperren",
+  "offlineUnlockUnavailable": "Offline-Zugriff nicht möglich. Melde dich einmal online an und richte eine Geräte-PIN oder Biometrie ein.",
+  "offlineUnlockedNotice": "Gerät bestätigt. Dies ist keine neue Online-Anmeldung.",
+  "offlineStoragePending": "Die lokale, verschlüsselte Sammlungsansicht ist noch in Entwicklung. Vorhandene Supabase-Listen sind offline derzeit nicht verfügbar.",
+  "offlineSignInOnline": "Online anmelden"
 }
