@@ -108,6 +108,30 @@ class _TemplateDraftScreenState extends State<TemplateDraftScreen> {
                         ),
                     ],
                   ),
+                  if (draft.fields[key] == 'text')
+                    DropdownButtonFormField<String>(
+                      key: ValueKey('translation-$key'),
+                      initialValue: draft.translationModeFor(key),
+                      decoration: InputDecoration(
+                        labelText: l10n.templateContentLanguagePolicy,
+                        helperText: l10n.templateContentLanguageHint,
+                      ),
+                      items: [
+                        DropdownMenuItem(
+                          value: 'original',
+                          child: Text(l10n.keepOriginalText),
+                        ),
+                        DropdownMenuItem(
+                          value: 'translate',
+                          child: Text(l10n.translateTextByAppLanguage),
+                        ),
+                      ],
+                      onChanged: (mode) {
+                        if (mode != null) {
+                          setState(() => draft.setTranslationMode(key, mode));
+                        }
+                      },
+                    ),
                   TextFormField(
                     key: ValueKey('label-$key'),
                     initialValue: draft.fieldLabels[key] ?? '',
