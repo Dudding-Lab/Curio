@@ -159,5 +159,27 @@
   "isbnUnknownAuthor": "Autor desconhecido",
   "isbnReviewHeading": "Rever informações",
   "isbnReviewOnly": "Apenas pré-visualização: nada guardado.",
-  "isbnLookupHome": "Pesquisa ISBN (Google Books)"
+  "isbnLookupHome": "Pesquisa ISBN (Google Books)",
+  "photoCaptureTitle": "Selecionar e rever fotografia",
+  "photoCaptureIntro": "Escolha uma fotografia. Fica no dispositivo até dar consentimento e a funcionalidade estar ativa.",
+  "chooseFromGallery": "Escolher da galeria",
+  "photoSelectionError": "Não foi possível abrir a imagem. Escolha JPEG ou PNG com menos de 700 KB.",
+  "photoAnalysisError": "A análise de IA não está disponível de momento.",
+  "photoSelectedInfo": "{mimeType} · {bytes} bytes",
+  "discardSelectedPhoto": "Descartar fotografia",
+  "photoTransferConsent": "Concordo em enviar esta fotografia para análise por IA.",
+  "photoTransferExplanation": "Quando ativada, a fotografia será enviada à OpenAI. Nada será automaticamente guardado na minha coleção.",
+  "photoVisionDisabled": "Análise de IA desativada – nenhum envio possível.",
+  "analyzeSelectedPhoto": "Analisar fotografia",
+  "photoNeverAutoSaved": "Nada foi guardado automaticamente.",
+  "@photoSelectedInfo": {
+    "placeholders": {
+      "mimeType": {
+        "type": "String"
+      },
+      "bytes": {
+        "type": "int"
+      }
+    }
+  }
 }
