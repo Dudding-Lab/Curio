@@ -117,5 +117,37 @@
   "templateLabelLanguage": "Sprache",
   "templateLocalizedLabel": "Feldname in dieser Sprache",
   "templateChoices": "Auswahlmöglichkeiten",
-  "templateChoicesHint": "Mehrere Werte durch Kommas trennen (mindestens 2)"
+  "templateChoicesHint": "Mehrere Werte durch Kommas trennen (mindestens 2)",
+  "suggestionReviewDemo": "KI-Vorschlag prüfen (Demo)",
+  "aiDemoNotice": "Demo mit simulierten Angaben – noch keine KI-Bildanalyse und keine Speicherung. Unbekannte Felder werden nicht übernommen.",
+  "aiMatchedTemplate": "Vorgeschlagene Vorlage",
+  "aiMatchedFields": "{count} passende Felder",
+  "aiReviewBookProposal": "Buchvorschlag prüfen",
+  "aiReviewFields": "Vorgeschlagene Angaben bearbeiten",
+  "aiRejectedFields": "{count} ungeprüfte Felder verworfen",
+  "aiMissingRequired": "Pflichtangaben fehlen: {fields}",
+  "aiReviewComplete": "Angaben geprüft. Kein Gegenstand gespeichert.",
+  "aiNeedsReview": "Angaben prüfen oder fehlende Pflichtfelder ergänzen.",
+  "aiCaptureDemoAction": "KI-Erfassung testen (Demo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  }
 }
