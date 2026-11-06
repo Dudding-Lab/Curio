@@ -181,5 +181,12 @@
         "type": "int"
       }
     }
-  }
+  },
+  "offlineModeTitle": "Modo sin conexión",
+  "offlineModeExplanation": "La sesión guardada solo permite acceso local sin internet. Los permisos de la nube deben verificarse de nuevo en línea.",
+  "offlineUnlockAction": "Desbloquear con seguridad del dispositivo",
+  "offlineUnlockUnavailable": "Acceso sin conexión no disponible. Inicia sesión en línea y configura PIN o biometría.",
+  "offlineUnlockedNotice": "Dispositivo verificado. No es una nueva sesión en línea.",
+  "offlineStoragePending": "La vista cifrada de colecciones locales está en desarrollo. Las listas de Supabase aún no funcionan sin conexión.",
+  "offlineSignInOnline": "Iniciar sesión en línea"
 }
