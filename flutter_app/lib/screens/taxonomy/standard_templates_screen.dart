@@ -1,6 +1,7 @@
 import 'package:curio/features/taxonomy/template_catalog_repository.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Public-to-authenticated, read-only catalog; creating personal derivatives
@@ -64,6 +65,8 @@ class _StandardTemplatesScreenState extends State<StandardTemplatesScreen> {
               return ListTile(
                 leading: const Icon(Icons.auto_awesome_motion_outlined),
                 title: Text(template.title),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => context.push('/templates/standard/${Uri.encodeComponent(template.code)}/draft'),
                 subtitle: Text(
                   l10n.objectTypeFieldCount(template.fields.length),
                 ),
