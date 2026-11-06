@@ -159,5 +159,27 @@
   "isbnUnknownAuthor": "Unknown author",
   "isbnReviewHeading": "Review book metadata",
   "isbnReviewOnly": "Preview only: nothing saved.",
-  "isbnLookupHome": "ISBN lookup (Google Books)"
+  "isbnLookupHome": "ISBN lookup (Google Books)",
+  "photoCaptureTitle": "Select and review photo",
+  "photoCaptureIntro": "Choose a photo. It stays on your device until you explicitly consent and the feature is enabled.",
+  "chooseFromGallery": "Choose from gallery",
+  "photoSelectionError": "Couldn't open the photo. Choose JPEG or PNG under 700 KB.",
+  "photoAnalysisError": "AI analysis isn't available right now. Please try later.",
+  "photoSelectedInfo": "{mimeType} · {bytes} bytes",
+  "discardSelectedPhoto": "Discard photo",
+  "photoTransferConsent": "I consent to sending this photo for AI analysis.",
+  "photoTransferExplanation": "When enabled, the selected image will be sent to OpenAI for analysis. Neither the image nor suggested metadata is automatically saved to my collection.",
+  "photoVisionDisabled": "AI photo analysis is disabled – no transmission possible.",
+  "analyzeSelectedPhoto": "Analyze photo",
+  "photoNeverAutoSaved": "Nothing was saved automatically.",
+  "@photoSelectedInfo": {
+    "placeholders": {
+      "mimeType": {
+        "type": "String"
+      },
+      "bytes": {
+        "type": "int"
+      }
+    }
+  }
 }
