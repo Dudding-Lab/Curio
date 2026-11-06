@@ -78,8 +78,12 @@ class SupabaseCanonicalCatalogRepository implements CanonicalCatalogRepository {
       'p_identifier_type': identifierType,
       'p_identifier': identifier,
     });
-    if (response == null) return null;
-    if (response is! Map) throw const FormatException('Unexpected catalog result');
+    if (response == null) {
+      return null;
+    }
+    if (response is! Map) {
+      throw const FormatException('Unexpected catalog result');
+    }
     return CanonicalCatalogHit.fromJson(
       Map<String, dynamic>.from(response),
     );
