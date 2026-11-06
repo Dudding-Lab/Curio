@@ -117,7 +117,7 @@ void main() {
       throwsArgumentError,
     );
     await expectLater(
-      db.putRecord(OfflineRecord(
+      db.putRecord(const OfflineRecord(
         accountId: 'account-a', workspaceId: 'private-a',
         kind: 'unknown', id: 'bad', data: {},
       )),
