@@ -1,4 +1,5 @@
 import 'package:curio/features/capture/book_lookup_repository.dart';
+import 'package:curio/features/capture/canonical_catalog_repository.dart';
 import 'package:curio/features/capture/capture_suggestion.dart';
 import 'package:curio/features/taxonomy/template_catalog_repository.dart';
 import 'package:curio/l10n/app_localizations.dart';
@@ -37,8 +38,10 @@ class _IsbnLookupScreenState extends State<IsbnLookupScreen> {
       _error = null;
     });
     try {
-      final repository = widget.repository ??
-          SupabaseBookLookupRepository(Supabase.instance.client);
+      final repository = widget.repository ?? CatalogFirstBookLookupRepository(
+        catalog: SupabaseCanonicalCatalogRepository(Supabase.instance.client),
+        external: SupabaseBookLookupRepository(Supabase.instance.client),
+      );
       final result = await repository.byIsbn(_isbnController.text.trim());
       if (!mounted) return;
       setState(() => _books = result);
@@ -124,8 +127,7 @@ class _IsbnLookupScreenState extends State<IsbnLookupScreen> {
                       child: ListTile(
                         leading: const Icon(Icons.book_outlined),
                         title: Text(book.title),
-                        subtitle: Text(book.attributes['author']?.toString() ??
-                            l10n.isbnUnknownAuthor),
+                        subtitle: Text('${book.attributes['author'] ?? l10n.isbnUnknownAuthor} · ${book.source == 'kovunela_catalog' ? l10n.catalogSourceKovunela : l10n.catalogSourceGoogle}'),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: _loading ? null : () => _select(book),
                       ),
