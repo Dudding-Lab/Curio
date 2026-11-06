@@ -66,16 +66,16 @@ void main() {
   testWidgets('template draft edits and previews typed fields without saving',
       (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale('de'),
-        localizationsDelegates: const [
+      const MaterialApp(
+        locale: Locale('de'),
+        localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
-        home: const TemplateDraftScreen(
+        home: TemplateDraftScreen(
           standardCode: 'camera',
           initialTemplate: StandardObjectTemplate(
             id: 'camera-id',
