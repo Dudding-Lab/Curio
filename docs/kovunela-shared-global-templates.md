@@ -8,7 +8,8 @@ Stand: 06.11.2026. Implementiert **nur** im nichtproduktiven Supabase-Projekt Cu
 3. **Ableitung**: Die persönliche Vorlage aus einem Standard bewahrt `source_standard_id` und `source_version` und enthält das aufgelöste Feldschema (`Standardfelder + neue Felder`). Keine automatische Aktualisierung/Änderung bestehender Datensätze.
 4. **Freigabe**: Der private Eigentümer gibt seine Vorlage gezielt für einen Haushalt frei. Ausschließlich Mitglieder des Zielhaushalts dürfen die freigegebene Felddefinition sehen. Aktuell autorisiert die Freigabe nur der Haushaltseigentümer oder Administrator.
 5. **Übernahme/Kopie**: Berechtigte Haushaltsmitglieder (`owner`, `admin`, `editor`) erstellen eine **unabhängige Kopie** im Haushalt, verknüpft über `source_template_id` und `source_version`. Bestehende Gegenstände des ursprünglichen Bereichs werden nicht freigegeben.
-6. **Verschieben**: Noch nicht freigegeben/implementiert. Eine sichere Übertragung muss Gegenstandsreferenzen, Freigaben und abgeleitete Vorlagen prüfen und ggf. blockieren, bevor die ursprüngliche Vorlage entfernt wird.
+6. **Bereichsübergreifendes Kopieren**: Die Autorin oder der Autor einer Vorlage kann sie zwischen den eigenen, administrierbaren Arbeitsbereichen kopieren. Die Kopie bekommt eine neue Identität und eine unveränderliche Feldschema-Snapshot-Version.
+7. **Kontrolliertes Verschieben**: Die Vorlage wird nur dann in einen anderen eigenen, administrierbaren Bereich übertragen, wenn **keine Gegenstände, Freigaben oder abgeleitete Vorlagen** auf das Original verweisen. Das Ziel bekommt eine neue Vorlagen-ID und die zuletzt veröffentlichte Feldschema-Version; das Original wird innerhalb derselben Transaktion entfernt. Bestehende Versionshistorie wird dabei nicht als vollständige Historie übertragen. Jede Abhängigkeit blockiert den Vorgang statt ihn stillschweigend zu verändern.
 
 Die bestehende `items`-Tabelle verwendet weiterhin zusammengesetzte Fremdschlüssel (`workspace_id`, `template_version_id`), sodass ein Gegenstand keine Vorlage aus einem fremden Bereich direkt referenzieren kann. Das schützt die Trennung privater Gegenstandsdaten und schließt eine versehentliche Datenfreigabe durch Vorlagenteilung aus.
 
@@ -25,11 +26,13 @@ Aktuell angelegte **sechs** Standardvorlagen: `book`, `movie`, `music`, `game`, 
 - `kv_share_personal_template(p_template_id,p_target_workspace_id)` – eine eigene persönliche Vorlage für einen eigenen Haushalt freigeben.
 - `kv_list_shared_templates(p_workspace_id)` – freigegebene Vorlagen ausschließlich an Mitglieder des Haushalts ausgeben.
 - `kv_copy_shared_template(p_template_id,p_target_workspace_id)` – versionierte Kopie in den Zielhaushalt anlegen, nur mit Editierrechten.
+- `kv_copy_owned_template(p_template_id,p_target_workspace_id)` – Kopie einer selbst erstellten Vorlage in einen anderen eigenen oder administrierten Arbeitsbereich.
+- `kv_move_owned_template(p_template_id,p_target_workspace_id)` – geprüfte, transaktionale Übertragung ohne abhängige Objekte/Versionen/Freigaben; kein Übertragen von Gegenständen.
 
 Nur authentifizierte Benutzer erhalten `EXECUTE` für öffentliche **SECURITY INVOKER**-Wrapper; interne Funktionen liegen im privaten Schema mit validierter `auth.uid()`- und Mitgliedschaftsprüfung. Auch die Tabellen selbst sind nicht direkt erreichbar.
 
 ## Implementiert in Flutter
-- `lib/features/taxonomy/template_catalog_repository.dart`: typisierte API für Katalog, Ableitung, Freigabe, Haushaltssuche, Kopie.
+- `lib/features/taxonomy/template_catalog_repository.dart`: typisierte API für Katalog, Ableitung, Freigabe, Haushaltssuche, Kopie und kontrolliertes Verschieben.
 - `lib/screens/taxonomy/standard_templates_screen.dart`: Katalog unter `/templates/standard`, **schreibgeschützt**, von der Startseite erreichbar.
 - Lokalisierte Katalogoberfläche in den sieben ARB-Sprachen.
 - `test/standard_templates_test.dart`: Modell- und Widget-Tests.
@@ -38,7 +41,7 @@ Nur authentifizierte Benutzer erhalten `EXECUTE` für öffentliche **SECURITY IN
 ## Offene Sicherheits-/Produktaufgaben
 1. Echte Zwei-Nutzer- und Zwei-Haushalts-Integrationstests: Owner/Admin, Editor, Viewer, Fremdmitgliedschaft, Übernahme, Entzug von Freigaben.
 2. Freigabe widerrufen: Zielbereich-Kopien müssen als unabhängige Snapshots definiert bleiben; Entzug verhindert nur zukünftige Übernahmen.
-3. Verschieben: nur nach geprüfter Datenreferenzanalyse; kein stilles Löschen von Vorlagen.
+3. Verschieben: Datenreferenzprüfungen sind serverseitig implementiert; vollständige Haushaltstests, Versionshistorien-UX, Nutzerbestätigung und die Freischaltung der Aktion fehlen noch.
 4. Editieren und neue Versionen: kompatible Feldänderungen und Bestandsmigrationen gesondert implementieren.
 5. Feldlabels, Hilfetexte, Pflichtfelder, Sichtbarkeit und lokalisierte Standardtitel ergänzen; KI-Erfassung kann danach die Schema-IDs nutzen.
 6. App-Schreibaktionen erst nach realem JWT-Sicherheitstest freischalten.
