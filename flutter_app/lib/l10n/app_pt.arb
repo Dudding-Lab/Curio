@@ -82,5 +82,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "standardTemplates": "Modelos padrão",
+  "noStandardTemplates": "Nenhum modelo padrão disponível.",
+  "standardTemplatesLoadError": "Não foi possível carregar os modelos padrão."
 }
