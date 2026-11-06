@@ -32,8 +32,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     setState(() => _isLoading = true);
     try {
+      final AuthResponse response;
       if (_isSignUp) {
-        await Supabase.instance.client.auth.signUp(
+        response = await Supabase.instance.client.auth.signUp(
           email: email,
           password: password,
         );
@@ -44,18 +45,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           setState(() => _isSignUp = false);
         }
       } else {
-        final response = await Supabase.instance.client.auth.signInWithPassword(
+        response = await Supabase.instance.client.auth.signInWithPassword(
           email: email,
           password: password,
         );
-        final session = response.session;
-        // Enrollment only follows an online-verified login. This marker
-        // contains just the account ID, never credentials or JWTs.
-        if (session != null && !session.isExpired) {
+      }
+      final session = response.session;
+      // Only an authenticated online session may enroll the device.
+      // Secure storage errors must not undo a successful server sign-in.
+      if (session != null && !session.isExpired) {
+        try {
           await OfflineAccessController(
             knownDevices: SecureKnownDeviceStore(),
             deviceUnlock: PlatformDeviceUnlock(),
           ).recordOnlineLogin(session.user.id);
+        } catch (_) {
+          // Offline unlock remains unavailable until a later online login.
         }
       }
     } on AuthException catch (e) {
