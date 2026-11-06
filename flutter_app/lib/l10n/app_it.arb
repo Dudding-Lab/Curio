@@ -117,5 +117,37 @@
   "templateLabelLanguage": "Lingua",
   "templateLocalizedLabel": "Etichetta in questa lingua",
   "templateChoices": "Opzioni",
-  "templateChoicesHint": "Separa i valori con virgole (almeno 2)"
+  "templateChoicesHint": "Separa i valori con virgole (almeno 2)",
+  "suggestionReviewDemo": "Verifica suggerimento IA (demo)",
+  "aiDemoNotice": "Esempio simulato: nessuna analisi immagini o salvataggio. Campi sconosciuti esclusi.",
+  "aiMatchedTemplate": "Modello suggerito",
+  "aiMatchedFields": "{count} campi corrispondenti",
+  "aiReviewBookProposal": "Verifica libro",
+  "aiReviewFields": "Verifica dati suggeriti",
+  "aiRejectedFields": "{count} campi scartati",
+  "aiMissingRequired": "Campi obbligatori mancanti: {fields}",
+  "aiReviewComplete": "Dati verificati. Nessun salvataggio.",
+  "aiNeedsReview": "Controlla i dati o completa i campi obbligatori.",
+  "aiCaptureDemoAction": "Prova acquisizione IA (demo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  }
 }
