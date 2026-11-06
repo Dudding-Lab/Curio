@@ -6,6 +6,7 @@ import 'package:curio/screens/home/home_screen.dart';
 import 'package:curio/screens/items/personal_items_screen.dart';
 import 'package:curio/screens/taxonomy/personal_object_types_screen.dart';
 import 'package:curio/screens/taxonomy/standard_templates_screen.dart';
+import 'package:curio/screens/taxonomy/template_draft_screen.dart';
 import 'package:curio/screens/collections/personal_collections_screen.dart';
 import 'package:curio/screens/capture/manual_capture_screen.dart';
 import 'package:curio/screens/households/household_list_screen.dart';
@@ -50,6 +51,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/templates/standard',
         builder: (context, state) => const StandardTemplatesScreen(),
+      ),
+      GoRoute(
+        path: '/templates/standard/:code/draft',
+        builder: (context, state) => TemplateDraftScreen(
+          standardCode: state.pathParameters['code']!,
+        ),
       ),
       GoRoute(
         path: '/object-types',
