@@ -90,7 +90,7 @@ class SupabaseCanonicalCatalogRepository implements CanonicalCatalogRepository {
 /// Never allow OCR garbage to trigger a paid external lookup.
 class CatalogIdentifier {
   static String normalize(String value) =>
-      value.replaceAll(RegExp(r'[\\s-]'), '').toUpperCase();
+      value.replaceAll('-', '').replaceAll(' ', '').toUpperCase();
 
   static bool valid(String type, String value) {
     final code = normalize(value);
