@@ -68,5 +68,8 @@
   "itemListLoadError": "Não foi possível carregar seus itens.",
   "saveInProgress": "Salvando item…",
   "saveFailed": "Não foi possível salvar o item. Seus dados foram preservados.",
-  "saveCompleted": "Item salvo com sucesso."
+  "saveCompleted": "Item salvo com sucesso.",
+  "personalCollections": "Minhas coleções",
+  "noPersonalCollectionsYet": "Ainda não há coleções pessoais.",
+  "personalCollectionsLoadError": "Não foi possível carregar suas coleções."
 }
