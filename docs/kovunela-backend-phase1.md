@@ -54,3 +54,15 @@ The manual draft/review screen **must remain read-only** until a separate develo
 
 ## Planned follow-up
 After isolated validation, convert the approved SQL into a versioned migration that is part of a coherent schema, implement typed item repository, connect Save to the verified RPC, render real items and test two-user RLS. Maintain a clear migration path for full universal collection model.
+
+
+## Product-owner decision — replace non-production legacy data (2026-11-06)
+The existing Supabase project has **never been used in production**. The owner explicitly permits overwriting the existing **application test data and legacy application tables** for the Kovunela redesign. No migration or preservation of old household/collection test content is required.
+
+Revised strategy:
+1. **Do not require a second paid Supabase project.** Reuse the existing project for a clean-slate application schema when confirmed accessible, after identifying its exact project and enumerating objects.
+2. First inventory current SQL schema, RLS policies, RPCs, triggers, Storage buckets and Edge Functions; compare against the full Curio v2 model. Avoid applying the narrow phase-one draft alongside conflicting legacy tables.
+3. Prefer **one coherent versioned baseline** for the full Kovunela model and a reviewed transition/reset script, followed by security tests, over disconnected trial migrations.
+4. Before destructive execution, verify an optional backup/export or explicitly record that test data will be lost, and obtain an environment-specific go-ahead for the exact reset operation. Confirm this is not a shared or production database.
+5. Legacy **Auth users**, sign-in identities, secrets, deployed Edge Functions, Storage objects and project configuration are **not automatically covered** by permission to replace data. Preserve them unless explicitly included and confirmed in a precise reset plan.
+6. Nothing in this document means a database reset has happened. There is no direct Supabase execution connection in the current tooling. GitHub changes are not deployments.
