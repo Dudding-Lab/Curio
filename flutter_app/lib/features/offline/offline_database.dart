@@ -64,6 +64,9 @@ class OfflineDatabase extends GeneratedDatabase {
   Iterable<TableInfo<Table, dynamic>> get allSchemaEntities => const [];
 
   @override
+  Iterable<TableInfo<Table, dynamic>> get allTables => const [];
+
+  @override
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (migrator) async {
           await customStatement('''
