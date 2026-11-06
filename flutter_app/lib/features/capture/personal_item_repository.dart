@@ -5,18 +5,49 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 ///
 /// The client must never choose created_by or workspace_id: those are derived
 /// from the authenticated caller by the reviewed server-side RPC.
-abstract interface class PersonalItemRepository {
-  Future<String> create(ManualItemDraft draft);
+class PersonalItem {
+  const PersonalItem({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.createdAt,
+  });
+
+  final String id;
+  final String title;
+  final String description;
+  final DateTime createdAt;
+
+  factory PersonalItem.fromJson(Map<String, dynamic> json) => PersonalItem(
+        id: json['id'] as String,
+        title: json['title'] as String,
+        description: json['description'] as String? ?? '',
+        createdAt: DateTime.parse(json['created_at'] as String),
+      );
 }
 
-/// Prepared for isolated development testing. NOT wired to a Save button.
-///
-/// Using this against a legacy or production Supabase schema is unsupported.
-/// First validate docs/sql/kovunela_phase1_dev_only.sql in a clean DEV project.
+abstract interface class PersonalItemRepository {
+  Future<String> create(ManualItemDraft draft);
+  Future<List<PersonalItem>> list();
+}
+
+/// Create is not wired to Save until real cross-user JWT tests pass.
+/// Listing is connected to the already deployed authenticated RPC.
 class SupabasePersonalItemRepository implements PersonalItemRepository {
   SupabasePersonalItemRepository(this._client);
 
   final SupabaseClient _client;
+
+  @override
+  Future<List<PersonalItem>> list() async {
+    final data = await _client.rpc('kv_list_personal_items');
+    if (data is! List) {
+      throw StateError('Server did not return an item list');
+    }
+    return data
+        .map((row) => PersonalItem.fromJson(Map<String, dynamic>.from(row as Map)))
+        .toList(growable: false);
+  }
 
   @override
   Future<String> create(ManualItemDraft draft) async {
