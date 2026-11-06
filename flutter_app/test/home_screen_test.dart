@@ -56,6 +56,8 @@ void main() {
       findsOneWidget,
     );
 
+    await tester.ensureVisible(find.text('Haushalte verwalten'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Haushalte verwalten'));
     await tester.pumpAndSettle();
     expect(find.text('Households'), findsOneWidget);
