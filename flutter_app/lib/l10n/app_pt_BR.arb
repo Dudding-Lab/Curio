@@ -85,5 +85,28 @@
   },
   "standardTemplates": "Modelos padrão",
   "noStandardTemplates": "Nenhum modelo padrão disponível.",
-  "standardTemplatesLoadError": "Não foi possível carregar os modelos padrão."
+  "standardTemplatesLoadError": "Não foi possível carregar os modelos padrão.",
+  "templateDraftOnly": "Apenas pré-visualização: alterações ainda não guardadas.",
+  "templateVariantTitle": "Nome da variante",
+  "templateFields": "Atributos",
+  "templateFieldLabel": "Etiqueta",
+  "templateFieldHidden": "Ocultar",
+  "templateFieldOrder": "Ordem",
+  "addTemplateField": "Adicionar atributo",
+  "templateFieldKey": "Chave do campo",
+  "templateFieldKeyHint": "Minúsculas, números e sublinhados",
+  "templateFieldType": "Tipo de campo",
+  "previewTemplateForm": "Testar formulário",
+  "invalidTemplateField": "Campo inválido ou duplicado.",
+  "templatePreviewValid": "{count} atributos validados.",
+  "templatePreviewInvalid": "Verifique os dados inseridos.",
+  "validateTemplatePreview": "Validar formulário",
+  "removeTemplateField": "Remover campo",
+  "@templatePreviewValid": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
