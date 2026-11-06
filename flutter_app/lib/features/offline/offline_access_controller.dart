@@ -78,11 +78,11 @@ class OfflineAccessController {
   final KnownDeviceStore _knownDevices;
   final DeviceUnlock _deviceUnlock;
 
-  Future<void> recordOnlineLogin(String accountId) {
+  Future<void> recordOnlineLogin(String accountId) async {
     if (accountId.trim().isEmpty) {
       throw ArgumentError('Account ID is required');
     }
-    return _knownDevices.enroll(accountId);
+    await _knownDevices.enroll(accountId);
   }
 
   Future<OfflineAccessDecision?> unlockOffline({
