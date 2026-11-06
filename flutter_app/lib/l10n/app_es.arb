@@ -65,5 +65,8 @@
   "descriptionPlaceholder": "Información adicional sobre el objeto",
   "myItems": "Mis objetos",
   "noItemsYet": "Todavía no hay objetos guardados.",
-  "itemListLoadError": "No se pudieron cargar tus objetos."
+  "itemListLoadError": "No se pudieron cargar tus objetos.",
+  "saveInProgress": "Guardando objeto…",
+  "saveFailed": "No se pudo guardar el objeto. Tus datos se han conservado.",
+  "saveCompleted": "Objeto guardado correctamente."
 }
