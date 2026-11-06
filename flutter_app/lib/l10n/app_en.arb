@@ -68,5 +68,8 @@
   "itemListLoadError": "Couldn't load your items.",
   "saveInProgress": "Saving item…",
   "saveFailed": "Couldn't save the item. Your entries are unchanged.",
-  "saveCompleted": "Item saved successfully."
+  "saveCompleted": "Item saved successfully.",
+  "personalCollections": "My collections",
+  "noPersonalCollectionsYet": "No personal collections yet.",
+  "personalCollectionsLoadError": "Couldn't load your collections."
 }
