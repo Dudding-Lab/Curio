@@ -29,6 +29,7 @@ class _TemplateDraftScreenState extends State<TemplateDraftScreen> {
   final _titleController = TextEditingController();
   String _newFieldType = 'text';
   bool _preview = false;
+  String _labelLanguage = 'de';
 
   @override
   void initState() {
@@ -141,6 +142,80 @@ class _TemplateDraftScreenState extends State<TemplateDraftScreen> {
                     ),
                     onChanged: (value) => draft.fieldLabels[key] = value,
                   ),
+                  CheckboxListTile(
+                    key: ValueKey('required-$key'),
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(l10n.templateFieldRequired),
+                    value: draft.requiredFields.contains(key),
+                    onChanged: (value) => setState(() {
+                      if (value == true) {
+                        draft.requiredFields.add(key);
+                        draft.hiddenFields.remove(key);
+                      } else {
+                        draft.requiredFields.remove(key);
+                      }
+                    }),
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 105,
+                        child: DropdownButtonFormField<String>(
+                          key: ValueKey('language-$key'),
+                          isExpanded: true,
+                          initialValue: _labelLanguage,
+                          decoration: InputDecoration(
+                            labelText: l10n.templateLabelLanguage,
+                          ),
+                          items: const ['de', 'en', 'fr', 'es', 'it', 'pt']
+                              .map((lang) => DropdownMenuItem(
+                                    value: lang,
+                                    child: Text(lang.toUpperCase()),
+                                  ))
+                              .toList(),
+                          onChanged: (lang) {
+                            if (lang != null) {
+                              setState(() => _labelLanguage = lang);
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: TextFormField(
+                          key: ValueKey('localized-$key-$_labelLanguage'),
+                          initialValue:
+                              draft.localizedLabels[key]?[_labelLanguage] ?? '',
+                          decoration: InputDecoration(
+                            labelText: l10n.templateLocalizedLabel,
+                          ),
+                          onChanged: (label) =>
+                              draft.setLocalizedLabel(key, _labelLanguage, label),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (draft.fields[key] == 'text')
+                    TextFormField(
+                      key: ValueKey('choices-$key'),
+                      initialValue: draft.fieldChoices[key]?.join(', ') ?? '',
+                      decoration: InputDecoration(
+                        labelText: l10n.templateChoices,
+                        helperText: l10n.templateChoicesHint,
+                      ),
+                      onChanged: (raw) {
+                        try {
+                          draft.setChoices(
+                            key,
+                            raw.trim().isEmpty
+                                ? []
+                                : raw.split(',').map((v) => v.trim()).toList(),
+                          );
+                        } on ArgumentError {
+                          // Keep the editor input intact until it is valid.
+                        }
+                      },
+                    ),
                   Row(
                     children: [
                       Expanded(
@@ -148,7 +223,9 @@ class _TemplateDraftScreenState extends State<TemplateDraftScreen> {
                           contentPadding: EdgeInsets.zero,
                           title: Text(l10n.templateFieldHidden),
                           value: draft.hiddenFields.contains(key),
-                          onChanged: (value) => setState(() {
+                          onChanged: draft.requiredFields.contains(key)
+                              ? null
+                              : (value) => setState(() {
                             if (value == true) {
                               draft.hiddenFields.add(key);
                             } else {
@@ -233,12 +310,41 @@ class _TemplateDraftScreenState extends State<TemplateDraftScreen> {
         Text(l10n.templateDraftOnly),
         const SizedBox(height: 12),
         ...draft.visibleFieldKeys.map((key) {
-          final label = draft.labelFor(key);
+          final label = draft.labelFor(
+            key,
+            language: Localizations.localeOf(context).languageCode,
+          );
+          final decoratedLabel = draft.requiredFields.contains(key)
+              ? '$label *'
+              : label;
+          if (draft.fieldChoices.containsKey(key)) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: DropdownButtonFormField<String>(
+                key: ValueKey('value-$key'),
+                isExpanded: true,
+                initialValue: draft.fieldChoices[key]!.contains(draft.values[key])
+                    ? draft.values[key] as String
+                    : null,
+                decoration: InputDecoration(
+                  labelText: decoratedLabel,
+                  border: const OutlineInputBorder(),
+                ),
+                items: draft.fieldChoices[key]!
+                    .map((value) => DropdownMenuItem(
+                          value: value,
+                          child: Text(value, overflow: TextOverflow.ellipsis),
+                        ))
+                    .toList(),
+                onChanged: (value) => setState(() => draft.values[key] = value),
+              ),
+            );
+          }
           switch (draft.fields[key]) {
             case 'boolean':
               return SwitchListTile(
                 key: ValueKey('value-$key'),
-                title: Text(label),
+                title: Text(decoratedLabel),
                 value: draft.values[key] == true,
                 onChanged: (value) =>
                     setState(() => draft.values[key] = value),
@@ -251,7 +357,7 @@ class _TemplateDraftScreenState extends State<TemplateDraftScreen> {
                   initialValue: draft.values[key]?.toString() ?? '',
                   keyboardType: TextInputType.datetime,
                   decoration: InputDecoration(
-                    labelText: label,
+                    labelText: decoratedLabel,
                     border: const OutlineInputBorder(),
                     hintText: 'YYYY-MM-DD',
                   ),
