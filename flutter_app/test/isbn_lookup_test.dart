@@ -133,6 +133,13 @@ void main() {
     await tester.tap(find.text('Die unendliche Geschichte'));
     await tester.pumpAndSettle();
     expect(find.text('Buchinformationen prüfen'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.textContaining('Nur Vorschau:'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.textContaining('Nur Vorschau:'));
+    await tester.pumpAndSettle();
     expect(find.textContaining('Nur Vorschau:'), findsOneWidget);
     expect(find.text('Gegenstand speichern'), findsNothing);
   });
