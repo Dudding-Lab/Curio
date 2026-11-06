@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:curio/screens/auth/login_screen.dart';
+import 'package:curio/screens/auth/offline_unlock_screen.dart';
 import 'package:curio/screens/home/home_screen.dart';
 import 'package:curio/screens/items/personal_items_screen.dart';
 import 'package:curio/screens/taxonomy/personal_object_types_screen.dart';
@@ -18,26 +19,37 @@ import 'package:curio/screens/collections/collections_list_screen.dart';
 final supabase = Supabase.instance.client;
 
 final authStateProvider = StreamProvider<AuthState>((ref) {
-  return supabase.auth.onAuthStateChange;
+  return supabase.auth.onAuthStateChange.handleError((Object error, StackTrace stack) {
+    // A disconnected refresh is not a sign-out. Keep the restored session
+    // identity available for the strictly local unlock screen.
+  });
 });
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authStateProvider);
+  ref.watch(authStateProvider);
 
   return GoRouter(
     initialLocation: '/login',
     redirect: (context, state) {
-      final isLoggedIn = authState.value?.session != null;
+      final session = supabase.auth.currentSession;
       final isLoginRoute = state.matchedLocation == '/login';
-
-      if (!isLoggedIn && !isLoginRoute) return '/login';
-      if (isLoggedIn && isLoginRoute) return '/home';
+      final isOfflineRoute = state.matchedLocation == '/offline';
+      if (session == null) return isLoginRoute ? null : '/login';
+      if (session.isExpired) {
+        // Never expose online-only screens behind an expired JWT.
+        return isOfflineRoute || isLoginRoute ? null : '/offline';
+      }
+      if (isLoginRoute || isOfflineRoute) return '/home';
       return null;
     },
     routes: [
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/offline',
+        builder: (context, state) => const OfflineUnlockScreen(),
       ),
       GoRoute(
         path: '/home',
