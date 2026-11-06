@@ -1,5 +1,6 @@
 import 'package:curio/features/taxonomy/template_catalog_repository.dart';
 import 'package:curio/features/taxonomy/template_draft.dart';
+import 'package:curio/features/taxonomy/localized_text.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:curio/screens/taxonomy/template_draft_screen.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,64 @@ void main() {
     expect(draft.validatedAttributes()['isbn'], '1234567890');
   });
 
+  test('title stays original while description can be translated', () {
+    final draft = TemplateDraft(
+      standardCode: 'book',
+      standardFields: {
+        'title': 'text',
+        'description': 'text',
+        'publication_year': 'number',
+      },
+    );
+    expect(draft.translationModeFor('title'), 'original');
+    expect(draft.translationModeFor('description'), 'translate');
+    expect(draft.translationModeFor('publication_year'), 'original');
+    draft.setTranslationMode('title', 'translate');
+    expect(draft.translationModeFor('title'), 'translate');
+    expect(draft.fieldPresentation['title']!['translation_mode'], 'translate');
+    expect(draft.fieldPresentation['description']!['translation_mode'], 'translate');
+    expect(
+      () => draft.setTranslationMode('publication_year', 'translate'),
+      throwsArgumentError,
+    );
+    draft.addField('review', 'text');
+    expect(draft.translationModeFor('review'), 'translate');
+    draft.setTranslationMode('review', 'original');
+    draft.removeAddedField('review');
+    expect(draft.translationModes.containsKey('review'), isFalse);
+  });
+
+  test('display uses the original for missing and stale translations', () {
+    const localized = LocalizedText(
+      original: 'Ein altes Haus',
+      sourceLanguage: 'de',
+      variants: {
+        'en': TranslationVariant(
+          text: 'An old house',
+          sourceText: 'Ein altes Haus',
+          sourceLanguage: 'de',
+          targetLanguage: 'en',
+        ),
+      },
+    );
+    expect(localized.display(language: 'en', translate: false), 'Ein altes Haus');
+    expect(localized.display(language: 'en-GB', translate: true), 'An old house');
+    expect(localized.display(language: 'fr', translate: true), 'Ein altes Haus');
+    const changed = LocalizedText(
+      original: 'Ein neues Haus',
+      sourceLanguage: 'de',
+      variants: {
+        'en': TranslationVariant(
+          text: 'An old house',
+          sourceText: 'Ein altes Haus',
+          sourceLanguage: 'de',
+          targetLanguage: 'en',
+        ),
+      },
+    );
+    expect(changed.display(language: 'en', translate: true), 'Ein neues Haus');
+  });
+
   testWidgets('template draft edits and previews typed fields without saving',
       (tester) async {
     await tester.pumpWidget(
@@ -96,6 +155,8 @@ void main() {
         findsOneWidget);
     expect(find.text('maker · text'), findsOneWidget);
     expect(find.text('working · boolean'), findsOneWidget);
+    expect(find.byKey(const ValueKey('translation-maker')), findsOneWidget);
+    expect(find.byKey(const ValueKey('translation-working')), findsNothing);
     await tester.scrollUntilVisible(
       find.text('Formular testen'),
       250,
