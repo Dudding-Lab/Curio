@@ -65,5 +65,8 @@
   "descriptionPlaceholder": "Weitere Informationen zum Gegenstand",
   "myItems": "Meine Gegenstände",
   "noItemsYet": "Noch keine Gegenstände gespeichert.",
-  "itemListLoadError": "Deine Gegenstände konnten nicht geladen werden."
+  "itemListLoadError": "Deine Gegenstände konnten nicht geladen werden.",
+  "saveInProgress": "Gegenstand wird gespeichert …",
+  "saveFailed": "Der Gegenstand konnte nicht gespeichert werden. Deine Eingaben bleiben erhalten.",
+  "saveCompleted": "Gegenstand erfolgreich gespeichert."
 }
