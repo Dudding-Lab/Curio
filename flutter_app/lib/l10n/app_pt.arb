@@ -117,5 +117,37 @@
   "templateLabelLanguage": "Idioma",
   "templateLocalizedLabel": "Rótulo neste idioma",
   "templateChoices": "Opções",
-  "templateChoicesHint": "Separe as opções por vírgulas (pelo menos 2)"
+  "templateChoicesHint": "Separe as opções por vírgulas (pelo menos 2)",
+  "suggestionReviewDemo": "Rever sugestão de IA (demo)",
+  "aiDemoNotice": "Exemplo simulado: sem análise de imagem por IA nem gravação. Campos desconhecidos excluídos.",
+  "aiMatchedTemplate": "Modelo sugerido",
+  "aiMatchedFields": "{count} campos correspondentes",
+  "aiReviewBookProposal": "Rever livro",
+  "aiReviewFields": "Rever dados sugeridos",
+  "aiRejectedFields": "{count} campos rejeitados",
+  "aiMissingRequired": "Campos obrigatórios em falta: {fields}",
+  "aiReviewComplete": "Dados validados. Nada foi guardado.",
+  "aiNeedsReview": "Reveja ou preencha os campos obrigatórios.",
+  "aiCaptureDemoAction": "Testar captura IA (demo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  }
 }
