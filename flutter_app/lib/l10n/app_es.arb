@@ -112,5 +112,10 @@
   "templateContentLanguagePolicy": "Idioma del contenido",
   "templateContentLanguageHint": "Se conserva siempre el original. Las traducciones se guardarán por separado.",
   "keepOriginalText": "Mostrar siempre el original",
-  "translateTextByAppLanguage": "Mostrar en el idioma de la aplicación si está traducido"
+  "translateTextByAppLanguage": "Mostrar en el idioma de la aplicación si está traducido",
+  "templateFieldRequired": "Campo obligatorio",
+  "templateLabelLanguage": "Idioma",
+  "templateLocalizedLabel": "Nombre del campo en este idioma",
+  "templateChoices": "Opciones",
+  "templateChoicesHint": "Separa los valores con comas (al menos 2)"
 }
