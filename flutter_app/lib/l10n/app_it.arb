@@ -188,5 +188,7 @@
   "offlineUnlockUnavailable": "Accesso offline non disponibile. Accedi online e configura PIN o biometria.",
   "offlineUnlockedNotice": "Dispositivo verificato. Non è un nuovo accesso online.",
   "offlineStoragePending": "La vista crittografata delle raccolte locali è in sviluppo. Gli elenchi Supabase non sono ancora disponibili offline.",
-  "offlineSignInOnline": "Accedi online"
+  "offlineSignInOnline": "Accedi online",
+  "catalogSourceKovunela": "Catalogo Kovunela",
+  "catalogSourceGoogle": "Google Books"
 }
