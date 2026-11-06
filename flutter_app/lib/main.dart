@@ -25,7 +25,7 @@ Future<void> main() async {
     url: supabaseUrl,
     publishableKey: clientKey,
     authOptions: FlutterAuthClientOptions(
-      localStorage: SecureSupabaseSessionStorage(),
+      localStorage: SecureSupabaseSessionStorage(projectUrl: supabaseUrl),
       persistSession: true,
       autoRefreshToken: true,
     ),
