@@ -104,7 +104,7 @@ void main() {
   });
 
   test('review discards unknown, empty and invalid AI fields', () {
-    final suggestion = CaptureSuggestion(
+    const suggestion = CaptureSuggestion(
       templateCode: 'book',
       title: 'The story',
       attributes: {
