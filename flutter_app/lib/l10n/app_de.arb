@@ -159,5 +159,27 @@
   "isbnUnknownAuthor": "Autor unbekannt",
   "isbnReviewHeading": "Buchinformationen prüfen",
   "isbnReviewOnly": "Nur Vorschau: Noch keine Speicherung.",
-  "isbnLookupHome": "ISBN-Suche (Google Books)"
+  "isbnLookupHome": "ISBN-Suche (Google Books)",
+  "photoCaptureTitle": "Foto auswählen und prüfen",
+  "photoCaptureIntro": "Wähle ein Foto aus. Es bleibt zunächst auf deinem Gerät; eine KI-Anfrage erfolgt nur nach ausdrücklicher Zustimmung und Freigabe der Funktion.",
+  "chooseFromGallery": "Aus Galerie auswählen",
+  "photoSelectionError": "Foto konnte nicht geöffnet werden. Bitte JPEG oder PNG unter 700 KB auswählen.",
+  "photoAnalysisError": "KI-Analyse ist derzeit nicht verfügbar. Bitte später erneut versuchen.",
+  "photoSelectedInfo": "{mimeType} · {bytes} Byte",
+  "discardSelectedPhoto": "Foto verwerfen",
+  "photoTransferConsent": "Ich stimme der Übermittlung dieses Fotos zur KI-Analyse zu.",
+  "photoTransferExplanation": "Bei Aktivierung wird das ausgewählte Bild an OpenAI zur Analyse übertragen. Bild und erkannte Informationen werden nicht automatisch in meiner Sammlung gespeichert.",
+  "photoVisionDisabled": "KI-Bildanalyse noch deaktiviert – keine Übertragung möglich.",
+  "analyzeSelectedPhoto": "Foto analysieren",
+  "photoNeverAutoSaved": "Es wurde nichts automatisch gespeichert.",
+  "@photoSelectedInfo": {
+    "placeholders": {
+      "mimeType": {
+        "type": "String"
+      },
+      "bytes": {
+        "type": "int"
+      }
+    }
+  }
 }
