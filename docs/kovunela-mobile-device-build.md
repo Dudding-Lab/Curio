@@ -27,7 +27,7 @@ Die generierten Runner werden **nicht automatisch nach GitHub zurückgeschrieben
 
 `.github/workflows/android-debug-apk.yml` erzeugt in einem isolierten Runner den Android-Shell, löst Flutter-Dependencies auf, generiert die Lokalisierung und baut ein **Debug-APK**. Nach erfolgreichem Build veröffentlicht die Action ein 7 Tage verfügbares Artifact `kovunela-android-debug-apk` mit `app-debug.apk`.
 
-Der Debug-Build enthält die **öffentliche** Projekt-URL und den dafür bestimmten **Supabase Publishable Key** des Curio-/Kovunela-Testprojekts. Diese Werte sind ausdrücklich keine Geheimnisse; sie identifizieren das zu verwendende Testbackend. Niemals `service_role`, `sb_secret`, OpenAI- oder Google-Books-Secret in die App packen!
+Der ressourcenintensive Debug-Build wird bewusst nur über **GitHub Actions → Android debug device build → Run workflow** gestartet; der normale Flutter-Testworkflow läuft bei jedem Push. Der Debug-Build enthält die **öffentliche** Projekt-URL und den dafür bestimmten **Supabase Publishable Key** des Curio-/Kovunela-Testprojekts. Diese Werte sind ausdrücklich keine Geheimnisse; sie identifizieren das zu verwendende Testbackend. Niemals `service_role`, `sb_secret`, OpenAI- oder Google-Books-Secret in die App packen!
 
 Beide KI-/Speicher-Flags werden beim APK-Build auf `false` gesetzt:
 ```
