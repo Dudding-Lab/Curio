@@ -10,10 +10,18 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
+  const publishableKey = String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY');
+  const legacyAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
+  final clientKey = publishableKey.isNotEmpty ? publishableKey : legacyAnonKey;
+
+  if (supabaseUrl.isEmpty || clientKey.isEmpty) {
+    throw StateError('Missing Supabase URL or publishable key');
+  }
+
   await Supabase.initialize(
-    url: const String.fromEnvironment('SUPABASE_URL'),
-    // Keep the existing environment variable name during migration.
-    publishableKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
+    url: supabaseUrl,
+    publishableKey: clientKey,
   );
 
   runApp(const ProviderScope(child: CurioApp()));
