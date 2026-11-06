@@ -23,6 +23,8 @@ dependencies:
   drift: 2.32.1
   drift_flutter: 0.3.0
   uuid: 4.5.2
+  flutter_secure_storage: 10.3.4
+  local_auth: 2.3.0
 
 dev_dependencies:
   flutter_test:
