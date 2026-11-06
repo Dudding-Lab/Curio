@@ -45,9 +45,15 @@ class TemplateDraft {
       if (fieldLabels[key]?.trim().isNotEmpty == true) {
         settings['label'] = fieldLabels[key]!.trim();
       }
-      if (hiddenFields.contains(key)) settings['hidden'] = true;
-      if (requiredFields.contains(key)) settings['required'] = true;
-      if (fieldChoices.containsKey(key)) settings['choices'] = fieldChoices[key];
+      if (hiddenFields.contains(key)) {
+        settings['hidden'] = true;
+      }
+      if (requiredFields.contains(key)) {
+        settings['required'] = true;
+      }
+      if (fieldChoices.containsKey(key)) {
+        settings['choices'] = fieldChoices[key];
+      }
       if (localizedLabels[key]?.isNotEmpty == true) {
         settings['labels'] = localizedLabels[key];
       }
