@@ -112,5 +112,10 @@
   "templateContentLanguagePolicy": "Lingua del contenuto",
   "templateContentLanguageHint": "L'originale viene sempre conservato. Le traduzioni saranno separate.",
   "keepOriginalText": "Mostra sempre l'originale",
-  "translateTextByAppLanguage": "Mostra nella lingua dell'app se tradotto"
+  "translateTextByAppLanguage": "Mostra nella lingua dell'app se tradotto",
+  "templateFieldRequired": "Campo obbligatorio",
+  "templateLabelLanguage": "Lingua",
+  "templateLocalizedLabel": "Etichetta in questa lingua",
+  "templateChoices": "Opzioni",
+  "templateChoicesHint": "Separa i valori con virgole (almeno 2)"
 }
