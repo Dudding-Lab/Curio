@@ -66,9 +66,33 @@ Deno.serve(async (req: Request) => {
     const user = await userResp.json();
     if (typeof user.id !== "string") return reply(401, { error: "authentication_required" });
 
+    // Bound the stream itself: Content-Length may be absent or untrusted.
+    const maxRequestBytes = 1050000;
     const contentLength = Number(req.headers.get("content-length") ?? "0");
-    if (contentLength > 1050000) return reply(413, { error: "image_too_large" });
-    const body = await req.json();
+    if (!Number.isFinite(contentLength) || contentLength > maxRequestBytes) {
+      return reply(413, { error: "image_too_large" });
+    }
+    if (!req.body) return reply(400, { error: "invalid_image" });
+    const reader = req.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let total = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > maxRequestBytes) {
+        await reader.cancel();
+        return reply(413, { error: "image_too_large" });
+      }
+      chunks.push(value);
+    }
+    const bytes = new Uint8Array(total);
+    let offset = 0;
+    for (const chunk of chunks) {
+      bytes.set(chunk, offset);
+      offset += chunk.length;
+    }
+    const body = JSON.parse(new TextDecoder().decode(bytes));
     if (!isRecord(body) || typeof body.image_data_url !== "string" ||
         !imageIsValid(body.image_data_url)) return reply(400, { error: "invalid_image" });
     const templates = allowedTemplates(body.templates);
