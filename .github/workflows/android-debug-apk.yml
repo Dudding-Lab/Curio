@@ -27,6 +27,8 @@ jobs:
           cache: true
       - name: Generate Android shell from Flutter official template
         run: flutter create --platforms=android --project-name=curio --org=de.kovunela .
+      - name: Configure Android network permission
+        run: python3 tool/configure_android_permissions.py
       - name: Resolve packages
         run: flutter pub get
       - name: Generate localizations
