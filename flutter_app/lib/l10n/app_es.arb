@@ -117,5 +117,37 @@
   "templateLabelLanguage": "Idioma",
   "templateLocalizedLabel": "Nombre del campo en este idioma",
   "templateChoices": "Opciones",
-  "templateChoicesHint": "Separa los valores con comas (al menos 2)"
+  "templateChoicesHint": "Separa los valores con comas (al menos 2)",
+  "suggestionReviewDemo": "Revisar sugerencia de IA (demo)",
+  "aiDemoNotice": "Ejemplo simulado: sin análisis de imagen ni guardado. Se excluyen campos desconocidos.",
+  "aiMatchedTemplate": "Plantilla sugerida",
+  "aiMatchedFields": "{count} campos coincidentes",
+  "aiReviewBookProposal": "Revisar libro",
+  "aiReviewFields": "Revisar datos propuestos",
+  "aiRejectedFields": "{count} campos descartados",
+  "aiMissingRequired": "Faltan campos obligatorios: {fields}",
+  "aiReviewComplete": "Datos validados. No se guardó nada.",
+  "aiNeedsReview": "Revisa los datos o completa los campos obligatorios.",
+  "aiCaptureDemoAction": "Probar captura IA (demo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  }
 }
