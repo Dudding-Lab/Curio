@@ -56,6 +56,7 @@ class _PhotoCaptureScreenState extends State<PhotoCaptureScreen> {
 
   Future<void> _recoverLostPhoto() async {
     if (_busy || _photo != null) return;
+    setState(() => _busy = true);
     try {
       final service = widget.recoveryService ??
           ImagePickerPhotoSelectionService();
@@ -71,6 +72,8 @@ class _PhotoCaptureScreenState extends State<PhotoCaptureScreen> {
     } catch (_) {
       if (!mounted) return;
       setState(() => _error = AppLocalizations.of(context)!.photoSelectionError);
+    } finally {
+      if (mounted) setState(() => _busy = false);
     }
   }
 
