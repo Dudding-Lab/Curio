@@ -112,5 +112,10 @@
   "templateContentLanguagePolicy": "Sprache des Feldinhalts",
   "templateContentLanguageHint": "Der Originaltext bleibt immer erhalten. Übersetzungen werden später getrennt gespeichert.",
   "keepOriginalText": "Immer Originaltext anzeigen",
-  "translateTextByAppLanguage": "In der App-Sprache anzeigen (falls Übersetzung vorhanden)"
+  "translateTextByAppLanguage": "In der App-Sprache anzeigen (falls Übersetzung vorhanden)",
+  "templateFieldRequired": "Pflichtfeld",
+  "templateLabelLanguage": "Sprache",
+  "templateLocalizedLabel": "Feldname in dieser Sprache",
+  "templateChoices": "Auswahlmöglichkeiten",
+  "templateChoicesHint": "Mehrere Werte durch Kommas trennen (mindestens 2)"
 }
