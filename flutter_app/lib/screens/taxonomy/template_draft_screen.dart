@@ -111,6 +111,7 @@ class _TemplateDraftScreenState extends State<TemplateDraftScreen> {
                   if (draft.fields[key] == 'text')
                     DropdownButtonFormField<String>(
                       key: ValueKey('translation-$key'),
+                      isExpanded: true,
                       initialValue: draft.translationModeFor(key),
                       decoration: InputDecoration(
                         labelText: l10n.templateContentLanguagePolicy,
@@ -119,11 +120,11 @@ class _TemplateDraftScreenState extends State<TemplateDraftScreen> {
                       items: [
                         DropdownMenuItem(
                           value: 'original',
-                          child: Text(l10n.keepOriginalText),
+                          child: Text(l10n.keepOriginalText, overflow: TextOverflow.ellipsis),
                         ),
                         DropdownMenuItem(
                           value: 'translate',
-                          child: Text(l10n.translateTextByAppLanguage),
+                          child: Text(l10n.translateTextByAppLanguage, overflow: TextOverflow.ellipsis),
                         ),
                       ],
                       onChanged: (mode) {
