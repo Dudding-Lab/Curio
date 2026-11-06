@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:curio/l10n/app_localizations.dart';
+import 'package:curio/core/language_menu.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -16,24 +18,25 @@ class HouseholdListScreen extends ConsumerWidget {
   const HouseholdListScreen({super.key});
 
   Future<void> _createHousehold(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
     final nameController = TextEditingController();
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Neuen Haushalt anlegen'),
+        title: Text(l10n.newHousehold),
         content: TextField(
           controller: nameController,
-          decoration: const InputDecoration(labelText: 'Name des Haushalts'),
+          decoration: InputDecoration(labelText: l10n.householdName),
           autofocus: true,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Abbrechen'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, nameController.text.trim()),
-            child: const Text('Anlegen'),
+            child: Text(l10n.create),
           ),
         ],
       ),
@@ -49,7 +52,7 @@ class HouseholdListScreen extends ConsumerWidget {
       } catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Fehler: $e')),
+            SnackBar(content: Text(l10n.errorOccurred)),
           );
         }
       }
@@ -58,17 +61,21 @@ class HouseholdListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final householdsAsync = ref.watch(householdsProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Haushalte'),
+        title: Text(l10n.households),
         actions: [
+          const KovunelaLanguageMenu(),
           IconButton(
+            tooltip: l10n.logout,
             icon: const Icon(Icons.logout),
             onPressed: () => Supabase.instance.client.auth.signOut(),
           ),
           IconButton(
+            tooltip: l10n.refresh,
             icon: const Icon(Icons.refresh),
             onPressed: () => ref.invalidate(householdsProvider),
           ),
@@ -77,8 +84,8 @@ class HouseholdListScreen extends ConsumerWidget {
       body: householdsAsync.when(
         data: (households) {
           if (households.isEmpty) {
-            return const Center(
-              child: Text('Noch keine Haushalte vorhanden.\nLegen Sie den ersten an.'),
+            return Center(
+              child: Text(l10n.noHouseholds),
             );
           }
           return ListView.builder(
@@ -86,10 +93,10 @@ class HouseholdListScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final household = households[index];
               return ListTile(
-                title: Text(household['name'] as String? ?? 'Unbenannt'),
-                subtitle: Text('Erstellt: ${household['created_at'] ?? ''}'),
+                title: Text(household['name'] as String? ?? l10n.untitled),
+                subtitle: Text('${l10n.created}: ${household['created_at'] ?? ''}'),
                 onTap: () {
-                  final name = household['name'] as String? ?? 'Haushalt';
+                  final name = household['name'] as String? ?? l10n.households;
                   context.push('/households/${household['id']}/collections?name=${Uri.encodeComponent(name)}');
                 },
               );
@@ -101,11 +108,11 @@ class HouseholdListScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Fehler: $error'),
+              Text(l10n.errorOccurred),
               const SizedBox(height: 16),
               FilledButton(
                 onPressed: () => ref.invalidate(householdsProvider),
-                child: const Text('Erneut versuchen'),
+                child: Text(l10n.retry),
               ),
             ],
           ),

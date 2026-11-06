@@ -1,0 +1,194 @@
+{
+  "@@locale": "de",
+  "appTitle": "Kovunela",
+  "home": "Start",
+  "collections": "Sammlungen",
+  "capture": "Erfassen",
+  "locations": "Orte",
+  "search": "Suche",
+  "settings": "Einstellungen",
+  "language": "Sprache",
+  "useSystemLanguage": "Systemsprache",
+  "welcome": "Willkommen bei Kovunela",
+  "capturePrompt": "Was möchtest du erfassen?",
+  "scanBarcode": "Barcode scannen",
+  "takePhoto": "Foto aufnehmen",
+  "enterManually": "Manuell eingeben",
+  "reviewSuggestion": "Vorschlag prüfen",
+  "saveItem": "Gegenstand speichern",
+  "privateSpace": "Privater Bereich",
+  "sharedHousehold": "Gemeinsamer Haushalt",
+  "emptyCollections": "Noch keine Sammlungen",
+  "retry": "Erneut versuchen",
+  "cancel": "Abbrechen",
+  "signIn": "Anmelden",
+  "signUp": "Registrieren",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "enterCredentials": "Bitte E-Mail und Passwort eingeben.",
+  "signUpSuccess": "Registrierung erfolgreich. Bitte E-Mail bestätigen, falls erforderlich.",
+  "alreadyRegistered": "Bereits registriert? Anmelden",
+  "needAccount": "Noch kein Konto? Registrieren",
+  "households": "Haushalte",
+  "newHousehold": "Neuen Haushalt anlegen",
+  "householdName": "Name des Haushalts",
+  "create": "Anlegen",
+  "noHouseholds": "Noch keine Haushalte vorhanden. Lege den ersten an.",
+  "untitled": "Unbenannt",
+  "created": "Erstellt",
+  "newCollection": "Neue Sammlung anlegen",
+  "collectionName": "Name der Sammlung",
+  "noCollections": "Noch keine Sammlungen vorhanden. Lege die erste an.",
+  "errorOccurred": "Ein Fehler ist aufgetreten.",
+  "collectionSelected": "Sammlung ausgewählt",
+  "logout": "Abmelden",
+  "refresh": "Aktualisieren",
+  "mySpaces": "Meine Bereiche",
+  "manageHouseholds": "Haushalte verwalten",
+  "captureNotReady": "Die Objekterfassung ist noch in Vorbereitung.",
+  "featureNotReady": "Diese Funktion ist noch nicht verfügbar.",
+  "yourCollections": "Deine Sammlungen",
+  "openHouseholds": "Haushalte öffnen",
+  "captureIntro": "Erfasse, was dir wichtig ist – an einem Ort.",
+  "itemTitle": "Name des Gegenstands",
+  "itemDescription": "Beschreibung (optional)",
+  "continueToReview": "Angaben prüfen",
+  "reviewManualItem": "Gegenstand prüfen",
+  "editDetails": "Angaben bearbeiten",
+  "nameRequired": "Bitte einen Namen für den Gegenstand eingeben.",
+  "saveUnavailable": "Speichern ist noch nicht aktiviert. Zuerst muss die neue sichere Datenbank eingerichtet werden.",
+  "saveRequiresWorkspace": "Vor dem Speichern muss dein privater Bereich eingerichtet werden.",
+  "manualCapture": "Gegenstand manuell erfassen",
+  "manualCaptureHint": "Beginne mit einem Namen. Du kannst den Gegenstand später organisieren.",
+  "optionalCollectionHint": "Eine Sammlung ist optional.",
+  "saveNotReady": "Speichern noch nicht verfügbar",
+  "descriptionPlaceholder": "Weitere Informationen zum Gegenstand",
+  "myItems": "Meine Gegenstände",
+  "noItemsYet": "Noch keine Gegenstände gespeichert.",
+  "itemListLoadError": "Deine Gegenstände konnten nicht geladen werden.",
+  "saveInProgress": "Gegenstand wird gespeichert …",
+  "saveFailed": "Der Gegenstand konnte nicht gespeichert werden. Deine Eingaben bleiben erhalten.",
+  "saveCompleted": "Gegenstand erfolgreich gespeichert.",
+  "personalCollections": "Meine Sammlungen",
+  "noPersonalCollectionsYet": "Noch keine persönlichen Sammlungen vorhanden.",
+  "personalCollectionsLoadError": "Deine Sammlungen konnten nicht geladen werden.",
+  "myObjectTypes": "Meine Objekttypen",
+  "noObjectTypesYet": "Noch keine eigenen Objekttypen angelegt.",
+  "objectTypesLoadError": "Objekttypen konnten nicht geladen werden.",
+  "objectTypeFieldCount": "{count} Eigenschaften",
+  "@objectTypeFieldCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "standardTemplates": "Standardvorlagen",
+  "noStandardTemplates": "Keine Standardvorlagen verfügbar.",
+  "standardTemplatesLoadError": "Standardvorlagen konnten nicht geladen werden.",
+  "templateDraftOnly": "Nur Vorschau: Diese Änderungen werden noch nicht gespeichert.",
+  "templateVariantTitle": "Name der Vorlagenvariante",
+  "templateFields": "Eigenschaften",
+  "templateFieldLabel": "Feldbezeichnung",
+  "templateFieldHidden": "Ausblenden",
+  "templateFieldOrder": "Reihenfolge",
+  "addTemplateField": "Eigenschaft hinzufügen",
+  "templateFieldKey": "Technischer Feldname",
+  "templateFieldKeyHint": "Kleinbuchstaben, Zahlen und Unterstriche",
+  "templateFieldType": "Feldtyp",
+  "previewTemplateForm": "Formular testen",
+  "invalidTemplateField": "Ungültiges oder bereits vorhandenes Feld.",
+  "templatePreviewValid": "{count} Eigenschaften erfolgreich geprüft.",
+  "templatePreviewInvalid": "Bitte die Eingaben überprüfen.",
+  "validateTemplatePreview": "Formular prüfen",
+  "removeTemplateField": "Feld entfernen",
+  "@templatePreviewValid": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "templateContentLanguagePolicy": "Sprache des Feldinhalts",
+  "templateContentLanguageHint": "Der Originaltext bleibt immer erhalten. Übersetzungen werden später getrennt gespeichert.",
+  "keepOriginalText": "Immer Originaltext anzeigen",
+  "translateTextByAppLanguage": "In der App-Sprache anzeigen (falls Übersetzung vorhanden)",
+  "templateFieldRequired": "Pflichtfeld",
+  "templateLabelLanguage": "Sprache",
+  "templateLocalizedLabel": "Feldname in dieser Sprache",
+  "templateChoices": "Auswahlmöglichkeiten",
+  "templateChoicesHint": "Mehrere Werte durch Kommas trennen (mindestens 2)",
+  "suggestionReviewDemo": "KI-Vorschlag prüfen (Demo)",
+  "aiDemoNotice": "Demo mit simulierten Angaben – noch keine KI-Bildanalyse und keine Speicherung. Unbekannte Felder werden nicht übernommen.",
+  "aiMatchedTemplate": "Vorgeschlagene Vorlage",
+  "aiMatchedFields": "{count} passende Felder",
+  "aiReviewBookProposal": "Buchvorschlag prüfen",
+  "aiReviewFields": "Vorgeschlagene Angaben bearbeiten",
+  "aiRejectedFields": "{count} ungeprüfte Felder verworfen",
+  "aiMissingRequired": "Pflichtangaben fehlen: {fields}",
+  "aiReviewComplete": "Angaben geprüft. Kein Gegenstand gespeichert.",
+  "aiNeedsReview": "Angaben prüfen oder fehlende Pflichtfelder ergänzen.",
+  "aiCaptureDemoAction": "KI-Erfassung testen (Demo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  },
+  "isbnLookupTitle": "Buch über ISBN finden",
+  "isbnLookupNotice": "Google Books wird für diese Suche angefragt. Ergebnisse bitte prüfen; es wird nichts gespeichert.",
+  "isbnInputLabel": "ISBN-10 oder ISBN-13",
+  "isbnSearchAction": "Buch suchen",
+  "isbnLookupError": "Suche fehlgeschlagen. Prüfe ISBN und Verbindung.",
+  "isbnNoResults": "Kein passendes Buch gefunden.",
+  "isbnUnknownAuthor": "Autor unbekannt",
+  "isbnReviewHeading": "Buchinformationen prüfen",
+  "isbnReviewOnly": "Nur Vorschau: Noch keine Speicherung.",
+  "isbnLookupHome": "ISBN-Suche (Google Books)",
+  "photoCaptureTitle": "Foto auswählen und prüfen",
+  "photoCaptureIntro": "Wähle ein Foto aus. Es bleibt zunächst auf deinem Gerät; eine KI-Anfrage erfolgt nur nach ausdrücklicher Zustimmung und Freigabe der Funktion.",
+  "chooseFromGallery": "Aus Galerie auswählen",
+  "photoSelectionError": "Foto konnte nicht geöffnet werden. Bitte JPEG oder PNG unter 700 KB auswählen.",
+  "photoAnalysisError": "KI-Analyse ist derzeit nicht verfügbar. Bitte später erneut versuchen.",
+  "photoSelectedInfo": "{mimeType} · {bytes} Byte",
+  "discardSelectedPhoto": "Foto verwerfen",
+  "photoTransferConsent": "Ich stimme der Übermittlung dieses Fotos zur KI-Analyse zu.",
+  "photoTransferExplanation": "Bei Aktivierung wird das ausgewählte Bild an OpenAI zur Analyse übertragen. Bild und erkannte Informationen werden nicht automatisch in meiner Sammlung gespeichert.",
+  "photoVisionDisabled": "KI-Bildanalyse noch deaktiviert – keine Übertragung möglich.",
+  "analyzeSelectedPhoto": "Foto analysieren",
+  "photoNeverAutoSaved": "Es wurde nichts automatisch gespeichert.",
+  "@photoSelectedInfo": {
+    "placeholders": {
+      "mimeType": {
+        "type": "String"
+      },
+      "bytes": {
+        "type": "int"
+      }
+    }
+  },
+  "offlineModeTitle": "Offline-Modus",
+  "offlineModeExplanation": "Die zuletzt gespeicherte Sitzung kann ohne Internet nur für den lokalen Gerätezugriff verwendet werden. Cloud-Daten und Haushaltsrechte müssen später online erneut überprüft werden.",
+  "offlineUnlockAction": "Mit Gerätesperre entsperren",
+  "offlineUnlockUnavailable": "Offline-Zugriff nicht möglich. Melde dich einmal online an und richte eine Geräte-PIN oder Biometrie ein.",
+  "offlineUnlockedNotice": "Gerät bestätigt. Dies ist keine neue Online-Anmeldung.",
+  "offlineStoragePending": "Die lokale, verschlüsselte Sammlungsansicht ist noch in Entwicklung. Vorhandene Supabase-Listen sind offline derzeit nicht verfügbar.",
+  "offlineSignInOnline": "Online anmelden",
+  "catalogSourceKovunela": "Kovunela-Katalog",
+  "catalogSourceGoogle": "Google Books"
+}

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:curio/l10n/app_localizations.dart';
+import 'package:curio/core/language_menu.dart';
+import 'package:curio/features/offline/offline_access_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -16,36 +19,49 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _isSignUp = false;
 
   Future<void> _submit() async {
+    final l10n = AppLocalizations.of(context)!;
     final email = _emailController.text.trim();
     final password = _passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Bitte E-Mail und Passwort eingeben')),
+        SnackBar(content: Text(l10n.enterCredentials)),
       );
       return;
     }
 
     setState(() => _isLoading = true);
     try {
+      final AuthResponse response;
       if (_isSignUp) {
-        await Supabase.instance.client.auth.signUp(
+        response = await Supabase.instance.client.auth.signUp(
           email: email,
           password: password,
         );
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registrierung erfolgreich. Bitte E-Mail bestätigen, falls erforderlich.'),
-            ),
+            SnackBar(content: Text(l10n.signUpSuccess)),
           );
           setState(() => _isSignUp = false);
         }
       } else {
-        await Supabase.instance.client.auth.signInWithPassword(
+        response = await Supabase.instance.client.auth.signInWithPassword(
           email: email,
           password: password,
         );
+      }
+      final session = response.session;
+      // Only an authenticated online session may enroll the device.
+      // Secure storage errors must not undo a successful server sign-in.
+      if (session != null && !session.isExpired) {
+        try {
+          await OfflineAccessController(
+            knownDevices: SecureKnownDeviceStore(),
+            deviceUnlock: PlatformDeviceUnlock(),
+          ).recordOnlineLogin(session.user.id);
+        } catch (_) {
+          // Offline unlock remains unavailable until a later online login.
+        }
       }
     } on AuthException catch (e) {
       if (mounted) {
@@ -60,9 +76,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isSignUp ? 'Curio – Registrieren' : 'Curio – Anmelden'),
+        title: Text('${l10n.appTitle} – ${_isSignUp ? l10n.signUp : l10n.signIn}'),
+        actions: const [KovunelaLanguageMenu()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -71,14 +89,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           children: [
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(labelText: 'E-Mail'),
+              decoration: InputDecoration(labelText: l10n.email),
               keyboardType: TextInputType.emailAddress,
               enabled: !_isLoading,
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Passwort'),
+              decoration: InputDecoration(labelText: l10n.password),
               obscureText: true,
               enabled: !_isLoading,
             ),
@@ -91,7 +109,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Text(_isSignUp ? 'Registrieren' : 'Anmelden'),
+                  : Text(_isSignUp ? l10n.signUp : l10n.signIn),
             ),
             const SizedBox(height: 16),
             TextButton(
@@ -100,8 +118,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   : () => setState(() => _isSignUp = !_isSignUp),
               child: Text(
                 _isSignUp
-                    ? 'Bereits registriert? Anmelden'
-                    : 'Noch kein Account? Registrieren',
+                    ? l10n.alreadyRegistered
+                    : l10n.needAccount,
               ),
             ),
           ],

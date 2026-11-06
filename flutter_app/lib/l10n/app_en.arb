@@ -1,0 +1,194 @@
+{
+  "@@locale": "en",
+  "appTitle": "Kovunela",
+  "home": "Home",
+  "collections": "Collections",
+  "capture": "Add item",
+  "locations": "Locations",
+  "search": "Search",
+  "settings": "Settings",
+  "language": "Language",
+  "useSystemLanguage": "System language",
+  "welcome": "Welcome to Kovunela",
+  "capturePrompt": "What would you like to add?",
+  "scanBarcode": "Scan barcode",
+  "takePhoto": "Take photo",
+  "enterManually": "Enter manually",
+  "reviewSuggestion": "Review suggestion",
+  "saveItem": "Save item",
+  "privateSpace": "Personal space",
+  "sharedHousehold": "Shared household",
+  "emptyCollections": "No collections yet",
+  "retry": "Try again",
+  "cancel": "Cancel",
+  "signIn": "Sign in",
+  "signUp": "Create account",
+  "email": "Email",
+  "password": "Password",
+  "enterCredentials": "Enter your email and password.",
+  "signUpSuccess": "Registration successful. Confirm your email if required.",
+  "alreadyRegistered": "Already have an account? Sign in",
+  "needAccount": "New here? Create an account",
+  "households": "Households",
+  "newHousehold": "Create household",
+  "householdName": "Household name",
+  "create": "Create",
+  "noHouseholds": "No households yet. Create your first one.",
+  "untitled": "Untitled",
+  "created": "Created",
+  "newCollection": "Create collection",
+  "collectionName": "Collection name",
+  "noCollections": "No collections yet. Create your first one.",
+  "errorOccurred": "Something went wrong.",
+  "collectionSelected": "Collection selected",
+  "logout": "Sign out",
+  "refresh": "Refresh",
+  "mySpaces": "My spaces",
+  "manageHouseholds": "Manage households",
+  "captureNotReady": "Item capture is coming soon.",
+  "featureNotReady": "This feature is not available yet.",
+  "yourCollections": "Your collections",
+  "openHouseholds": "Open households",
+  "captureIntro": "Add things you care about — in one place.",
+  "itemTitle": "Item name",
+  "itemDescription": "Description (optional)",
+  "continueToReview": "Review details",
+  "reviewManualItem": "Review item",
+  "editDetails": "Edit details",
+  "nameRequired": "Enter an item name.",
+  "saveUnavailable": "Saving is not enabled yet. The new secure database must be set up first.",
+  "saveRequiresWorkspace": "Personal workspace setup is required before saving.",
+  "manualCapture": "Add an item manually",
+  "manualCaptureHint": "Start with a name. You can organize the item later.",
+  "optionalCollectionHint": "A collection is optional.",
+  "saveNotReady": "Save is not available yet",
+  "descriptionPlaceholder": "Additional information about the item",
+  "myItems": "My items",
+  "noItemsYet": "No items saved yet.",
+  "itemListLoadError": "Couldn't load your items.",
+  "saveInProgress": "Saving item…",
+  "saveFailed": "Couldn't save the item. Your entries are unchanged.",
+  "saveCompleted": "Item saved successfully.",
+  "personalCollections": "My collections",
+  "noPersonalCollectionsYet": "No personal collections yet.",
+  "personalCollectionsLoadError": "Couldn't load your collections.",
+  "myObjectTypes": "My object types",
+  "noObjectTypesYet": "No custom object types yet.",
+  "objectTypesLoadError": "Couldn't load object types.",
+  "objectTypeFieldCount": "{count} attributes",
+  "@objectTypeFieldCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "standardTemplates": "Standard templates",
+  "noStandardTemplates": "No standard templates available.",
+  "standardTemplatesLoadError": "Couldn't load standard templates.",
+  "templateDraftOnly": "Preview only: Changes are not saved yet.",
+  "templateVariantTitle": "Template variant name",
+  "templateFields": "Attributes",
+  "templateFieldLabel": "Field label",
+  "templateFieldHidden": "Hide field",
+  "templateFieldOrder": "Order",
+  "addTemplateField": "Add attribute",
+  "templateFieldKey": "Field key",
+  "templateFieldKeyHint": "Lowercase letters, numbers, underscores",
+  "templateFieldType": "Field type",
+  "previewTemplateForm": "Preview form",
+  "invalidTemplateField": "Invalid or duplicate field.",
+  "templatePreviewValid": "{count} attributes validated.",
+  "templatePreviewInvalid": "Please check your entries.",
+  "validateTemplatePreview": "Validate form",
+  "removeTemplateField": "Remove field",
+  "@templatePreviewValid": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "templateContentLanguagePolicy": "Field content language",
+  "templateContentLanguageHint": "The original is always preserved. Translations will be stored separately.",
+  "keepOriginalText": "Always show original text",
+  "translateTextByAppLanguage": "Show in app language (when translated)",
+  "templateFieldRequired": "Required field",
+  "templateLabelLanguage": "Language",
+  "templateLocalizedLabel": "Field label in this language",
+  "templateChoices": "Choices",
+  "templateChoicesHint": "Separate options with commas (at least 2)",
+  "suggestionReviewDemo": "Review AI suggestion (demo)",
+  "aiDemoNotice": "Simulated example – no AI image analysis or saving yet. Unknown fields are excluded.",
+  "aiMatchedTemplate": "Suggested template",
+  "aiMatchedFields": "{count} matching fields",
+  "aiReviewBookProposal": "Review book suggestion",
+  "aiReviewFields": "Review proposed details",
+  "aiRejectedFields": "{count} unverified fields excluded",
+  "aiMissingRequired": "Missing required fields: {fields}",
+  "aiReviewComplete": "Details validated. Nothing saved.",
+  "aiNeedsReview": "Review entries or complete required fields.",
+  "aiCaptureDemoAction": "Try AI capture (demo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  },
+  "isbnLookupTitle": "Find book by ISBN",
+  "isbnLookupNotice": "This search queries Google Books. Check the results; nothing is saved.",
+  "isbnInputLabel": "ISBN-10 or ISBN-13",
+  "isbnSearchAction": "Search books",
+  "isbnLookupError": "Search failed. Check ISBN and connection.",
+  "isbnNoResults": "No matching books found.",
+  "isbnUnknownAuthor": "Unknown author",
+  "isbnReviewHeading": "Review book metadata",
+  "isbnReviewOnly": "Preview only: nothing saved.",
+  "isbnLookupHome": "ISBN lookup (Google Books)",
+  "photoCaptureTitle": "Select and review photo",
+  "photoCaptureIntro": "Choose a photo. It stays on your device until you explicitly consent and the feature is enabled.",
+  "chooseFromGallery": "Choose from gallery",
+  "photoSelectionError": "Couldn't open the photo. Choose JPEG or PNG under 700 KB.",
+  "photoAnalysisError": "AI analysis isn't available right now. Please try later.",
+  "photoSelectedInfo": "{mimeType} · {bytes} bytes",
+  "discardSelectedPhoto": "Discard photo",
+  "photoTransferConsent": "I consent to sending this photo for AI analysis.",
+  "photoTransferExplanation": "When enabled, the selected image will be sent to OpenAI for analysis. Neither the image nor suggested metadata is automatically saved to my collection.",
+  "photoVisionDisabled": "AI photo analysis is disabled – no transmission possible.",
+  "analyzeSelectedPhoto": "Analyze photo",
+  "photoNeverAutoSaved": "Nothing was saved automatically.",
+  "@photoSelectedInfo": {
+    "placeholders": {
+      "mimeType": {
+        "type": "String"
+      },
+      "bytes": {
+        "type": "int"
+      }
+    }
+  },
+  "offlineModeTitle": "Offline mode",
+  "offlineModeExplanation": "Your saved session can only be used for local device access without internet. Cloud data and household permissions must be checked again online.",
+  "offlineUnlockAction": "Unlock with device security",
+  "offlineUnlockUnavailable": "Offline access unavailable. Sign in online once and enable a device passcode or biometrics.",
+  "offlineUnlockedNotice": "Device verified. This is not a new online sign-in.",
+  "offlineStoragePending": "The encrypted local collection viewer is still under development. Supabase lists are not yet available offline.",
+  "offlineSignInOnline": "Sign in online",
+  "catalogSourceKovunela": "Kovunela catalog",
+  "catalogSourceGoogle": "Google Books"
+}

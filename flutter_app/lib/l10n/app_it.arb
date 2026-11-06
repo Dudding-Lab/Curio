@@ -1,0 +1,194 @@
+{
+  "@@locale": "it",
+  "appTitle": "Kovunela",
+  "home": "Home",
+  "collections": "Collezioni",
+  "capture": "Aggiungi",
+  "locations": "Posizioni",
+  "search": "Cerca",
+  "settings": "Impostazioni",
+  "language": "Lingua",
+  "useSystemLanguage": "Lingua di sistema",
+  "welcome": "Benvenuto in Kovunela",
+  "capturePrompt": "Cosa vuoi aggiungere?",
+  "scanBarcode": "Scansiona codice a barre",
+  "takePhoto": "Scatta una foto",
+  "enterManually": "Inserisci manualmente",
+  "reviewSuggestion": "Controlla il suggerimento",
+  "saveItem": "Salva oggetto",
+  "privateSpace": "Spazio privato",
+  "sharedHousehold": "Nucleo familiare condiviso",
+  "emptyCollections": "Nessuna collezione",
+  "retry": "Riprova",
+  "cancel": "Annulla",
+  "signIn": "Accedi",
+  "signUp": "Crea un account",
+  "email": "Email",
+  "password": "Password",
+  "enterCredentials": "Inserisci email e password.",
+  "signUpSuccess": "Registrazione completata. Conferma l'email se richiesto.",
+  "alreadyRegistered": "Hai già un account? Accedi",
+  "needAccount": "Non hai un account? Registrati",
+  "households": "Nuclei familiari",
+  "newHousehold": "Crea nucleo familiare",
+  "householdName": "Nome del nucleo familiare",
+  "create": "Crea",
+  "noHouseholds": "Nessun nucleo familiare. Crea il primo.",
+  "untitled": "Senza titolo",
+  "created": "Creato",
+  "newCollection": "Crea collezione",
+  "collectionName": "Nome della collezione",
+  "noCollections": "Nessuna collezione. Crea la prima.",
+  "errorOccurred": "Si è verificato un errore.",
+  "collectionSelected": "Collezione selezionata",
+  "logout": "Esci",
+  "refresh": "Aggiorna",
+  "mySpaces": "I miei spazi",
+  "manageHouseholds": "Gestisci nuclei familiari",
+  "captureNotReady": "L'aggiunta degli oggetti sarà disponibile presto.",
+  "featureNotReady": "Questa funzione non è ancora disponibile.",
+  "yourCollections": "Le tue collezioni",
+  "openHouseholds": "Apri nuclei familiari",
+  "captureIntro": "Riunisci ciò che ami in un unico posto.",
+  "itemTitle": "Nome dell'oggetto",
+  "itemDescription": "Descrizione (facoltativa)",
+  "continueToReview": "Controlla i dettagli",
+  "reviewManualItem": "Controlla l'oggetto",
+  "editDetails": "Modifica i dettagli",
+  "nameRequired": "Inserisci il nome dell'oggetto.",
+  "saveUnavailable": "Il salvataggio non è ancora abilitato. Prima è necessario configurare il nuovo database sicuro.",
+  "saveRequiresWorkspace": "Configura lo spazio personale prima di salvare.",
+  "manualCapture": "Aggiungi oggetto manualmente",
+  "manualCaptureHint": "Inizia con un nome. Potrai organizzare l'oggetto in seguito.",
+  "optionalCollectionHint": "La collezione è facoltativa.",
+  "saveNotReady": "Salvataggio non disponibile",
+  "descriptionPlaceholder": "Ulteriori informazioni sull'oggetto",
+  "myItems": "I miei oggetti",
+  "noItemsYet": "Nessun oggetto salvato.",
+  "itemListLoadError": "Impossibile caricare i tuoi oggetti.",
+  "saveInProgress": "Salvataggio oggetto…",
+  "saveFailed": "Impossibile salvare l'oggetto. I dati inseriti rimangono disponibili.",
+  "saveCompleted": "Oggetto salvato.",
+  "personalCollections": "Le mie collezioni",
+  "noPersonalCollectionsYet": "Nessuna collezione personale.",
+  "personalCollectionsLoadError": "Impossibile caricare le tue collezioni.",
+  "myObjectTypes": "I miei tipi di oggetti",
+  "noObjectTypesYet": "Nessun tipo di oggetto personalizzato.",
+  "objectTypesLoadError": "Impossibile caricare i tipi di oggetti.",
+  "objectTypeFieldCount": "{count} attributi",
+  "@objectTypeFieldCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "standardTemplates": "Modelli standard",
+  "noStandardTemplates": "Nessun modello standard disponibile.",
+  "standardTemplatesLoadError": "Impossibile caricare i modelli standard.",
+  "templateDraftOnly": "Solo anteprima: le modifiche non vengono salvate.",
+  "templateVariantTitle": "Nome della variante",
+  "templateFields": "Attributi",
+  "templateFieldLabel": "Etichetta",
+  "templateFieldHidden": "Nascondi",
+  "templateFieldOrder": "Ordine",
+  "addTemplateField": "Aggiungi attributo",
+  "templateFieldKey": "Chiave del campo",
+  "templateFieldKeyHint": "Minuscole, numeri e trattini bassi",
+  "templateFieldType": "Tipo di campo",
+  "previewTemplateForm": "Prova modulo",
+  "invalidTemplateField": "Campo non valido o duplicato.",
+  "templatePreviewValid": "{count} attributi verificati.",
+  "templatePreviewInvalid": "Controlla i dati inseriti.",
+  "validateTemplatePreview": "Verifica modulo",
+  "removeTemplateField": "Rimuovi campo",
+  "@templatePreviewValid": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "templateContentLanguagePolicy": "Lingua del contenuto",
+  "templateContentLanguageHint": "L'originale viene sempre conservato. Le traduzioni saranno separate.",
+  "keepOriginalText": "Mostra sempre l'originale",
+  "translateTextByAppLanguage": "Mostra nella lingua dell'app se tradotto",
+  "templateFieldRequired": "Campo obbligatorio",
+  "templateLabelLanguage": "Lingua",
+  "templateLocalizedLabel": "Etichetta in questa lingua",
+  "templateChoices": "Opzioni",
+  "templateChoicesHint": "Separa i valori con virgole (almeno 2)",
+  "suggestionReviewDemo": "Verifica suggerimento IA (demo)",
+  "aiDemoNotice": "Esempio simulato: nessuna analisi immagini o salvataggio. Campi sconosciuti esclusi.",
+  "aiMatchedTemplate": "Modello suggerito",
+  "aiMatchedFields": "{count} campi corrispondenti",
+  "aiReviewBookProposal": "Verifica libro",
+  "aiReviewFields": "Verifica dati suggeriti",
+  "aiRejectedFields": "{count} campi scartati",
+  "aiMissingRequired": "Campi obbligatori mancanti: {fields}",
+  "aiReviewComplete": "Dati verificati. Nessun salvataggio.",
+  "aiNeedsReview": "Controlla i dati o completa i campi obbligatori.",
+  "aiCaptureDemoAction": "Prova acquisizione IA (demo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  },
+  "isbnLookupTitle": "Cerca libro con ISBN",
+  "isbnLookupNotice": "Ricerca tramite Google Books. Controlla i risultati; nessun salvataggio.",
+  "isbnInputLabel": "ISBN-10 o ISBN-13",
+  "isbnSearchAction": "Cerca libro",
+  "isbnLookupError": "Ricerca non riuscita. Controlla ISBN e connessione.",
+  "isbnNoResults": "Nessun libro trovato.",
+  "isbnUnknownAuthor": "Autore sconosciuto",
+  "isbnReviewHeading": "Verifica informazioni",
+  "isbnReviewOnly": "Solo anteprima: nessun salvataggio.",
+  "isbnLookupHome": "Ricerca ISBN (Google Books)",
+  "photoCaptureTitle": "Seleziona e controlla foto",
+  "photoCaptureIntro": "Scegli una foto. Rimane sul dispositivo finché non acconsenti e la funzione non viene attivata.",
+  "chooseFromGallery": "Scegli dalla galleria",
+  "photoSelectionError": "Impossibile aprire la foto. Scegli JPEG o PNG sotto 700 KB.",
+  "photoAnalysisError": "L'analisi IA non è disponibile al momento.",
+  "photoSelectedInfo": "{mimeType} · {bytes} byte",
+  "discardSelectedPhoto": "Elimina foto",
+  "photoTransferConsent": "Acconsento all'invio di questa foto per l'analisi IA.",
+  "photoTransferExplanation": "Quando attivata, la foto sarà inviata a OpenAI per l'analisi. Nessun dato sarà salvato automaticamente nella raccolta.",
+  "photoVisionDisabled": "Analisi IA disattivata: nessun invio possibile.",
+  "analyzeSelectedPhoto": "Analizza foto",
+  "photoNeverAutoSaved": "Nessun salvataggio automatico.",
+  "@photoSelectedInfo": {
+    "placeholders": {
+      "mimeType": {
+        "type": "String"
+      },
+      "bytes": {
+        "type": "int"
+      }
+    }
+  },
+  "offlineModeTitle": "Modalità offline",
+  "offlineModeExplanation": "La sessione salvata permette solo l'accesso locale senza internet. I permessi cloud saranno ricontrollati online.",
+  "offlineUnlockAction": "Sblocca con la sicurezza del dispositivo",
+  "offlineUnlockUnavailable": "Accesso offline non disponibile. Accedi online e configura PIN o biometria.",
+  "offlineUnlockedNotice": "Dispositivo verificato. Non è un nuovo accesso online.",
+  "offlineStoragePending": "La vista crittografata delle raccolte locali è in sviluppo. Gli elenchi Supabase non sono ancora disponibili offline.",
+  "offlineSignInOnline": "Accedi online",
+  "catalogSourceKovunela": "Catalogo Kovunela",
+  "catalogSourceGoogle": "Google Books"
+}
