@@ -181,5 +181,12 @@
         "type": "int"
       }
     }
-  }
+  },
+  "offlineModeTitle": "Offline mode",
+  "offlineModeExplanation": "Your saved session can only be used for local device access without internet. Cloud data and household permissions must be checked again online.",
+  "offlineUnlockAction": "Unlock with device security",
+  "offlineUnlockUnavailable": "Offline access unavailable. Sign in online once and enable a device passcode or biometrics.",
+  "offlineUnlockedNotice": "Device verified. This is not a new online sign-in.",
+  "offlineStoragePending": "The encrypted local collection viewer is still under development. Supabase lists are not yet available offline.",
+  "offlineSignInOnline": "Sign in online"
 }
