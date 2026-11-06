@@ -117,5 +117,37 @@
   "templateLabelLanguage": "Language",
   "templateLocalizedLabel": "Field label in this language",
   "templateChoices": "Choices",
-  "templateChoicesHint": "Separate options with commas (at least 2)"
+  "templateChoicesHint": "Separate options with commas (at least 2)",
+  "suggestionReviewDemo": "Review AI suggestion (demo)",
+  "aiDemoNotice": "Simulated example – no AI image analysis or saving yet. Unknown fields are excluded.",
+  "aiMatchedTemplate": "Suggested template",
+  "aiMatchedFields": "{count} matching fields",
+  "aiReviewBookProposal": "Review book suggestion",
+  "aiReviewFields": "Review proposed details",
+  "aiRejectedFields": "{count} unverified fields excluded",
+  "aiMissingRequired": "Missing required fields: {fields}",
+  "aiReviewComplete": "Details validated. Nothing saved.",
+  "aiNeedsReview": "Review entries or complete required fields.",
+  "aiCaptureDemoAction": "Try AI capture (demo)",
+  "@aiMatchedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiRejectedFields": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiMissingRequired": {
+    "placeholders": {
+      "fields": {
+        "type": "String"
+      }
+    }
+  }
 }
