@@ -53,6 +53,13 @@ abstract interface class PersonalTaxonomyRepository {
     required String title,
     required Map<String, String> fields,
   });
+  Future<String> createTypedItem({
+    required String title,
+    String description = '',
+    String? categoryId,
+    String? templateVersionId,
+    Map<String, dynamic> attributes = const {},
+  });
 }
 
 /// Server derives user and workspace for every write; no workspace IDs from UI.
@@ -77,6 +84,30 @@ class SupabasePersonalTaxonomyRepository implements PersonalTaxonomyRepository {
     return result.map((row) => PersonalObjectType.fromJson(
       Map<String, dynamic>.from(row as Map),
     )).toList(growable: false);
+  }
+
+  @override
+  Future<String> createTypedItem({
+    required String title,
+    String description = '',
+    String? categoryId,
+    String? templateVersionId,
+    Map<String, dynamic> attributes = const {},
+  }) async {
+    if (title.trim().isEmpty || title.trim().length > 200 ||
+        description.trim().length > 5000 ||
+        (templateVersionId == null && attributes.isNotEmpty)) {
+      throw ArgumentError('Invalid typed item');
+    }
+    final id = await _client.rpc('kv_create_typed_personal_item', params: {
+      'p_title': title.trim(),
+      'p_description': description.trim(),
+      'p_category_id': categoryId,
+      'p_template_version_id': templateVersionId,
+      'p_attributes': attributes,
+    });
+    if (id is! String || id.isEmpty) throw StateError('Item not confirmed');
+    return id;
   }
 
   @override
