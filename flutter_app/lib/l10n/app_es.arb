@@ -85,5 +85,28 @@
   },
   "standardTemplates": "Plantillas estándar",
   "noStandardTemplates": "No hay plantillas estándar disponibles.",
-  "standardTemplatesLoadError": "No se pudieron cargar las plantillas estándar."
+  "standardTemplatesLoadError": "No se pudieron cargar las plantillas estándar.",
+  "templateDraftOnly": "Solo vista previa: los cambios aún no se guardan.",
+  "templateVariantTitle": "Nombre de la variante",
+  "templateFields": "Atributos",
+  "templateFieldLabel": "Etiqueta",
+  "templateFieldHidden": "Ocultar",
+  "templateFieldOrder": "Orden",
+  "addTemplateField": "Añadir atributo",
+  "templateFieldKey": "Clave del campo",
+  "templateFieldKeyHint": "Minúsculas, números y guiones bajos",
+  "templateFieldType": "Tipo de campo",
+  "previewTemplateForm": "Probar formulario",
+  "invalidTemplateField": "Campo no válido o duplicado.",
+  "templatePreviewValid": "{count} atributos validados.",
+  "templatePreviewInvalid": "Comprueba los datos introducidos.",
+  "validateTemplatePreview": "Validar formulario",
+  "removeTemplateField": "Eliminar campo",
+  "@templatePreviewValid": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
