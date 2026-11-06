@@ -53,7 +53,7 @@ class CaptureSuggestion {
       templateCode: code,
       title: title.trim(),
       attributes: attrs,
-      confidence: confidence == null ? null : confidence.toDouble(),
+      confidence: confidence?.toDouble(),
       evidence: evidence,
     );
   }
