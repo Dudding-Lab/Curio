@@ -164,6 +164,59 @@ void main() {
         throwsA(isA<PostgrestException>()),
       );
 
+      final standards =
+          await a.rpc('kv_list_standard_templates') as List<dynamic>;
+      final book = standards.cast<Map>().firstWhere(
+        (row) => row['code'] == 'book',
+      );
+      expect(book['field_schema'], isA<Map>());
+      final derivedA = await a.rpc('kv_derive_standard_template', params: {
+        'p_standard_id': book['id'],
+        'p_title': 'Books with notes $marker',
+        'p_added_fields': {'reading_status': 'text'},
+      });
+      expect(derivedA, isA<String>());
+      final ownTypes =
+          await a.rpc('kv_list_personal_object_types') as List<dynamic>;
+      final derivedRow = ownTypes.cast<Map>().firstWhere(
+        (row) => row['id'] == derivedA,
+      );
+      expect(
+        (derivedRow['field_schema'] as Map)['reading_status'],
+        'text',
+      );
+      expect(
+        (await b.rpc('kv_list_personal_object_types') as List<dynamic>)
+            .any((row) => (row as Map)['id'] == derivedA),
+        isFalse,
+      );
+      await expectLater(
+        a.rpc('kv_derive_standard_template', params: {
+          'p_standard_id': book['id'],
+          'p_title': 'Invalid override',
+          'p_added_fields': {'isbn': 'number'},
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        b.rpc('kv_share_personal_template', params: {
+          'p_template_id': derivedA,
+          'p_target_workspace_id': '00000000-0000-4000-8000-000000000000',
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        a.rpc('kv_share_personal_template', params: {
+          'p_template_id': derivedA,
+          'p_target_workspace_id': '00000000-0000-4000-8000-000000000000',
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        anonymous.rpc('kv_list_standard_templates'),
+        throwsA(isA<PostgrestException>()),
+      );
+
       await expectLater(
         anonymous.rpc('kv_create_personal_item', params: {
           'p_title': 'Unauthorized',
