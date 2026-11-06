@@ -9,6 +9,7 @@ import 'package:curio/screens/taxonomy/standard_templates_screen.dart';
 import 'package:curio/screens/taxonomy/template_draft_screen.dart';
 import 'package:curio/screens/collections/personal_collections_screen.dart';
 import 'package:curio/screens/capture/manual_capture_screen.dart';
+import 'package:curio/screens/capture/isbn_lookup_screen.dart';
 import 'package:curio/screens/capture/capture_suggestion_demo_screen.dart';
 import 'package:curio/screens/households/household_list_screen.dart';
 import 'package:curio/screens/collections/collections_list_screen.dart';
@@ -66,6 +67,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/capture/suggestion-demo',
         builder: (context, state) => const CaptureSuggestionDemoScreen(),
+      ),
+      GoRoute(
+        path: '/capture/isbn',
+        builder: (context, state) => const IsbnLookupScreen(),
       ),
       GoRoute(
         path: '/capture/manual',
