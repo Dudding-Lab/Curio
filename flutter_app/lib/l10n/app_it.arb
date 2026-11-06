@@ -85,5 +85,28 @@
   },
   "standardTemplates": "Modelli standard",
   "noStandardTemplates": "Nessun modello standard disponibile.",
-  "standardTemplatesLoadError": "Impossibile caricare i modelli standard."
+  "standardTemplatesLoadError": "Impossibile caricare i modelli standard.",
+  "templateDraftOnly": "Solo anteprima: le modifiche non vengono salvate.",
+  "templateVariantTitle": "Nome della variante",
+  "templateFields": "Attributi",
+  "templateFieldLabel": "Etichetta",
+  "templateFieldHidden": "Nascondi",
+  "templateFieldOrder": "Ordine",
+  "addTemplateField": "Aggiungi attributo",
+  "templateFieldKey": "Chiave del campo",
+  "templateFieldKeyHint": "Minuscole, numeri e trattini bassi",
+  "templateFieldType": "Tipo di campo",
+  "previewTemplateForm": "Prova modulo",
+  "invalidTemplateField": "Campo non valido o duplicato.",
+  "templatePreviewValid": "{count} attributi verificati.",
+  "templatePreviewInvalid": "Controlla i dati inseriti.",
+  "validateTemplatePreview": "Verifica modulo",
+  "removeTemplateField": "Rimuovi campo",
+  "@templatePreviewValid": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
