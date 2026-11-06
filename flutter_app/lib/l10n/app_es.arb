@@ -82,5 +82,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "standardTemplates": "Plantillas estándar",
+  "noStandardTemplates": "No hay plantillas estándar disponibles.",
+  "standardTemplatesLoadError": "No se pudieron cargar las plantillas estándar."
 }
