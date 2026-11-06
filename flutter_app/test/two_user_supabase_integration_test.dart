@@ -65,6 +65,52 @@ void main() {
       expect((await list(b)).any((row) => (row as Map)['id'] == idB), isTrue);
       expect((await list(a)).any((row) => (row as Map)['id'] == idB), isFalse);
 
+      final collectionA = await a.rpc('kv_create_personal_collection', params: {
+        'p_title': 'Private A $marker',
+        'p_description': '',
+      });
+      expect(collectionA, isA<String>());
+      final collectionB = await b.rpc('kv_create_personal_collection', params: {
+        'p_title': 'Private B $marker',
+        'p_description': '',
+      });
+      expect(collectionB, isA<String>());
+
+      Future<List<dynamic>> listCollections(SupabaseClient client) async =>
+          await client.rpc('kv_list_personal_collections') as List<dynamic>;
+      expect(
+        (await listCollections(a)).any((row) => (row as Map)['id'] == collectionA),
+        isTrue,
+      );
+      expect(
+        (await listCollections(b)).any((row) => (row as Map)['id'] == collectionA),
+        isFalse,
+      );
+
+      final added = await a.rpc('kv_add_personal_item_to_collection', params: {
+        'p_item_id': idA,
+        'p_collection_id': collectionA,
+      });
+      expect(added, true);
+      await expectLater(
+        b.rpc('kv_add_personal_item_to_collection', params: {
+          'p_item_id': idA,
+          'p_collection_id': collectionB,
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        a.rpc('kv_add_personal_item_to_collection', params: {
+          'p_item_id': idA,
+          'p_collection_id': collectionB,
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        anonymous.rpc('kv_list_personal_collections'),
+        throwsA(isA<PostgrestException>()),
+      );
+
       await expectLater(
         anonymous.rpc('kv_create_personal_item', params: {
           'p_title': 'Unauthorized',
