@@ -65,5 +65,8 @@
   "descriptionPlaceholder": "Ulteriori informazioni sull'oggetto",
   "myItems": "I miei oggetti",
   "noItemsYet": "Nessun oggetto salvato.",
-  "itemListLoadError": "Impossibile caricare i tuoi oggetti."
+  "itemListLoadError": "Impossibile caricare i tuoi oggetti.",
+  "saveInProgress": "Salvataggio oggetto…",
+  "saveFailed": "Impossibile salvare l'oggetto. I dati inseriti rimangono disponibili.",
+  "saveCompleted": "Oggetto salvato."
 }
