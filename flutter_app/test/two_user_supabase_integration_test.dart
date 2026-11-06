@@ -212,6 +212,43 @@ void main() {
         }),
         throwsA(isA<PostgrestException>()),
       );
+      final configuredPresentation = await a.rpc(
+        'kv_configure_personal_template',
+        params: {
+          'p_template_id': derivedA,
+          'p_presentation': {
+            'isbn': {'label': 'Book ID', 'order': 1},
+            'reading_status': {'hidden': false, 'order': 2},
+          },
+        },
+      );
+      expect(configuredPresentation, true);
+      final presentation = await a.rpc(
+        'kv_get_personal_template_presentation',
+        params: {'p_template_id': derivedA},
+      ) as Map;
+      expect((presentation['isbn'] as Map)['label'], 'Book ID');
+      await expectLater(
+        b.rpc('kv_configure_personal_template', params: {
+          'p_template_id': derivedA,
+          'p_presentation': <String, dynamic>{},
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        a.rpc('kv_move_owned_template', params: {
+          'p_template_id': derivedA,
+          'p_target_workspace_id': '00000000-0000-4000-8000-000000000000',
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+      await expectLater(
+        b.rpc('kv_revoke_personal_template_share', params: {
+          'p_template_id': derivedA,
+          'p_target_workspace_id': '00000000-0000-4000-8000-000000000000',
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
       await expectLater(
         anonymous.rpc('kv_list_standard_templates'),
         throwsA(isA<PostgrestException>()),
