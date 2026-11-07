@@ -10,3 +10,5 @@ Rerun after both auth users confirmed at 2026-11-07 09:57 UTC.
 2026-11-07: Repeat standard-book live test after authenticated wrapper privilege fix.
 
 2026-11-07: final check with invoker-mode public RPC and private authenticated function.
+
+2026-11-07: Investigate browser invalid_credentials regression; verify existing GitHub secrets authenticate without password disclosures.
