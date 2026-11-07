@@ -4,9 +4,11 @@ import 'package:curio/features/capture/capture_suggestion.dart';
 import 'package:curio/features/taxonomy/template_catalog_repository.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// Live catalog search, but always local review. Never writes a book to Supabase.
+/// Live ISBN lookup with explicit user review before private save.
+/// Lookup itself never writes or publishes book information.
 class IsbnLookupScreen extends StatefulWidget {
   const IsbnLookupScreen({super.key, this.repository, this.templates});
   final BookLookupRepository? repository;
@@ -22,6 +24,7 @@ class _IsbnLookupScreenState extends State<IsbnLookupScreen> {
   String? _error;
   List<GoogleBookCandidate>? _books;
   CaptureReview? _review;
+  GoogleBookCandidate? _selectedBook;
 
   @override
   void dispose() {
@@ -35,6 +38,7 @@ class _IsbnLookupScreenState extends State<IsbnLookupScreen> {
       _loading = true;
       _books = null;
       _review = null;
+      _selectedBook = null;
       _error = null;
     });
     try {
@@ -70,7 +74,10 @@ class _IsbnLookupScreenState extends State<IsbnLookupScreen> {
         requiredFields: const {'isbn'},
       );
       if (!mounted) return;
-      setState(() => _review = review);
+      setState(() {
+        _review = review;
+        _selectedBook = candidate;
+      });
     } catch (_) {
       if (!mounted) return;
       setState(() => _error = AppLocalizations.of(context)!.isbnLookupError);
@@ -150,7 +157,15 @@ class _IsbnLookupScreenState extends State<IsbnLookupScreen> {
                 if (_review!.rejectedReasons.isNotEmpty)
                   Text(l10n.aiRejectedFields(_review!.rejectedReasons.length)),
                 const SizedBox(height: 8),
-                Text(l10n.isbnReviewOnly),
+                const Text('Die Daten sind noch nicht gespeichert. Du kannst sie im nächsten Schritt bearbeiten und prüfen.'),
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  key: const ValueKey('isbn-use-book'),
+                  onPressed: _loading || _selectedBook == null ? null : () =>
+                      context.push('/capture/standard', extra: _selectedBook),
+                  icon: const Icon(Icons.edit_note_outlined),
+                  label: const Text('Buchdaten übernehmen'),
+                ),
               ],
             ],
           ),
