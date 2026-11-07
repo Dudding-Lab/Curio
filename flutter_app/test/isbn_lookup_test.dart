@@ -160,13 +160,12 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Buchinformationen prüfen'), findsOneWidget);
     await tester.scrollUntilVisible(
-      find.textContaining('Nur Vorschau:'),
-      200,
+      find.byKey(const ValueKey('isbn-use-book')),
+      180,
       scrollable: find.byType(Scrollable).first,
     );
-    await tester.ensureVisible(find.textContaining('Nur Vorschau:'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('Nur Vorschau:'), findsOneWidget);
+    expect(find.textContaining('Die Daten sind noch nicht gespeichert.'), findsOneWidget);
     expect(find.text('Gegenstand speichern'), findsNothing);
     expect(find.text('Buchdaten übernehmen'), findsOneWidget);
   });
@@ -208,7 +207,11 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Die unendliche Geschichte'));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.byKey(const ValueKey('isbn-use-book')));
+    await tester.scrollUntilVisible(
+      find.byKey(const ValueKey('isbn-use-book')),
+      180,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey('isbn-use-book')));
     await tester.pumpAndSettle();
