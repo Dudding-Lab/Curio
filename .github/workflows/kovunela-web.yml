@@ -1,0 +1,54 @@
+name: Kovunela web build
+
+on:
+  push:
+    branches:
+      - feature/kovunela-web-foundation
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Verify development environment configuration
+        env:
+          SUPABASE_URL: ${{ vars.KOVUNELA_SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.KOVUNELA_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_PUBLISHABLE_KEY" ]; then
+            echo "::error::Set repository variables KOVUNELA_SUPABASE_URL and KOVUNELA_SUPABASE_PUBLISHABLE_KEY"
+            exit 1
+          fi
+      - name: Bootstrap web platform in the existing Flutter app
+        run: flutter create --platforms=web --project-name curio .
+      - name: Fetch Flutter dependencies
+        run: flutter pub get
+      - name: Generate localizations
+        run: flutter gen-l10n
+      - name: Build existing Kovunela app for web
+        env:
+          SUPABASE_URL: ${{ vars.KOVUNELA_SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.KOVUNELA_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          flutter build web --release \
+            --dart-define="SUPABASE_URL=$SUPABASE_URL" \
+            --dart-define="SUPABASE_PUBLISHABLE_KEY=$SUPABASE_PUBLISHABLE_KEY"
+      - name: Archive deployable web files
+        uses: actions/upload-artifact@v4
+        with:
+          name: kovunela-web
+          path: flutter_app/build/web/
+          if-no-files-found: error
+          retention-days: 7
