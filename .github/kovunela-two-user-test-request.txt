@@ -1,0 +1,2 @@
+Run the configured two-user Supabase integration test against the development project.
+Requested after both test accounts and GitHub Actions variables/secrets were configured.
