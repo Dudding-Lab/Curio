@@ -59,6 +59,9 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('standard-title')), 'Mein Buch');
     await tester.enterText(find.byKey(const ValueKey('field-isbn')), '9780306406157');
     await tester.ensureVisible(find.text('Angaben prüfen'));
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(ListView), const Offset(0, -200));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Angaben prüfen'));
     await tester.pumpAndSettle();
     expect(find.text('Gegenstand speichern'), findsOneWidget);
@@ -89,6 +92,9 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('standard-title')), 'Falsche ISBN');
     await tester.enterText(find.byKey(const ValueKey('field-isbn')), '9780306406158');
     await tester.ensureVisible(find.text('Angaben prüfen'));
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(ListView), const Offset(0, -200));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Angaben prüfen'));
     await tester.pumpAndSettle();
     expect(find.text('Die ISBN hat eine ungültige Prüfziffer.'), findsOneWidget);
