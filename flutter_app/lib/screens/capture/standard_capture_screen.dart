@@ -284,7 +284,7 @@ class _StandardCaptureScreenState extends State<StandardCaptureScreen> {
                     Text(l10n.reviewManualItem,
                         style: Theme.of(context).textTheme.headlineSmall),
                     const SizedBox(height: 16),
-                    ListTile(title: Text('Objektart'),
+                    ListTile(title: const Text('Objektart'),
                         subtitle: Text(_selected!.title)),
                     ListTile(title: Text(l10n.itemTitle),
                         subtitle: Text(_title.text.trim())),
