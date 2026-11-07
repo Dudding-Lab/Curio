@@ -55,7 +55,8 @@ jobs:
         run: |
           flutter build web --release --base-href /Curio/ \
             --dart-define="SUPABASE_URL=$SUPABASE_URL" \
-            --dart-define="SUPABASE_PUBLISHABLE_KEY=$SUPABASE_PUBLISHABLE_KEY"
+            --dart-define="SUPABASE_PUBLISHABLE_KEY=$SUPABASE_PUBLISHABLE_KEY" \
+            --dart-define=KOVUNELA_ENABLE_PERSONAL_ITEM_SAVE=true
           touch build/web/.nojekyll
       - name: Configure Pages
         uses: actions/configure-pages@v5
