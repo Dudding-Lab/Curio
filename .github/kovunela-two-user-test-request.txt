@@ -4,3 +4,5 @@ Requested after both test accounts and GitHub Actions variables/secrets were con
 Second run: distinguish account A/B authentication errors, no secrets logged.
 
 Rerun after both auth users confirmed at 2026-11-07 09:57 UTC.
+
+2026-11-07: Test atomic standard-book typed saving and two-account privacy after new migration.
