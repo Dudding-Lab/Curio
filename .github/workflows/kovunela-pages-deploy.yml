@@ -1,0 +1,79 @@
+name: Deploy Kovunela Web to GitHub Pages
+
+# Deliberately opt-in while the application is a development preview.
+# After release, change this to deploy on reviewed releases/main.
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/kovunela-web-foundation
+    paths:
+      - .github/kovunela-pages-deploy-request.txt
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kovunela-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Require configured Supabase development project
+        env:
+          SUPABASE_URL: ${{ vars.KOVUNELA_SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.KOVUNELA_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          test "$SUPABASE_URL" = "https://tgawxheqrcqhcvxaexvd.supabase.co" || {
+            echo "::error::Refusing to deploy against a non-development Supabase URL."
+            exit 1
+          }
+          case "$SUPABASE_PUBLISHABLE_KEY" in
+            sb_publishable_*) ;;
+            *) echo "::error::Expected a publishable (not secret/service-role) key."; exit 1 ;;
+          esac
+      - name: Bootstrap Flutter web in existing app
+        run: flutter create --platforms=web --project-name curio .
+      - name: Get dependencies
+        run: flutter pub get
+      - name: Generate translations
+        run: flutter gen-l10n
+      - name: Build for GitHub Pages project subpath
+        env:
+          SUPABASE_URL: ${{ vars.KOVUNELA_SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.KOVUNELA_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          flutter build web --release --base-href /Curio/ \
+            --dart-define="SUPABASE_URL=$SUPABASE_URL" \
+            --dart-define="SUPABASE_PUBLISHABLE_KEY=$SUPABASE_PUBLISHABLE_KEY"
+          touch build/web/.nojekyll
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: flutter_app/build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy built app to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
