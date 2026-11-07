@@ -23,7 +23,7 @@ class CatalogFirstBookLookup {
   final SupabaseClient _client;
 
   Future<List<BookLookupSuggestion>> findByIsbn(String isbn) async {
-    final normalized = isbn.replaceAll(RegExp(r'[\\s-]'), '').toUpperCase();
+    final normalized = isbn.replaceAll(RegExp(r'[\s-]'), '').toUpperCase();
     if (!RegExp(r'^(?:[0-9]{13}|[0-9]{9}[0-9X])$').hasMatch(normalized)) {
       throw ArgumentError.value(isbn, 'isbn', 'ISBN-10 or ISBN-13 required');
     }
