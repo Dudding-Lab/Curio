@@ -61,3 +61,13 @@ Der Auth-Integrationsjob https://github.com/Dudding-Lab/Curio/actions/runs/42361
 Testdatei: `flutter_app/test/two_user_supabase_integration_test.dart`. Der Test erzeugt absichtlich **synthetische** Entwicklungsdaten. Zum Prüfzeitpunkt waren in der internen Katalog-Queue drei Einträge mit Zustand `skipped`, entsprechend den für die Katalogaufbereitung nicht geeigneten generischen Testobjekten. Keine öffentliche Katalogveröffentlichung geprüft oder durchgeführt.
 
 **Wichtig:** Diese erfolgreiche Integration testet *nicht* das Browser-UI, die KI-/Foto-Pipeline oder echte Buch-Dubletten-End-to-End. Vor öffentlichem Release weiterhin Hosting, Cookie/Session-Verhalten, Browser-Login, Datenherkunft und Sicherheitswarnungen prüfen.
+
+
+## HTTPS-Deployment mit GitHub Pages
+- Datei `.github/workflows/kovunela-pages-deploy.yml` baut die **vorhandene** Flutter-App mit `--base-href /Curio/` und echten GitHub Actions Variables für das festgelegte Supabase-Entwicklungsprojekt.
+- Die Deployment-Konfiguration wird nicht mit `service_role`-Keys akzeptiert. Der Publishable Key ist für den Web-Client bestimmt; Datenzugriff wird von Supabase Auth/RLS geschützt.
+- Die Auslieferung ist im Entwicklungsbranch bewusst opt-in, ausgelöst nur manuell oder durch Änderung von `.github/kovunela-pages-deploy-request.txt`. Ein Merge nach `main` findet nicht statt.
+- GitHub-Repository-Admin muss unter **Settings → Pages → Build and deployment → Source** den Wert **GitHub Actions** auswählen. Erst danach kann ein Pages-Deployment funktionieren. GitHub Pages ist öffentlich erreichbar; nur Entwicklungsdaten verwenden.
+- Vor einem erfolgreichen GitHub-Pages-Deploy-Lauf ist die Adresse `https://dudding-lab.github.io/Curio/` **nicht** als verfügbar zu betrachten.
+- Nach erfolgreichem Deployment Login, Routen, Browser-Refresh, persistierte Sitzung und Logout manuell mit beiden Testkonten prüfen. Die konfigurierten Supabase Auth Site URL und Redirect URLs für E-Mail-Flows müssen die tatsächliche Pages-Adresse enthalten.
+- Die Foto-KI und Speicherung weiterhin nur nach den dafür vorgesehenen Freigaben/Tests aktivieren; allgemeine Katalogdaten werden nicht automatisch öffentlich freigegeben.
