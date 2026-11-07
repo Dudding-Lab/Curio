@@ -1,0 +1,1 @@
+Requested first Kovunela HTTPS preview deployment of the existing Flutter web application (development Supabase only).
