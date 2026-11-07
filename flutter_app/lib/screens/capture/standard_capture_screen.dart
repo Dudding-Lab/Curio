@@ -47,7 +47,7 @@ class _StandardCaptureScreenState extends State<StandardCaptureScreen> {
     _standards = _repository.listStandards();
   }
 
-  void _select(StandardObjectTemplate template) {
+  void _select(StandardObjectTemplate template, {bool notify = true}) {
     for (final controller in _fields.values) {
       controller.dispose();
     }
@@ -60,11 +60,16 @@ class _StandardCaptureScreenState extends State<StandardCaptureScreen> {
         _fields[field.key] = TextEditingController();
       }
     }
-    setState(() {
+    void apply() {
       _selected = template;
       _review = false;
       _error = null;
-    });
+    }
+    if (notify) {
+      setState(apply);
+    } else {
+      apply();
+    }
   }
 
   /// Fill only fields belonging to the server-provided standard template.
@@ -78,7 +83,7 @@ class _StandardCaptureScreenState extends State<StandardCaptureScreen> {
       _error = 'Die Buchvorlage konnte nicht gefunden werden.';
       return;
     }
-    _select(books.first);
+    _select(books.first, notify: false);
     _title.text = candidate.title.trim().length <= 200
         ? candidate.title.trim()
         : candidate.title.trim().substring(0, 200);
