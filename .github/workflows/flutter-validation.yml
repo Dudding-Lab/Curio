@@ -1,0 +1,39 @@
+name: Flutter static validation
+
+on:
+  pull_request:
+    paths:
+      - 'flutter_app/**'
+      - '.github/workflows/flutter-validation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'flutter_app/**'
+      - '.github/workflows/flutter-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  flutter-analyze:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
+      - name: Dart/Flutter static analysis
+        run: flutter analyze
+      - name: Flutter tests
+        run: |
+          if [ -d test ]; then
+            flutter test
+          else
+            echo "No Flutter test directory yet; integration tests remain a release gate."
+          fi
