@@ -42,9 +42,9 @@ class _PersonalItemsScreenState extends State<PersonalItemsScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         key: const ValueKey('add-personal-item'),
-        onPressed: () => context.push('/capture/manual'),
+        onPressed: () => context.push('/capture/standard'),
         icon: const Icon(Icons.add),
-        label: Text(l10n.manualCapture),
+        label: const Text('Gegenstand erfassen'),
       ),
       body: FutureBuilder<List<PersonalItem>>(
         future: _items,
