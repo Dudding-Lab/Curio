@@ -226,14 +226,20 @@ void main() {
 
     await tester.enterText(find.byKey(const ValueKey('standard-title')),
         'Mein geprüftes Buch');
-    await tester.ensureVisible(find.text('Angaben prüfen'));
-    await tester.pumpAndSettle();
-    await tester.drag(find.byType(ListView), const Offset(0, -200));
+    await tester.scrollUntilVisible(
+      find.text('Angaben prüfen'),
+      160,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.text('Angaben prüfen'));
     await tester.pumpAndSettle();
     expect(save.calls, 0);
-    await tester.ensureVisible(find.text('Gegenstand speichern'));
+    await tester.scrollUntilVisible(
+      find.text('Gegenstand speichern'),
+      160,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.text('Gegenstand speichern'));
     await tester.pumpAndSettle();
