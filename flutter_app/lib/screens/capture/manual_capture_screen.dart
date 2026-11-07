@@ -171,6 +171,12 @@ class _ManualCaptureScreenState extends State<ManualCaptureScreen> {
                           ),
                         ),
                         const SizedBox(height: 12),
+                        OutlinedButton.icon(
+                          onPressed: () => context.push('/capture/standard'),
+                          icon: const Icon(Icons.category_outlined),
+                          label: const Text('Mit Objektvorlage erfassen'),
+                        ),
+                        const SizedBox(height: 12),
                         Text(l10n.optionalCollectionHint),
                         const SizedBox(height: 20),
                         FilledButton(
