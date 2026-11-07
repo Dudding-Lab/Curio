@@ -71,3 +71,12 @@ Testdatei: `flutter_app/test/two_user_supabase_integration_test.dart`. Der Test 
 - Vor einem erfolgreichen GitHub-Pages-Deploy-Lauf ist die Adresse `https://dudding-lab.github.io/Curio/` **nicht** als verfügbar zu betrachten.
 - Nach erfolgreichem Deployment Login, Routen, Browser-Refresh, persistierte Sitzung und Logout manuell mit beiden Testkonten prüfen. Die konfigurierten Supabase Auth Site URL und Redirect URLs für E-Mail-Flows müssen die tatsächliche Pages-Adresse enthalten.
 - Die Foto-KI und Speicherung weiterhin nur nach den dafür vorgesehenen Freigaben/Tests aktivieren; allgemeine Katalogdaten werden nicht automatisch öffentlich freigegeben.
+
+
+## Erstes GitHub-Pages-Deployment erfolgreich (2026-11-07)
+- GitHub Actions Workflow-Rerun: https://github.com/Dudding-Lab/Curio/actions/runs/42363545078
+- Build-Job erfolgreich und Deploy-Job erfolgreich; GitHub-Deployment-Protokoll bestätigt `Reported success!` und meldet die Umgebung-URL `https://dudding-lab.github.io/Curio/`.
+- Das Repository meldet inzwischen `has_pages=true`.
+- Ein unabhängiger HTTP-Abruf war aus dem Ausführungssystem aufgrund DNS-/Netzwerkbeschränkungen nicht möglich. Die URL und der Release sind **von GitHub bestätigt**, aber die Browser-Lauffähigkeit ist noch nicht separat getestet.
+- Als nächstes die Startseite im Browser aufrufen, beide Testkonten nacheinander anmelden, Browser-Refresh und Logout prüfen; falls die Seite lädt, aber API/Auth nicht funktioniert, Browser-Konsole und Supabase Redirect-Konfiguration prüfen.
+- Veröffentlichung bleibt **nur Entwicklungsfassung**; private RPCs sind RLS-geschützt, Foto-/KI-Upload und manuelle Speichern-Freigabe weiterhin abgeschaltet.
