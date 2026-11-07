@@ -47,3 +47,17 @@ Der Workflow führt den vorhandenen realen `two_user_supabase_integration_test.d
 ## CI-Nachweise
 Flutter-Testlauf nach Reparatur des Startseiten-Widgettests: https://github.com/Dudding-Lab/Curio/actions/runs/42359732224
 Flutter-Web-Kompilierung ohne deploybare Konfiguration: https://github.com/Dudding-Lab/Curio/actions/runs/42359735458
+
+
+## Reale Zwei-Konten-Integration erfolgreich (7. November 2026)
+
+Der Auth-Integrationsjob https://github.com/Dudding-Lab/Curio/actions/runs/42361967481 hat mit zwei **getrennten realen** Benutzer-Sitzungen erfolgreich bestanden:
+- beide E-Mail-Identitäten sind bestätigt und haben sich gemäß Supabase `auth.users.last_sign_in_at` angemeldet;
+- private Items und Sammlungen sind zwischen beiden Konten getrennt;
+- fremde Collection-Zuordnung, Cross-Workspace-Zugriffe auf Objekttypen und verschiedene unerlaubte RPCs werden zurückgewiesen;
+- die öffentliche API verweigert anonyme Zugriffe auf geschützte private RPCs;
+- ungültige Metadaten und unzulässige Template-Operationen werden abgewiesen.
+
+Testdatei: `flutter_app/test/two_user_supabase_integration_test.dart`. Der Test erzeugt absichtlich **synthetische** Entwicklungsdaten. Zum Prüfzeitpunkt waren in der internen Katalog-Queue drei Einträge mit Zustand `skipped`, entsprechend den für die Katalogaufbereitung nicht geeigneten generischen Testobjekten. Keine öffentliche Katalogveröffentlichung geprüft oder durchgeführt.
+
+**Wichtig:** Diese erfolgreiche Integration testet *nicht* das Browser-UI, die KI-/Foto-Pipeline oder echte Buch-Dubletten-End-to-End. Vor öffentlichem Release weiterhin Hosting, Cookie/Session-Verhalten, Browser-Login, Datenherkunft und Sicherheitswarnungen prüfen.
