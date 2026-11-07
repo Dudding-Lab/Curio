@@ -10,6 +10,17 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  // Widget tests do not initialize Supabase. Runtime initialization still
+  // happens before mounting the application's router.
+  String? get _signedInEmail {
+    try {
+      return Supabase.instance.client.auth.currentUser?.email;
+    } on StateError {
+      return null;
+    }
+  }
+
+
   void _unavailable(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
@@ -36,6 +47,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
+    final signedInEmail = _signedInEmail;
 
     return KovunelaAdaptiveScaffold(
       title: l10n.appTitle,
@@ -74,10 +86,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(l10n.captureIntro),
-                if (Supabase.instance.client.auth.currentUser?.email != null) ...[
+                if (signedInEmail != null) ...[
                   const SizedBox(height: 8),
                   Text(
-                    Supabase.instance.client.auth.currentUser!.email!,
+                    signedInEmail,
                     key: const ValueKey('signed-in-email'),
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
