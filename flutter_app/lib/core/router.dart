@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:curio/screens/auth/login_screen.dart';
 import 'package:curio/screens/households/household_list_screen.dart';
 import 'package:curio/screens/collections/collections_list_screen.dart';
+import 'package:curio/features/konvuela/presentation/konvuela_home_screen.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -26,6 +27,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
+      GoRoute(
+        path: '/konvuela',
+        builder: (context, state) => const KonvuelaHomeScreen(),
+      ),
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
