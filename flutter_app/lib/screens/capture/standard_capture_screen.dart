@@ -1,3 +1,4 @@
+import 'package:curio/features/capture/book_lookup_repository.dart';
 import 'package:curio/features/capture/standard_item_capture_repository.dart';
 import 'package:curio/features/taxonomy/template_catalog_repository.dart';
 import 'package:curio/l10n/app_localizations.dart';
@@ -12,10 +13,13 @@ class StandardCaptureScreen extends StatefulWidget {
   const StandardCaptureScreen({
     super.key,
     this.repository,
+    this.initialBook,
     this.enableSave =
         const bool.fromEnvironment('KOVUNELA_ENABLE_PERSONAL_ITEM_SAVE'),
   });
   final StandardItemCaptureRepository? repository;
+  /// Untrusted, lookup-only suggestion. User must review before any save.
+  final GoogleBookCandidate? initialBook;
   final bool enableSave;
 
   @override
@@ -33,6 +37,7 @@ class _StandardCaptureScreenState extends State<StandardCaptureScreen> {
   bool _review = false;
   bool _saving = false;
   String? _error;
+  bool _initialBookApplied = false;
 
   @override
   void initState() {
@@ -60,6 +65,38 @@ class _StandardCaptureScreenState extends State<StandardCaptureScreen> {
       _review = false;
       _error = null;
     });
+  }
+
+  /// Fill only fields belonging to the server-provided standard template.
+  /// Provider values are suggestions, not trusted persisted data.
+  void _prefillBook(List<StandardObjectTemplate> standards) {
+    if (_initialBookApplied || widget.initialBook == null) return;
+    _initialBookApplied = true;
+    final candidate = widget.initialBook!;
+    final books = standards.where((item) => item.code == 'book');
+    if (books.isEmpty) {
+      _error = 'Die Buchvorlage konnte nicht gefunden werden.';
+      return;
+    }
+    _select(books.first);
+    _title.text = candidate.title.trim().length <= 200
+        ? candidate.title.trim()
+        : candidate.title.trim().substring(0, 200);
+    for (final entry in candidate.attributes.entries) {
+      final type = books.first.fields[entry.key];
+      if (type == null) continue;
+      if (type == 'boolean' && entry.value is bool) {
+        _booleans[entry.key] = entry.value as bool;
+      } else if (type == 'text' && entry.value is String) {
+        final value = (entry.value as String).trim();
+        if (value.length <= 1000) _fields[entry.key]?.text = value;
+      } else if (type == 'number' && entry.value is num &&
+          (entry.value as num).isFinite) {
+        _fields[entry.key]?.text = entry.value.toString();
+      } else if (type == 'date' && entry.value is String) {
+        _fields[entry.key]?.text = entry.value as String;
+      }
+    }
   }
 
   @override
@@ -202,6 +239,7 @@ class _StandardCaptureScreenState extends State<StandardCaptureScreen> {
             return const Center(child: CircularProgressIndicator());
           }
           final standards = snapshot.data!;
+          _prefillBook(standards);
           return Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 680),
@@ -214,6 +252,10 @@ class _StandardCaptureScreenState extends State<StandardCaptureScreen> {
                       child: Text(_error!,
                           style: TextStyle(color: Theme.of(context).colorScheme.error)),
                     ),
+                  if (widget.initialBook != null && _selected?.code == 'book') ...[
+                    const Text('Buchdaten aus der ISBN-Suche übernommen. Bitte alle Angaben vor dem Speichern prüfen.'),
+                    const SizedBox(height: 12),
+                  ],
                   if (!_review) ...[
                     DropdownButtonFormField<String>(
                       key: const ValueKey('standard-selection'),
