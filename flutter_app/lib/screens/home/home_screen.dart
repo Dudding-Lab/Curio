@@ -15,7 +15,8 @@ class HomeScreen extends StatelessWidget {
   String? get _signedInEmail {
     try {
       return Supabase.instance.client.auth.currentUser?.email;
-    } on StateError {
+    } catch (_) {
+      // The test harness does not initialize Supabase. Do not block UI.
       return null;
     }
   }
