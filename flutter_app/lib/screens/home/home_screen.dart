@@ -3,6 +3,7 @@ import 'package:curio/core/language_menu.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// First responsive landing screen. Manual capture opens a review-only form.
 /// Local photo selection is available; barcode capture is not yet implemented.
@@ -40,7 +41,25 @@ class HomeScreen extends StatelessWidget {
       title: l10n.appTitle,
       selectedIndex: 0,
       onDestinationSelected: (index) => _onDestination(context, index),
-      actions: const [KovunelaLanguageMenu()],
+      actions: [
+        const KovunelaLanguageMenu(),
+        IconButton(
+          key: const ValueKey('sign-out'),
+          tooltip: 'Abmelden',
+          onPressed: () async {
+            try {
+              await Supabase.instance.client.auth.signOut();
+            } on AuthException {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Abmelden fehlgeschlagen')),
+                );
+              }
+            }
+          },
+          icon: const Icon(Icons.logout),
+        ),
+      ],
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Center(
@@ -55,6 +74,14 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(l10n.captureIntro),
+                if (Supabase.instance.client.auth.currentUser?.email != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    Supabase.instance.client.auth.currentUser!.email!,
+                    key: const ValueKey('signed-in-email'),
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
                 const SizedBox(height: 24),
                 Card(
                   color: scheme.primaryContainer,
