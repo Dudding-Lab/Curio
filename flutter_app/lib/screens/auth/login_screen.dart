@@ -82,11 +82,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         title: Text('${l10n.appTitle} – ${_isSignUp ? l10n.signUp : l10n.signIn}'),
         actions: const [KovunelaLanguageMenu()],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 420),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
             TextField(
               controller: _emailController,
               decoration: InputDecoration(labelText: l10n.email),
@@ -122,7 +125,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     : l10n.needAccount,
               ),
             ),
-          ],
+              ],
+            ),
+          ),
         ),
       ),
     );

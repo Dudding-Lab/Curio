@@ -1,3 +1,6 @@
+import 'package:curio/features/capture/standard_item_capture_repository.dart';
+import 'package:curio/screens/capture/standard_capture_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:curio/features/capture/book_lookup_repository.dart';
 import 'package:curio/features/taxonomy/template_catalog_repository.dart';
 import 'package:curio/l10n/app_localizations.dart';
@@ -84,6 +87,29 @@ class _FakeCatalog implements TemplateCatalogRepository {
   }) => throw UnimplementedError();
 }
 
+class _FakeSave implements StandardItemCaptureRepository {
+  int calls = 0;
+  String? savedTitle;
+  Map<String, dynamic>? savedAttributes;
+
+  @override
+  Future<List<StandardObjectTemplate>> listStandards() =>
+      _FakeCatalog().listStandards();
+
+  @override
+  Future<String> create({
+    required String standardCode,
+    required String title,
+    required String description,
+    required Map<String, dynamic> attributes,
+  }) async {
+    calls++;
+    savedTitle = title;
+    savedAttributes = attributes;
+    return 'saved-book';
+  }
+}
+
 void main() {
   test('Google Books adapter maps only catalog attributes to review input', () {
     final item = GoogleBookCandidate.fromJson({
@@ -107,7 +133,7 @@ void main() {
     );
   });
 
-  testWidgets('ISBN search presents real source data for review without save',
+  testWidgets('ISBN search presents real source data for review before save',
       (tester) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -134,13 +160,95 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Buchinformationen prüfen'), findsOneWidget);
     await tester.scrollUntilVisible(
-      find.textContaining('Nur Vorschau:'),
-      200,
+      find.byKey(const ValueKey('isbn-use-book')),
+      180,
       scrollable: find.byType(Scrollable).first,
     );
-    await tester.ensureVisible(find.textContaining('Nur Vorschau:'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('Nur Vorschau:'), findsOneWidget);
+    expect(find.textContaining('Die Daten sind noch nicht gespeichert.'), findsOneWidget);
     expect(find.text('Gegenstand speichern'), findsNothing);
+    expect(find.text('Buchdaten übernehmen'), findsOneWidget);
   });
+  testWidgets('ISBN result pre-fills editable capture and saves only after confirmation',
+      (tester) async {
+    final save = _FakeSave();
+    final router = GoRouter(
+      initialLocation: '/capture/isbn',
+      routes: [
+        GoRoute(path: '/capture/isbn',
+            builder: (_, __) => IsbnLookupScreen(
+              repository: _FakeBooks(), templates: _FakeCatalog())),
+        GoRoute(path: '/capture/standard', builder: (_, state) =>
+            StandardCaptureScreen(
+              repository: save,
+              initialBook: state.extra as GoogleBookCandidate?,
+              enableSave: true,
+            )),
+        GoRoute(path: '/items', builder: (_, __) =>
+            const Scaffold(body: Text('Saved item list'))),
+      ],
+    );
+    addTearDown(router.dispose);
+    await tester.pumpWidget(MaterialApp.router(
+      locale: const Locale('de'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      routerConfig: router,
+    ));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const ValueKey('isbn-input')),
+        '9783522202602');
+    await tester.tap(find.text('Buch suchen'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Die unendliche Geschichte'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const ValueKey('isbn-use-book')),
+      180,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('isbn-use-book')));
+    await tester.pumpAndSettle();
+    expect(save.calls, 0);
+    expect(find.byKey(const ValueKey('standard-title')), findsOneWidget);
+    expect(tester.widget<TextField>(
+      find.byKey(const ValueKey('standard-title'))).controller!.text,
+      'Die unendliche Geschichte');
+    expect(tester.widget<TextField>(
+      find.byKey(const ValueKey('field-isbn'))).controller!.text,
+      '9783522202602');
+
+    await tester.enterText(find.byKey(const ValueKey('standard-title')),
+        'Mein geprüftes Buch');
+    await tester.scrollUntilVisible(
+      find.text('Angaben prüfen'),
+      160,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Angaben prüfen'));
+    await tester.pumpAndSettle();
+    expect(save.calls, 0);
+    await tester.scrollUntilVisible(
+      find.text('Gegenstand speichern'),
+      160,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Gegenstand speichern'));
+    await tester.pumpAndSettle();
+    expect(save.calls, 1);
+    expect(save.savedTitle, 'Mein geprüftes Buch');
+    expect(save.savedAttributes?['isbn'], '9783522202602');
+    expect(save.savedAttributes?['author'], 'Michael Ende');
+    expect(save.savedAttributes?['publication_year'], 1979);
+    expect(find.text('Saved item list'), findsOneWidget);
+  });
+
 }

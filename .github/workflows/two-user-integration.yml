@@ -1,0 +1,65 @@
+name: Kovunela two-user security integration
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/kovunela-web-foundation
+    paths:
+      - .github/kovunela-two-user-test-request.txt
+
+permissions:
+  contents: read
+
+jobs:
+  two-users:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_app
+    env:
+      KOVUNELA_TEST_SUPABASE_URL: ${{ vars.KOVUNELA_SUPABASE_URL }}
+      KOVUNELA_TEST_SUPABASE_PUBLISHABLE_KEY: ${{ vars.KOVUNELA_SUPABASE_PUBLISHABLE_KEY }}
+      KOVUNELA_TEST_EMAIL_A: test1@kovunela.com
+      KOVUNELA_TEST_EMAIL_B: test2@kovunela.com
+      KOVUNELA_TEST_PASSWORD_A: ${{ secrets.KOVUNELA_TEST_PASSWORD_A }}
+      KOVUNELA_TEST_PASSWORD_B: ${{ secrets.KOVUNELA_TEST_PASSWORD_B }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Require two independent test accounts
+        run: |
+          if [ -z "$KOVUNELA_TEST_SUPABASE_URL" ] ||
+             [ -z "$KOVUNELA_TEST_SUPABASE_PUBLISHABLE_KEY" ] ||
+             [ -z "$KOVUNELA_TEST_PASSWORD_A" ] ||
+             [ -z "$KOVUNELA_TEST_PASSWORD_B" ]; then
+            echo "::error::Configure GitHub Actions variables and two test-user password secrets before running."
+            exit 1
+          fi
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Generate translations
+        run: flutter gen-l10n
+      - name: Prepare ephemeral, ignored test configuration
+        run: |
+          python3 - <<'PY'
+          import json,os
+          keys = [
+            'KOVUNELA_TEST_SUPABASE_URL',
+            'KOVUNELA_TEST_SUPABASE_PUBLISHABLE_KEY',
+            'KOVUNELA_TEST_EMAIL_A',
+            'KOVUNELA_TEST_EMAIL_B',
+            'KOVUNELA_TEST_PASSWORD_A',
+            'KOVUNELA_TEST_PASSWORD_B'
+          ]
+          with open('.ci-auth-test-defines.json','w',encoding='utf-8') as f:
+              json.dump({k:os.environ[k] for k in keys},f)
+          PY
+      - name: Verify separate user JWT authorization (writes disposable test objects)
+        run: flutter test --dart-define-from-file=.ci-auth-test-defines.json test/two_user_supabase_integration_test.dart
+      - name: Destroy ephemeral test configuration
+        if: always()
+        run: rm -f .ci-auth-test-defines.json

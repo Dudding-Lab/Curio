@@ -1,3 +1,4 @@
+import 'package:curio/features/capture/book_lookup_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -10,6 +11,7 @@ import 'package:curio/screens/taxonomy/standard_templates_screen.dart';
 import 'package:curio/screens/taxonomy/template_draft_screen.dart';
 import 'package:curio/screens/collections/personal_collections_screen.dart';
 import 'package:curio/screens/capture/manual_capture_screen.dart';
+import 'package:curio/screens/capture/standard_capture_screen.dart';
 import 'package:curio/screens/capture/isbn_lookup_screen.dart';
 import 'package:curio/screens/capture/photo_capture_screen.dart';
 import 'package:curio/screens/capture/capture_suggestion_demo_screen.dart';
@@ -99,6 +101,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/capture/isbn',
         builder: (context, state) => const IsbnLookupScreen(),
+      ),
+      GoRoute(
+        path: '/capture/standard',
+        builder: (context, state) => StandardCaptureScreen(
+          initialBook: state.extra is GoogleBookCandidate
+              ? state.extra as GoogleBookCandidate
+              : null,
+        ),
       ),
       GoRoute(
         path: '/capture/manual',

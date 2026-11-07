@@ -1,10 +1,11 @@
 import 'package:curio/features/capture/personal_item_repository.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// Read-only personal item list backed by the authenticated database RPC.
-/// Creating items stays gated until the cross-user authorization tests pass.
+/// Personal inventory backed by authenticated server RPCs.
+/// New items use the reviewed manual capture flow; the server owns access control.
 class PersonalItemsScreen extends StatefulWidget {
   const PersonalItemsScreen({super.key});
 
@@ -38,6 +39,12 @@ class _PersonalItemsScreenState extends State<PersonalItemsScreen> {
             icon: const Icon(Icons.refresh),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        key: const ValueKey('add-personal-item'),
+        onPressed: () => context.push('/capture/standard'),
+        icon: const Icon(Icons.add),
+        label: const Text('Gegenstand erfassen'),
       ),
       body: FutureBuilder<List<PersonalItem>>(
         future: _items,

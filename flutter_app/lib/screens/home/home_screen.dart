@@ -3,11 +3,24 @@ import 'package:curio/core/language_menu.dart';
 import 'package:curio/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// First responsive landing screen. Manual capture opens a review-only form.
 /// Local photo selection is available; barcode capture is not yet implemented.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  // Widget tests do not initialize Supabase. Runtime initialization still
+  // happens before mounting the application's router.
+  String? get _signedInEmail {
+    try {
+      return Supabase.instance.client.auth.currentUser?.email;
+    } catch (_) {
+      // The test harness does not initialize Supabase. Do not block UI.
+      return null;
+    }
+  }
+
 
   void _unavailable(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -35,12 +48,31 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
+    final signedInEmail = _signedInEmail;
 
     return KovunelaAdaptiveScaffold(
       title: l10n.appTitle,
       selectedIndex: 0,
       onDestinationSelected: (index) => _onDestination(context, index),
-      actions: const [KovunelaLanguageMenu()],
+      actions: [
+        const KovunelaLanguageMenu(),
+        IconButton(
+          key: const ValueKey('sign-out'),
+          tooltip: 'Abmelden',
+          onPressed: () async {
+            try {
+              await Supabase.instance.client.auth.signOut();
+            } on AuthException {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Abmelden fehlgeschlagen')),
+                );
+              }
+            }
+          },
+          icon: const Icon(Icons.logout),
+        ),
+      ],
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Center(
@@ -55,6 +87,14 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(l10n.captureIntro),
+                if (signedInEmail != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    signedInEmail,
+                    key: const ValueKey('signed-in-email'),
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
                 const SizedBox(height: 24),
                 Card(
                   color: scheme.primaryContainer,
