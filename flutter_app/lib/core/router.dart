@@ -1,3 +1,4 @@
+import 'package:curio/features/capture/book_lookup_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -103,7 +104,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/capture/standard',
-        builder: (context, state) => const StandardCaptureScreen(),
+        builder: (context, state) => StandardCaptureScreen(
+          initialBook: state.extra is GoogleBookCandidate
+              ? state.extra as GoogleBookCandidate
+              : null,
+        ),
       ),
       GoRoute(
         path: '/capture/manual',
