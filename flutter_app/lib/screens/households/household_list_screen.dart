@@ -65,6 +65,11 @@ class HouseholdListScreen extends ConsumerWidget {
         title: const Text('Haushalte'),
         actions: [
           IconButton(
+            tooltip: 'Konvuela (neue Architektur)',
+            icon: const Icon(Icons.auto_awesome),
+            onPressed: () => context.push('/konvuela'),
+          ),
+          IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () => Supabase.instance.client.auth.signOut(),
           ),

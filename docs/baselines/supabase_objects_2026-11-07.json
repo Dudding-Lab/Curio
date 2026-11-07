@@ -1,0 +1,341 @@
+{
+  "note": "Read-only structural inventory; not a schema migration, not a backup, does not include contents/secret values",
+  "project_ref": "tgawxheqrcqhcvxaexvd",
+  "date": "2026-11-07",
+  "object_count": 37,
+  "objects": [
+    {
+      "schema_name": "kovunela",
+      "object_name": "categories",
+      "relkind": "r",
+      "column_count": 5,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "collection_items",
+      "relkind": "r",
+      "column_count": 4,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "collections",
+      "relkind": "r",
+      "column_count": 7,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "item_text_translations",
+      "relkind": "r",
+      "column_count": 8,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "items",
+      "relkind": "r",
+      "column_count": 13,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "object_templates",
+      "relkind": "r",
+      "column_count": 9,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "standard_template_versions",
+      "relkind": "r",
+      "column_count": 4,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "standard_templates",
+      "relkind": "r",
+      "column_count": 7,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "template_shares",
+      "relkind": "r",
+      "column_count": 4,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "template_versions",
+      "relkind": "r",
+      "column_count": 6,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "vision_daily_usage",
+      "relkind": "r",
+      "column_count": 3,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "workspace_members",
+      "relkind": "r",
+      "column_count": 4,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela",
+      "object_name": "workspaces",
+      "relkind": "r",
+      "column_count": 5,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela_catalog",
+      "object_name": "contribution_queue",
+      "relkind": "r",
+      "column_count": 9,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela_catalog",
+      "object_name": "entities",
+      "relkind": "r",
+      "column_count": 5,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela_catalog",
+      "object_name": "facts",
+      "relkind": "r",
+      "column_count": 8,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela_catalog",
+      "object_name": "identifier_review_groups",
+      "relkind": "r",
+      "column_count": 6,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela_catalog",
+      "object_name": "identifiers",
+      "relkind": "r",
+      "column_count": 4,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela_catalog",
+      "object_name": "review_candidates",
+      "relkind": "r",
+      "column_count": 6,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "kovunela_catalog",
+      "object_name": "sources",
+      "relkind": "r",
+      "column_count": 9,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "ai_jobs",
+      "relkind": "r",
+      "column_count": 10,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "association_members",
+      "relkind": "r",
+      "column_count": 4,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "associations",
+      "relkind": "r",
+      "column_count": 6,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "audit_logs",
+      "relkind": "r",
+      "column_count": 11,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "collections",
+      "relkind": "r",
+      "column_count": 7,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "household_invites",
+      "relkind": "r",
+      "column_count": 8,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "household_members",
+      "relkind": "r",
+      "column_count": 5,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "households",
+      "relkind": "r",
+      "column_count": 6,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "item_loan_status",
+      "relkind": "v",
+      "column_count": 3,
+      "rls_enabled": false,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "items",
+      "relkind": "r",
+      "column_count": 20,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "loans",
+      "relkind": "r",
+      "column_count": 12,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "locations",
+      "relkind": "r",
+      "column_count": 9,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "media_assets",
+      "relkind": "r",
+      "column_count": 6,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "organization_members",
+      "relkind": "r",
+      "column_count": 4,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "organizations",
+      "relkind": "r",
+      "column_count": 7,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "patrons",
+      "relkind": "r",
+      "column_count": 10,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    },
+    {
+      "schema_name": "public",
+      "object_name": "roles",
+      "relkind": "r",
+      "column_count": 10,
+      "rls_enabled": true,
+      "anon_can_select": true,
+      "authenticated_can_select": true
+    }
+  ]
+}
