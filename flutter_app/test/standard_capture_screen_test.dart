@@ -97,6 +97,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Angaben prüfen'));
     await tester.pumpAndSettle();
+    await tester.drag(find.byType(ListView), const Offset(0, 600));
+    await tester.pumpAndSettle();
     expect(find.text('Die ISBN hat eine ungültige Prüfziffer.'), findsOneWidget);
     expect(repo.calls, 0);
   });
