@@ -75,6 +75,31 @@ void main() {
       expect((await list(b)).any((row) => (row as Map)['id'] == idB), isTrue);
       expect((await list(a)).any((row) => (row as Map)['id'] == idB), isFalse);
 
+      // A standard-derived book is saved atomically as a PRIVATE object;
+      // catalog staging is a separate internal process, not publication.
+      final bookId = await a.rpc('kv_create_standard_personal_item', params: {
+        'p_standard_code': 'book',
+        'p_title': 'Kovunela integration ISBN $marker',
+        'p_description': 'This private note must never be shared',
+        'p_attributes': {
+          'isbn': '9780306406157',
+          'author': 'Integration Tester',
+          'publication_year': 2020,
+        },
+      });
+      expect(bookId, isA<String>());
+      expect((await list(a)).any((row) => (row as Map)['id'] == bookId), isTrue);
+      expect((await list(b)).any((row) => (row as Map)['id'] == bookId), isFalse);
+      await expectLater(
+        anonymous.rpc('kv_create_standard_personal_item', params: {
+          'p_standard_code': 'book',
+          'p_title': 'Anonymous object',
+          'p_description': '',
+          'p_attributes': {'isbn': '9780306406157'},
+        }),
+        throwsA(isA<PostgrestException>()),
+      );
+
       final collectionA = await a.rpc('kv_create_personal_collection', params: {
         'p_title': 'Private A $marker',
         'p_description': '',
