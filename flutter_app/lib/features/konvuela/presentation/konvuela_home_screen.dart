@@ -60,6 +60,64 @@ class KonvuelaHomeScreen extends ConsumerWidget {
     }
   }
 
+  Future<void> _addItem(BuildContext context, WidgetRef ref) async {
+    final titleController = TextEditingController();
+    final descriptionController = TextEditingController();
+    try {
+      final save = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('Neues persönliches Objekt'),
+          content: SizedBox(
+            width: 440,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: titleController,
+                  autofocus: true,
+                  maxLength: 200,
+                  decoration: const InputDecoration(labelText: 'Titel'),
+                ),
+                TextField(
+                  controller: descriptionController,
+                  maxLines: 3,
+                  maxLength: 5000,
+                  decoration: const InputDecoration(labelText: 'Beschreibung (optional)'),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext, false),
+              child: const Text('Abbrechen'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(dialogContext, true),
+              child: const Text('Speichern'),
+            ),
+          ],
+        ),
+      );
+      if (save != true || titleController.text.trim().isEmpty) return;
+      await ref.read(konvuelaRepositoryProvider).createItem(
+        titleController.text,
+        description: descriptionController.text,
+      );
+      ref.invalidate(personalItemsProvider);
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Objekt konnte nicht erstellt werden: $e')),
+        );
+      }
+    } finally {
+      titleController.dispose();
+      descriptionController.dispose();
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final collections = ref.watch(personalCollectionsProvider);
@@ -69,6 +127,11 @@ class KonvuelaHomeScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Konvuela – Persönlicher Bereich'),
         actions: [
+          IconButton(
+            tooltip: 'Neues Objekt erfassen',
+            icon: const Icon(Icons.add_box_outlined),
+            onPressed: () => _addItem(context, ref),
+          ),
           IconButton(
             tooltip: 'Aktualisieren',
             onPressed: () {
