@@ -26,8 +26,18 @@ void main() {
     final b = SupabaseClient(url, key);
     final anonymous = SupabaseClient(url, key);
     try {
-      await a.auth.signInWithPassword(email: emailA, password: passwordA);
-      await b.auth.signInWithPassword(email: emailB, password: passwordB);
+      // Show which test account requires a credentials fix, without
+      // writing credentials, sessions or tokens to CI logs.
+      try {
+        await a.auth.signInWithPassword(email: emailA, password: passwordA);
+      } on AuthException {
+        fail('Authentication of configured test account A failed');
+      }
+      try {
+        await b.auth.signInWithPassword(email: emailB, password: passwordB);
+      } on AuthException {
+        fail('Authentication of configured test account B failed');
+      }
 
       final userA = a.auth.currentUser?.id;
       final userB = b.auth.currentUser?.id;
