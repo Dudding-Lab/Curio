@@ -2,6 +2,11 @@ name: Kovunela two-user security integration
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/kovunela-web-foundation
+    paths:
+      - .github/kovunela-two-user-test-request.txt
 
 permissions:
   contents: read
