@@ -28,3 +28,10 @@ GitHub Workflow → `Kovunela web build` → Run workflow. Das Ergebnis ist ein 
 
 ## Grenzen dieses Entwicklungsschritts
 Der Code ist im Feature-Branch vorhanden. Ein erfolgreicher Web-Build und eine bereitgestellte HTTPS-Domain wurden noch nicht bestätigt. Die Web-Version darf nicht als fertig deployt beschrieben werden.
+
+
+## Build-Prüfung ohne veröffentlichte Konfiguration
+GitHub Actions führt auch ohne die beiden Repository-Variablen einen **reinen Kompilierungstest** aus. Dafür werden absichtlich nicht funktionsfähige Platzhalter verwendet. Nur wenn beide echten Werte hinterlegt sind, lädt der Workflow das Artefakt `kovunela-web` hoch. Ein Platzhalter-Build ist keine nutzbare Web-App und darf nicht deployt werden.
+
+## Offene Einrichtung zur ersten HTTPS-Version
+Die Werte `KOVUNELA_SUPABASE_URL` und `KOVUNELA_SUPABASE_PUBLISHABLE_KEY` müssen in GitHub Actions Variables hinterlegt werden. Anschließend benötigen wir ein HTTPS-Hostingziel und die richtige Supabase-Auth-Konfiguration. Die beiden Testkonten existieren bereits und haben bestätigte E-Mail-Adressen, aber es gibt noch keine gehostete Anmeldeseite.
